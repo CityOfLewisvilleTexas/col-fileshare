@@ -11,10 +11,6 @@ Public Url Format:
 https://cityoflewisvilletexas.github.io/col-fileshare/{{filename}}
 ```
 
-## Data Index
-- [Waze](#Waze)
-- Yelp (future)
-
 ## Data Details
 _Include description, respository link, public url, data format, and update frequency (note if static instead)._
 
