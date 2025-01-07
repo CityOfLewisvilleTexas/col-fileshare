@@ -4,6 +4,8 @@
 # File Share for the City of Lewisville, Texas
 Uses [GitHub Pages](https://github.com/) to host data for external use.<br/>
 Data updates will be pushed via backend script, schedule varies.<br/>
+
+## How to use
 Public Url Format:
 ```
 https://cityoflewisvilletexas.github.io/col-fileshare/{{filename}}
