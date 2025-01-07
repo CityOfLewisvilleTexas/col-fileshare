@@ -14,7 +14,7 @@ https://cityoflewisvilletexas.github.io/col-fileshare/{{filename}}
 - Yelp (future)
 
 ## Data Details
-_Include description, respository link, public url, data format, type (live or static), and schedule (if live)._
+_Include description, respository link, public url, data format, and update frequency (note if static instead)._
 
 ### Waze
 > [!WARNING]
@@ -25,5 +25,4 @@ Active major accident data to be reported to Waze. If there are no active accide
 - Repository Link: [Waze](Waze.json)<br/>
 - Public URL: [https://cityoflewisvilletexas.github.io/col-fileshare/Waze.json](https://cityoflewisvilletexas.github.io/col-fileshare/Waze.json)<br/>
 - Data Format: JSON<br/>
-- Type: Live<br/>
-  - Schedule: updated every 5 minutes
+- Update Frequency: every 5 minutes
