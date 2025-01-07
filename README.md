@@ -1,6 +1,6 @@
-------------------
-- IN DEVELOPMENT -
-------------------
+IN DEVELOPMENT
+
+---------------
 
 Data updates will be pushed via backend script, schedule varies.
 
