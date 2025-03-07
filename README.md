@@ -24,5 +24,3 @@ Active major accident data to be reported to Waze. If there are no active accide
 - Public URL: [https://cityoflewisvilletexas.github.io/col-fileshare/Waze.json](https://cityoflewisvilletexas.github.io/col-fileshare/Waze.json)<br/>
 - Data Format: JSON<br/>
 - Update Frequency: every 5 minutes
-
-Test2
