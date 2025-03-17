@@ -1,1 +1,14 @@
-{}
+{
+    "incidents": [
+        {
+            "id": "",
+            "type": "",
+            "street": "",
+            "polyline": "",
+            "starttime": "",
+            "endtime": "",
+            "description": "",
+            "reference": ""
+        }
+    ]
+}
