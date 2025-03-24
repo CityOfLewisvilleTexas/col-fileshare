@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4275952, "type": "ACCIDENT", "street": "1300 S Edmonds Ln", "polyline": "33.030720 -97.010400 33.031720 -97.009400", "starttime": "2025-03-24T16:00:24.477", "endtime": "2025-03-24T17:00:24.477", "description": "MAJOR ACCIDENT ON S EDMONDS LN", "reference": "LEWISVILLE"}]}
