@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4278081, "type": "ACCIDENT", "street": "Lakeway Dr / E Corporate Dr", "polyline": "33.020440 -96.977670 33.021440 -96.976670", "starttime": "2025-03-26T17:39:24.693", "endtime": "2025-03-26T18:39:24.693", "description": "MAJOR ACCIDENT ON LAKEWAY DR", "reference": "LEWISVILLE"}]}
