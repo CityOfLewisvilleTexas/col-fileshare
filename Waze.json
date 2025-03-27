@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4278167, "type": "ACCIDENT", "street": "1248 MARCHANT PL", "polyline": "33.024086 -97.025994 33.025086 -97.024994", "starttime": "2025-03-26T22:18:14.917", "endtime": "2025-03-26T23:18:14.917", "description": "MAJOR ACCIDENT ON MARCHANT PL", "reference": "LEWISVILLE"}]}
