@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4278425, "type": "ACCIDENT", "street": "Valley Ridge Blvd / Swan Lake Dr", "polyline": "33.063450 -97.037050 33.064450 -97.036050", "starttime": "2025-03-27T12:49:43.317", "endtime": "2025-03-27T13:49:43.317", "description": "MAJOR ACCIDENT ON VALLEY RIDGE BLVD", "reference": "LEWISVILLE"}]}
