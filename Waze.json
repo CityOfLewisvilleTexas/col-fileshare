@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4278928, "type": "ACCIDENT", "street": "Bellaire Blvd / S Valley Pkwy", "polyline": "33.027602 -97.019070 33.028602 -97.018070", "starttime": "2025-03-28T13:11:13.720", "endtime": "2025-03-28T14:11:13.720", "description": "MAJOR ACCIDENT ON BELLAIRE BLVD", "reference": "LEWISVILLE"}]}
