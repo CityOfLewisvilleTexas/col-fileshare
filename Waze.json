@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4278691, "type": "ACCIDENT", "street": "1400 FM 407 ", "polyline": "33.070747 -97.032603 33.071747 -97.031603", "starttime": "2025-03-27T22:19:18.763", "endtime": "2025-03-27T23:19:18.763", "description": "MAJOR ACCIDENT ON FM 407", "reference": "LEWISVILLE"}]}
