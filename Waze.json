@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4279385, "type": "ACCIDENT", "street": "Len Mar Dr / Summit Ave", "polyline": "33.060926 -97.019942 33.061926 -97.018942", "starttime": "2025-03-29T15:08:53.520", "endtime": "2025-03-29T16:08:53.520", "description": "MAJOR ACCIDENT ON LEN MAR DR", "reference": "LEWISVILLE"}]}
