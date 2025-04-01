@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4280616, "type": "ACCIDENT", "street": "290 LAKE PARK RD", "polyline": "33.071134 -97.013415 33.072134 -97.012415", "starttime": "2025-04-01T06:51:09.667", "endtime": "2025-04-01T07:51:09.667", "description": "MAJOR ACCIDENT ON LAKE PARK RD", "reference": "LEWISVILLE"}]}
