@@ -1,6 +1,3 @@
-> [!CAUTION]
-> IN DEVELOPMENT
-
 # File Share for the City of Lewisville, Texas
 Uses [GitHub Pages](https://github.com/) to host data for external use.<br/>
 Data updates will be pushed via backend script, schedule varies.<br/>
@@ -15,8 +12,6 @@ https://cityoflewisvilletexas.github.io/col-fileshare/{{filename}}
 _Include description, respository link, public url, data format, and update frequency (note if static instead)._
 
 ### Waze
-> [!WARNING]
-> IN DEVELOPMENT
 
 Active major accident data to be reported to Waze. If there are no active accidents, will contain empty dataset (should never be a blank file).
 
