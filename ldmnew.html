@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LDMnew</title>
+</head>
+<body>
+
+<style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+
+      .my-button {
+        padding: 12px 24px;
+        font-size: 18px;
+        background-color: black;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        transition: background-color 0.3s ease;
+      }
+
+      .my-button:hover {
+        background-color: #1a1a1a;
+      }
+    </style>
+</head>
+
+<center>
+  <form id="voteForm" method="post" action="https://script.google.com/a/macros/cityoflewisville.com/s/AKfycbwlgnswE_9HpJng9VwLs3PldpY-UgEbkHFDxcuMS30VNqscIbJn0nBRCN0ow_DRvJTe/exec">
+   
+    <label for="input">How many (# of Transactions):</label><br>
+    <input type="text" id="input" name="input"><br><br>
+
+    <label for="vote">Choose Transaction:</label><br>
+    <select id="vote" name="vote">
+        <option value="Accounts">Accounts</option>
+        <option value="Reference">Reference</option>
+        <option value="Internet/PC">Internet/PC</option>
+        <option value="TexShare">TexShare</option>
+        <option value="Info">Info</option>
+        <option value="Accounts Window">Accounts Window</option>
+        <option value="Reference Window">Reference Window</option>
+        <option value="Internet/PC Window">Internet/PC Window</option>
+        <option value="TexShare Window">TexShare Window</option>
+        <option value="Info Window">Info Window</option>
+    </select>
+    <br><br>
+
+   
+
+    <button class="my-button" onclick="submit()">Submit.</button>
+
+  </form>
+</body>
+</html>
