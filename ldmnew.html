@@ -78,7 +78,10 @@
                     console.error("Error sending data:", response.status, response.statusText);
                     alert("Error sending data. Check the console for details.");
                 }
-            } 
+           catch (error) {
+                console.error("Fetch error:", error);
+                alert("Error sending data. Check the console for details.");
+            }
         }
     </script>
 
