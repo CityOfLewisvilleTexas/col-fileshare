@@ -59,7 +59,7 @@
   <script>
         async function sendData() {
             const url = "https://script.google.com/a/macros/cityoflewisville.com/s/AKfycbwlgnswE_9HpJng9VwLs3PldpY-UgEbkHFDxcuMS30VNqscIbJn0nBRCN0ow_DRvJTe/exec"; // Replace with your actual Apps Script URL
-        }
+        };
         try {
                 const response = await fetch(url, {
                     method: 'POST',
@@ -78,10 +78,7 @@
                     console.error("Error sending data:", response.status, response.statusText);
                     alert("Error sending data. Check the console for details.");
                 }
-            } catch (error) {
-                console.error("Fetch error:", error);
-                alert("Error sending data. Check the console for details.");
-            }
+            } 
         }
     </script>
 
