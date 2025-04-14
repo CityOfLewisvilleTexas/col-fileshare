@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4287964, "type": "ACCIDENT", "street": "Hebron Pkwy / Roberts Dr", "polyline": "33.008240 -96.970817 33.009240 -96.969817", "starttime": "2025-04-14T13:19:52.957", "endtime": "2025-04-14T14:19:52.957", "description": "MAJOR ACCIDENT ON HEBRON PKWY", "reference": "LEWISVILLE"}]}
