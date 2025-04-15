@@ -78,6 +78,18 @@
                     body: JSON.stringify(data)
                 });
 
+function doGet(e) {
+  // For handling OPTIONS requests (pre-flight requests)
+  if (e.parameter.method == "OPTIONS") {
+    return ContentService.createTextOutput('')
+      .setMimeType(ContentService.MimeType.JSON)
+      .addHeader('Access-Control-Allow-Origin', '*')
+      .addHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+      .addHeader('Access-Control-Allow-Headers', 'Content-Type');
+  } else {
+    // ... your doGet code if needed ...
+  }
+          
                 if (response.ok) {
                     const text = await response.text();
                     console.log("Data sent successfully:", text); // Log the response from Apps Script
