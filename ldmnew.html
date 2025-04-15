@@ -18,7 +18,7 @@
       .my-button {
         padding: 12px 24px;
         font-size: 18px;
-        background-color: purple;
+        background-color: orange;
         color: white;
         border: none;
         border-radius: 5px;
@@ -54,10 +54,10 @@
     <br><br>
  
 
-    <button class="my-button" onclick="sendData()">Submit</button>
+    <button class="my-button" onclick="sendData(input, vote)">Submit</button>
 
   <script>
-        async function sendData(input, vote) {
+        async function sendData() {
             const url = "https://script.google.com/a/macros/cityoflewisville.com/s/AKfycbwlgnswE_9HpJng9VwLs3PldpY-UgEbkHFDxcuMS30VNqscIbJn0nBRCN0ow_DRvJTe/exec"; // Replace with your actual Apps Script URL
                
         // Collect data from input fields
