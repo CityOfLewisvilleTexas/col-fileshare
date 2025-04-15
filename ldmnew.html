@@ -18,7 +18,7 @@
       .my-button {
         padding: 12px 24px;
         font-size: 18px;
-        background-color: orange;
+        background-color: purple;
         color: white;
         border: none;
         border-radius: 5px;
@@ -33,9 +33,7 @@
     </style>
 
 <center>
- <!-- <form id="voteForm" method="post" action="https://script.google.com/a/macros/cityoflewisville.com/s/AKfycbwlgnswE_9HpJng9VwLs3PldpY-UgEbkHFDxcuMS30VNqscIbJn0nBRCN0ow_DRvJTe/exec">  -->
-   
-    <label for="input">How many (# of Transactions):</label><br>
+     <label for="input">How many (# of Transactions):</label><br>
     <input type="text" id="input" name="input"><br><br>
 
     <label for="vote">Choose Transaction:</label><br>
@@ -53,7 +51,6 @@
     </select>
     <br><br>
  
-
     <button class="my-button" onclick="sendData(input, vote)">Submit</button>
 
   <script>
@@ -93,12 +90,8 @@
  } catch (error) {
                 console.error("Fetch error:", error);
                 alert("Error sending data. Check the console for details.");
-            }                   
+            }  
+          }  
     </script>
-
-
 </body>
-
-
-
 </html>
