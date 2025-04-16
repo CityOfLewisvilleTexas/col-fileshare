@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4289035, "type": "ACCIDENT", "street": "1600 Justin Rd", "polyline": "33.071437 -97.040462 33.072437 -97.039462", "starttime": "2025-04-16T17:16:08.247", "endtime": "2025-04-16T18:16:08.247", "description": "MAJOR ACCIDENT ON JUSTIN RD", "reference": "LEWISVILLE"}]}
