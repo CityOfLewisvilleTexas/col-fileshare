@@ -33,23 +33,17 @@
     </style>
 
 
-<section class="LDMnew">
-      <div class="LDMnew">
-        <div class="container">
-          <h1 class="title">Library Desk Metrics</h1>
-        </div>
-      </div>
-    </section>
+<center>
     <form id="form" class="container m-4 pl-4" method="POST">
       
 
 	<div class="field">
-        <label class="label">How many?</label>
+        <label class="label">How many # of Transactions?</label>
         <div class="control">
           <input
             class="input"
             type="text"
-            placeholder="How many (Input # of Transactions)"
+            placeholder="How many (Input # Amount)"
             name="Value"
           />
         </div>
@@ -142,6 +136,7 @@
           {
             redirect: "follow",
             method: "POST",
+	    mode: 'no-cors',
             body: formDataString,
             headers: {
               "Content-Type": "text/plain;charset=utf-8",
