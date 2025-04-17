@@ -18,7 +18,7 @@
       .my-button {
         padding: 12px 24px;
         font-size: 18px;
-        background-color: blue;
+        background-color: orange;
         color: white;
         border: none;
         border-radius: 5px;
@@ -69,12 +69,12 @@
         input: input,
         vote: vote        
 
-      const fullUrl = `${https://script.google.com/a/macros/cityoflewisville.com/s/AKfycbwlgnswE_9HpJng9VwLs3PldpY-UgEbkHFDxcuMS30VNqscIbJn0nBRCN0ow_DRvJTe/exec"url}?input=${input}&vote=${vote}`;   
+      const fullUrl = `${https://script.google.com/a/macros/cityoflewisville.com/s/AKfycbwlgnswE_9HpJng9VwLs3PldpY-UgEbkHFDxcuMS30VNqscIbJn0nBRCN0ow_DRvJTe/exec"}?input=${input}&vote=${vote}`;   
         
         };
         try {
                 const response = await fetch(fullUrl, {
-                    method: 'POST',
+                    method: 'GET',
                       mode: 'no-cors', 
                       headers: {
                         'Content-Type': 'application/json'
