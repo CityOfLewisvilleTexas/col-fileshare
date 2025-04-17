@@ -32,64 +32,182 @@
       }
     </style>
 
-<center>
-     <label for="input">How many (# of Transactions):</label><br>
-    <input type="text" id="input" name="input"><br><br>
 
-    <label for="vote">Choose Transaction:</label><br>
-    <select id="vote" name="vote">
-        <option value="Accounts">Accounts</option>
-        <option value="Reference">Reference</option>
-        <option value="Internet/PC">Internet/PC</option>
-        <option value="TexShare">TexShare</option>
-        <option value="Info">Info</option>
-        <option value="Accounts Window">Accounts Window</option>
-        <option value="Reference Window">Reference Window</option>
-        <option value="Internet/PC Window">Internet/PC Window</option>
-        <option value="TexShare Window">TexShare Window</option>
-        <option value="Info Window">Info Window</option>
-    </select>
-    <br><br>
- 
-    <button class="my-button" onclick="sendData()">Submit</button>
- <div id="response"></div>
-  
-  <script>
-        async function sendData() {
-            const url = "https://script.google.com/a/macros/cityoflewisville.com/s/AKfycbwlgnswE_9HpJng9VwLs3PldpY-UgEbkHFDxcuMS30VNqscIbJn0nBRCN0ow_DRvJTe/exec"; // Replace with your actual Apps Script URL
-               
-        // Collect data from input fields
-          
-    const inputElement = document.getElementById("input");
-    const voteElement = document.getElementById("vote");
-    const input = inputElement.value;
-    const vote = voteElement.value;
-
-    const data = {
-        input: input,
-        vote: vote        
-       
-        };
-        try {
-                const response = await fetch(url, {
-                    method: 'GET',
-                      mode: 'no-cors', 
-                      headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
+<section class="LDMnew">
+      <div class="LDMnew">
+        <div class="container">
+          <h1 class="title">Library Desk Metrics</h1>
+        </div>
+      </div>
+    </section>
+    <form id="form" class="container m-4 pl-4" method="POST">
       
-                if (response.ok) {
-                    const text = await response.text();
-                    console.log("Data sent successfully:", text); // Log the response from Apps Script
-                    alert("Data sent successfully! Check your Google Sheet."); //Basic feedback
-                       
-            } catch (error) {
-                console.error("Fetch error:", error);
-                alert("Error sending data. Check the console for details.");
-            }  
-          }  
+
+	<div class="field">
+        <label class="label">Value</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="Value"
+            name="Value"
+          />
+        </div>
+      </div>
+
+    
+      <div class="field">
+        <label class="label">Transaction</label>
+        <div class="control">
+<label class="radio">
+            <input type="radio" name="Transaction" value="Accounts" /> Male
+          </label>
+<label class="radio">
+            <input type="radio" name="Transaction" value="Reference" /> Male
+          </label>
+<label class="radio">
+            <input type="radio" name="Transaction" value="Internet/PC" /> Male
+          </label>
+<label class="radio">
+            <input type="radio" name="Transaction" value="TexShare" /> Male
+          </label>
+<label class="radio">
+            <input type="radio" name="Transaction" value="Info Desk Support" /> Male
+          </label>
+<label class="radio">
+            <input type="radio" name="Transaction" value="Accounts Window" /> Male
+          </label>
+<label class="radio">
+            <input type="radio" name="Transaction" value="Reference Window" /> Male
+          </label>
+<label class="radio">
+            <input type="radio" name="Transaction" value="Internet/PC Window" /> Male
+          </label>
+<label class="radio">
+            <input type="radio" name="Transaction" value="TexShare Window" /> Male
+          </label>
+<label class="radio">
+            <input type="radio" name="Transaction" value="Info Desk Support Window" /> Male
+          </label>
+
+
+
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class=".my-button" type="submit" id="submit-button">
+            Sign Up
+          </button>
+        </div>
+        </div>
+    </form>
+    <div
+      id="message"
+      style="
+        display: none;
+        margin: 20px;
+        font-weight: bold;
+        color: green;
+        padding: 8px;
+        background-color: beige;
+        border-radius: 4px;
+        border-color: aquamarine;
+      "
+    ></div>
+
+    <script>
+      document.getElementById("form").addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent the default form submission
+        document.getElementById("message").textContent = "Submitting..";
+        document.getElementById("message").style.display = "block";
+        document.getElementById("submit-button").disabled = true;
+
+        // Collect the form data
+        var formData = new FormData(this);
+        var keyValuePairs = [];
+        for (var pair of formData.entries()) {
+          keyValuePairs.push(pair[0] + "=" + pair[1]);
+        }
+
+        var formDataString = keyValuePairs.join("&");
+
+        // Send a POST request to your Google Apps Script
+        fetch(
+          "https://script.google.com/a/macros/cityoflewisville.com/s/AKfycbwlgnswE_9HpJng9VwLs3PldpY-UgEbkHFDxcuMS30VNqscIbJn0nBRCN0ow_DRvJTe/exec",
+
+          {
+            redirect: "follow",
+            method: "POST",
+            body: formDataString,
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+          }
+        )
+          .then(function (response) {
+            // Check if the request was successful
+            if (response) {
+              return response; // Assuming your script returns JSON response
+            } else {
+              throw new Error("Failed to submit the form.");
+            }
+          })
+          .then(function (data) {
+            // Display a success message
+            document.getElementById("message").textContent =
+              "Data submitted successfully!";
+            document.getElementById("message").style.display = "block";
+            document.getElementById("message").style.backgroundColor = "green";
+            document.getElementById("message").style.color = "beige";
+            document.getElementById("submit-button").disabled = false;
+            document.getElementById("form").reset();
+
+            setTimeout(function () {
+              document.getElementById("message").textContent = "";
+              document.getElementById("message").style.display = "none";
+            }, 2600);
+          })
+          .catch(function (error) {
+            // Handle errors, you can display an error message here
+            console.error(error);
+            document.getElementById("message").textContent =
+              "An error occurred while submitting the form.";
+            document.getElementById("message").style.display = "block";
+          });
+      });
     </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 </body>
 </html>
