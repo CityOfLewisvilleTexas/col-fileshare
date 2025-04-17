@@ -68,10 +68,12 @@
     const data = {
         input: input,
         vote: vote        
+
+      // const fullUrl = `${https://script.google.com/a/macros/cityoflewisville.com/s/AKfycbwlgnswE_9HpJng9VwLs3PldpY-UgEbkHFDxcuMS30VNqscIbJn0nBRCN0ow_DRvJTe/exec"url}?input=${input}&vote=${vote}`;   
         
         };
         try {
-                const response = await fetch(url, {
+                const response = await fetch(fullUrl, {
                     method: 'POST',
                       mode: 'no-cors', 
                       headers: {
