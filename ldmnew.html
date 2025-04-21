@@ -17,7 +17,7 @@
             width: 500px; /* Adjust as needed */
             padding: 20px;
             background-color: #ffffff;
-            border-radius: 9px;
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -32,7 +32,7 @@
         }
 
         .input {
-            width: 95%;
+            width: 100%;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -73,6 +73,42 @@
             border-radius: 4px;
             border: 1px solid aquamarine;
         }
+
+     
+        .selected-option {
+            width: 100%;
+        }
+
+        .options-container {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            display: none;
+            overflow-y: auto;
+            max-height: 200px;
+            /* Adjust as needed */
+            z-index: 10;
+        }
+
+        .option {
+            padding: 8px;
+            white-space: normal;
+            word-wrap: break-word;
+            /* Enable word wrap */
+        }
+
+        .option:hover {
+            background-color: #f0f0f0;
+       }     
+        .active {
+            display: block;
+        }
     </style>
 </head>
 
@@ -81,30 +117,30 @@
         <form id="form" method="POST">
             <div class="form-group">
                 <label for="Value" class="label">How Many Transactions?</label>
-                <input type="text" id="Value" class="input" placeholder="Input Amount #" name="Value">
+                <input type="text" id="Value" class="form-control" placeholder="Input Amount #" name="Value">
             </div>
 
             <div class="form-group">
                 <label class="label">Choose Desk Transaction:</label>
                 <div class="radio-group">
                     <label class="radio">
-                        <input type="radio" name="Transaction" value="Accounts">
+                        <input type="radio" class="form-control" name="Transaction" value="Accounts">
                         Accounts
                     </label>
                     <label class="radio">
-                        <input type="radio" name="Transaction" value="Reference">
+                        <input type="radio" class="form-control" name="Transaction" value="Reference">
                         Reference
                     </label>
                     <label class="radio">
-                        <input type="radio" name="Transaction" value="Internet/PC">
+                        <input type="radio" class="form-control" name="Transaction" value="Internet/PC">
                         Internet/PC
                     </label>
                     <label class="radio">
-                        <input type="radio" name="Transaction" value="TexShare">
+                        <input type="radio" class="form-control" name="Transaction" value="TexShare">
                         TexShare
                     </label>
                     <label class="radio">
-                        <input type="radio" name="Transaction" value="Info Desk Support">
+                        <input type="radio" class="form-control" name="Transaction" value="Info Desk Support">
                         Info Desk Support
                     </label>
                 </div>
@@ -114,23 +150,23 @@
                 <label class="label">Choose Window Transaction:</label>
                 <div class="radio-group">
                     <label class="radio">
-                        <input type="radio" name="Transaction" value="Accounts Window">
+                        <input type="radio" class="form-control" name="Transaction" value="Accounts Window">
                         Accounts Window
                     </label>
                     <label class="radio">
-                        <input type="radio" name="Transaction" value="Reference Window">
+                        <input type="radio" class="form-control" name="Transaction" value="Reference Window">
                         Reference Window
                     </label>
                     <label class="radio">
-                        <input type="radio" name="Transaction" value="Internet/PC Window">
+                        <input type="radio" class="form-control" name="Transaction" value="Internet/PC Window">
                         Internet/PC Window
                     </label>
                     <label class="radio">
-                        <input type="radio" name="Transaction" value="TexShare Window">
+                        <input type="radio" class="form-control" name="Transaction" value="TexShare Window">
                         TexShare Window
                     </label>
                     <label class="radio">
-                        <input type="radio" name="Transaction" value="Info Desk Support Window">
+                        <input type="radio" class="form-control" name="Transaction" value="Info Desk Support Window">
                         Info Desk Support Window
                     </label>
                 </div>
@@ -141,9 +177,24 @@
                     Submit
                 </button>
             </div>
-        </form>
+
+<div>
         <div id="message"></div>
     </div>
+
+<div>
+ <label for="customOptions"></label>
+    <div class="custom-select" id="customOptions" tabindex="0">
+         <div class="option" data-value="option1"><b>Accounts Transactions:</b> Create new accounts; explain balances; accept $$$; renew an item; renew a library card; update patron contact information; assist patrons with self-check out; holds: retrieve, place, cancel, suspend.</div>
+            <div class="option" data-value="option2"><b>Reference Transactions:</b> Help patrons with particular info needs. Instruction in using information sources. Do you have xx book? Where do I vote? Where is City Hall?</div>
+            <div class="option" data-value="option3"><b>Internet/PC Transactions:</b> "How to Use" computers, printing, software, scanner, fax, accessing the Internet, WiFi, email, online catalog, electronic databases, laptops.</div>
+            <div class="option" data-value="option4"><b>TexShare:</b> Cards or questions.</div>
+            <div class="option" data-value="option5"><b>Info Desk Support:</b> Schedule rooms; check patrons in/out of room; check in/out laptops; Copy Ctr problems.</div>
+        </div>
+    </div>
+
+</form>
+
     <script>
         document.getElementById("form").addEventListener("submit", function (e) {
             e.preventDefault(); // Prevent the default form submission
@@ -172,7 +223,7 @@
                     headers: {
                         "Content-Type": "text/plain;charset=utf-8",
                     },
-                  }
+                }
             )
                 .then(function (response) {
                     // Check if the request was successful
@@ -206,6 +257,7 @@
                 });
         });
     </script>
+
 
 </body>
 
