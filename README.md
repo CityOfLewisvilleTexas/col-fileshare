@@ -19,3 +19,18 @@ Active major accident data to be reported to Waze. If there are no active accide
 - Public URL: [https://cityoflewisvilletexas.github.io/col-fileshare/Waze.json](https://cityoflewisvilletexas.github.io/col-fileshare/Waze.json)<br/>
 - Data Format: JSON<br/>
 - Update Frequency: every 5 minutes
+
+### Yelp
+> [!WARNING]
+> In Development
+
+Health Inspection scores from the last year to be reported to Yelp.
+
+- Repository Link: [Yelp](Yelp.zip)<br/>
+- Public URL: [https://cityoflewisvilletexas.github.io/col-fileshare/Yelp.zip](https://cityoflewisvilletexas.github.io/col-fileshare/Yelp.zip)<br/>
+- Data Format: ZIP<br/>
+  - 3 CSV files:
+    - Businesses.csv<br/>
+    - Inspections.csv<br/>
+    - feed_info.csv<br/>
+- Update Frequency: once per day at 2:30 PM<br/>
