@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4291700, "type": "ACCIDENT", "street": "E Vista Ridge Mall Dr / Denton Tap Rd", "polyline": "32.995729 -96.993122 32.996729 -96.992122", "starttime": "2025-04-22T14:10:18.490", "endtime": "2025-04-22T15:10:18.490", "description": "MAJOR ACCIDENT ON E VISTA RIDGE MALL DR", "reference": "LEWISVILLE"}]}
