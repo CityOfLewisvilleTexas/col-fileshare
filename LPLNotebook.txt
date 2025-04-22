@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Library Desk Metrics</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #form-container {
+            width: 500px; /* Adjust as needed */
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .radio {
+            margin-bottom: 5px;
+        }
+
+        button.my-button {
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: purple;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        button.my-button:hover {
+            background-color: #1a1a1a;
+        }
+
+        #message {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            font-weight: bold;
+            color: green;
+            background-color: beige;
+            border-radius: 4px;
+            border: 1px solid aquamarine;
+        }
+
+     
+        .selected-option {
+            width: 100%;
+        }
+
+        .options-container {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            display: none;
+            overflow-y: auto;
+            max-height: 200px;
+            /* Adjust as needed */
+            z-index: 10;
+        }
+
+        .option {
+            padding: 8px;
+            white-space: normal;
+            word-wrap: break-word;
+            /* Enable word wrap */
+        }
+
+        .option:hover {
+            background-color: #f0f0f0;
+       }     
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <div id="form-container">
+     
+<iframe="https://notebooklm.google.com/notebook/1de57e13-b1fc-4a1e-926e-05cdaa2a1e8a"></iframe>   
+               
+
+    </div>
+
+</body>
+
+</html>
