@@ -28,6 +28,32 @@
         .form-group {
             margin-bottom: 15px;
         }
+
+button.my-button {
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: purple;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+
+        button.my-button:hover {
+            background-color: grey;
+        }
+
+	
+	a {
+            color: white;
+        }
+
+
+
+        
     </style>
 </head>
 
@@ -35,9 +61,11 @@
 
     <div>
         <div id="form-container">
+                <button class="my-button">
             <a href="https://notebooklm.google.com/notebook/1de57e13-b1fc-4a1e-926e-05cdaa2a1e8a" 
                onclick="window.open(this.href, '_blank', 'width=700,height=900'); return false;">
                 Accounts Ask Questions?
+		</button>
             </a>
         </div>
     </div>
