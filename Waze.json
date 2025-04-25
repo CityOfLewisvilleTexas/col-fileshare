@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4293049, "type": "ACCIDENT", "street": "Briarcliff Rd / Seneca Way", "polyline": "33.012079 -97.015770 33.013079 -97.014770", "starttime": "2025-04-25T06:24:29.410", "endtime": "2025-04-25T07:24:29.410", "description": "MAJOR ACCIDENT ON BRIARCLIFF RD", "reference": "LEWISVILLE"}]}
