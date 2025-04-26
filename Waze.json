@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4293785, "type": "ACCIDENT", "street": "S Charles St / Edwards St", "polyline": "33.042883 -96.996529 33.043883 -96.995529", "starttime": "2025-04-26T17:44:23.763", "endtime": "2025-04-26T18:44:23.763", "description": "MAJOR ACCIDENT ON S CHARLES ST", "reference": "LEWISVILLE"}]}
