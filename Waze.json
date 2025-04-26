@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4293426, "type": "ACCIDENT", "street": "998 BELLAIRE BLVD", "polyline": "33.027290 -97.014583 33.028290 -97.013583", "starttime": "2025-04-25T20:52:40.727", "endtime": "2025-04-25T21:52:40.727", "description": "MAJOR ACCIDENT ON BELLAIRE BLVD", "reference": "LEWISVILLE"}]}
