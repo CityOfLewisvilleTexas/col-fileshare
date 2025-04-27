@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4293972, "type": "ACCIDENT", "street": "N Garden Ridge Blvd / Justin Rd", "polyline": "33.071425 -97.035858 33.072425 -97.034858", "starttime": "2025-04-27T00:22:00.927", "endtime": "2025-04-27T01:22:00.927", "description": "MAJOR ACCIDENT ON N GARDEN RIDGE BLVD", "reference": "LEWISVILLE"}]}
