@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4300310, "type": "ACCIDENT", "street": "708 N OLD ORCHARD LN", "polyline": "33.051145 -97.026005 33.052145 -97.025005", "starttime": "2025-05-11T15:12:18.597", "endtime": "2025-05-11T16:12:18.597", "description": "MAJOR ACCIDENT ON N OLD ORCHARD LN", "reference": "LEWISVILLE"}]}
