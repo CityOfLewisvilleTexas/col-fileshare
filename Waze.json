@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4301312, "type": "ACCIDENT", "street": "S Mill St / McKenzie St", "polyline": "33.039660 -96.992891 33.040660 -96.991891", "starttime": "2025-05-13T22:46:19.063", "endtime": "2025-05-13T23:46:19.063", "description": "MAJOR ACCIDENT ON S MILL ST", "reference": "LEWISVILLE"}]}
