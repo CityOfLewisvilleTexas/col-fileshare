@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4304998, "type": "ACCIDENT", "street": "Hebron Pkwy / S Railroad St", "polyline": "33.014213 -96.959022 33.015213 -96.958022", "starttime": "2025-05-17T10:58:10.523", "endtime": "2025-05-17T11:58:10.523", "description": "MAJOR ACCIDENT ON HEBRON PKWY", "reference": "LEWISVILLE"}]}
