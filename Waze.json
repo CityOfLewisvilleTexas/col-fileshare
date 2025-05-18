@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4305595, "type": "ACCIDENT", "street": "S Edmonds Ln / S State Highway 121", "polyline": "32.994621 -97.003818 32.995621 -97.002818", "starttime": "2025-05-18T15:36:18.270", "endtime": "2025-05-18T16:36:18.270", "description": "MAJOR ACCIDENT ON S EDMONDS LN", "reference": "LEWISVILLE"}]}
