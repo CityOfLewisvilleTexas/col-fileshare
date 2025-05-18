@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4305666, "type": "ACCIDENT", "street": "1201 COLLEGE PKWY", "polyline": "33.048058 -97.024630 33.049058 -97.023630", "starttime": "2025-05-18T18:16:46.880", "endtime": "2025-05-18T19:16:46.880", "description": "MAJOR ACCIDENT ON COLLEGE PKWY", "reference": "LEWISVILLE"}]}
