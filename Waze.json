@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4307315, "type": "ACCIDENT", "street": "1002 W Round Grove Rd", "polyline": "33.005775 -97.014110 33.006775 -97.013110", "starttime": "2025-05-22T07:34:45.553", "endtime": "2025-05-22T08:34:45.553", "description": "MAJOR ACCIDENT ON W ROUND GROVE RD", "reference": "LEWISVILLE"}]}
