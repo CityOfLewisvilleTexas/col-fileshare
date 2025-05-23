@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4307786, "type": "ACCIDENT", "street": "Valley Ridge Blvd / Crosshaven Dr", "polyline": "33.065228 -97.044028 33.066228 -97.043028", "starttime": "2025-05-23T07:56:50.643", "endtime": "2025-05-23T08:56:50.643", "description": "MAJOR ACCIDENT ON VALLEY RIDGE BLVD", "reference": "LEWISVILLE"}]}
