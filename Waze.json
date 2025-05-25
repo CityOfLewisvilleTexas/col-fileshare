@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4308653, "type": "ACCIDENT", "street": "N Garden Ridge Blvd / Clydesdale Dr", "polyline": "33.046396 -97.035875 33.047396 -97.034875", "starttime": "2025-05-24T20:39:28.050", "endtime": "2025-05-24T21:39:28.050", "description": "MAJOR ACCIDENT ON N GARDEN RIDGE BLVD", "reference": "LEWISVILLE"}]}
