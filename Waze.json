@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4309972, "type": "ACCIDENT", "street": "S Edmonds Ln / W Corporate Dr", "polyline": "33.010186 -97.004940 33.011186 -97.003940", "starttime": "2025-05-27T15:52:20.393", "endtime": "2025-05-27T16:52:20.393", "description": "MAJOR ACCIDENT ON S EDMONDS LN", "reference": "LEWISVILLE"}]}
