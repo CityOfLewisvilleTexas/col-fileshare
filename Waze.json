@@ -1,1 +1,1 @@
-{"incidents": [{"id": 4312080, "type": "ACCIDENT", "street": "2400 S I 35E SB", "polyline": "33.006680 -96.972139 33.007680 -96.971139", "starttime": "2025-05-31T22:53:25.167", "endtime": "2025-05-31T23:53:25.167", "description": "MAJOR ACCIDENT ON S I 35E SB", "reference": "LEWISVILLE"}]}
+{"incidents": [{"id": 4312085, "type": "ACCIDENT", "street": "2400 S I 35E SB", "polyline": "33.006680 -96.972139 33.007680 -96.971139", "starttime": "2025-05-31T23:00:37.380", "endtime": "2025-06-01T00:00:37.380", "description": "MAJOR ACCIDENT ON S I 35E SB", "reference": "LEWISVILLE"}]}
