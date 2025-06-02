@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4312514, "type": "ACCIDENT", "street": "2100 Parker Rd", "polyline": "33.046581 -96.901751 33.047581 -96.900751", "starttime": "2025-06-02T01:18:46.727", "endtime": "2025-06-02T02:18:46.727", "description": "MAJOR ACCIDENT ON PARKER RD", "reference": "LEWISVILLE"}]}
