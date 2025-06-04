@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4313594, "type": "ACCIDENT", "street": "2017 CARDINAL LN", "polyline": "33.074404 -97.031584 33.075404 -97.030584", "starttime": "2025-06-04T01:10:28.577", "endtime": "2025-06-04T02:10:28.577", "description": "MAJOR ACCIDENT ON CARDINAL LN", "reference": "LEWISVILLE"}]}
