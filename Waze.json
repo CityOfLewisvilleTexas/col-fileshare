@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4314797, "type": "ACCIDENT", "street": "3581 PLANO PKWY", "polyline": "33.069387 -96.873495 33.070387 -96.872495", "starttime": "2025-06-06T15:44:34.407", "endtime": "2025-06-06T16:44:34.407", "description": "MAJOR ACCIDENT ON PLANO PKWY", "reference": "LEWISVILLE"}]}
