@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4314850, "type": "ACCIDENT", "street": "1200 Texas St", "polyline": "33.029970 -96.991686 33.030970 -96.990686", "starttime": "2025-06-06T17:37:33.090", "endtime": "2025-06-06T18:37:33.090", "description": "MAJOR ACCIDENT ON TEXAS ST", "reference": "LEWISVILLE"}]}
