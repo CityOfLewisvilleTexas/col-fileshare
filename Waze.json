@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4315509, "type": "ACCIDENT", "street": "3572 DAMSEL BROOKE ST", "polyline": "33.048131 -96.897840 33.049131 -96.896840", "starttime": "2025-06-08T00:14:52.117", "endtime": "2025-06-08T01:14:52.117", "description": "MAJOR ACCIDENT ON DAMSEL BROOKE ST", "reference": "LEWISVILLE"}]}
