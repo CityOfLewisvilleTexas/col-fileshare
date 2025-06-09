@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4316083, "type": "ACCIDENT", "street": "2698 Denton Tap Rd", "polyline": "32.997777 -96.993271 32.998777 -96.992271", "starttime": "2025-06-09T07:56:11.287", "endtime": "2025-06-09T08:56:11.287", "description": "MAJOR ACCIDENT ON DENTON TAP RD", "reference": "LEWISVILLE"}]}
