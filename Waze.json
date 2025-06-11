@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4317426, "type": "ACCIDENT", "street": "Holfords Prairie Rd / Midway Rd", "polyline": "33.046730 -96.936641 33.047730 -96.935641", "starttime": "2025-06-11T16:11:04.993", "endtime": "2025-06-11T17:11:04.993", "description": "MAJOR ACCIDENT ON HOLFORDS PRAIRIE RD", "reference": "LEWISVILLE"}]}
