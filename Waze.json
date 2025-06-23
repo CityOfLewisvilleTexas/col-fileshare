@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4323464, "type": "ACCIDENT", "street": "Valley Ridge Blvd / N Summit Ave", "polyline": "33.056321 -97.018853 33.057321 -97.017853", "starttime": "2025-06-23T12:50:31.297", "endtime": "2025-06-23T13:50:31.297", "description": "MAJOR ACCIDENT ON VALLEY RIDGE BLVD", "reference": "LEWISVILLE"}]}
