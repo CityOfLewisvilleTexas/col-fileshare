@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4324446, "type": "ACCIDENT", "street": "625 E VISTA RIDGE MALL DR", "polyline": "32.999514 -96.972613 33.000514 -96.971613", "starttime": "2025-06-25T18:20:03.037", "endtime": "2025-06-25T19:20:03.037", "description": "MAJOR ACCIDENT ON E VISTA RIDGE MALL DR", "reference": "LEWISVILLE"}]}
