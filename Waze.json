@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4324270, "type": "ACCIDENT", "street": "Sierra Dr / Justin Rd", "polyline": "33.071437 -97.040462 33.072437 -97.039462", "starttime": "2025-06-25T11:14:20.890", "endtime": "2025-06-25T12:14:20.890", "description": "MAJOR ACCIDENT ON SIERRA DR", "reference": "LEWISVILLE"}]}
