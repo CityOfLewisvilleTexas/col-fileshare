@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4329952, "type": "ACCIDENT", "street": "1302 MAPLEWOOD DR", "polyline": "33.021619 -97.028217 33.022619 -97.027217", "starttime": "2025-07-07T09:21:39.793", "endtime": "2025-07-07T10:21:39.793", "description": "MAJOR ACCIDENT ON MAPLEWOOD DR", "reference": "LEWISVILLE"}]}
