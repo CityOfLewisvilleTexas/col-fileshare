@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4330416, "type": "ACCIDENT", "street": "N Kealy St / Valley Ridge Blvd", "polyline": "33.056752 -96.992664 33.057752 -96.991664", "starttime": "2025-07-08T11:29:32.063", "endtime": "2025-07-08T12:29:32.063", "description": "MAJOR ACCIDENT ON N KEALY ST", "reference": "LEWISVILLE"}]}
