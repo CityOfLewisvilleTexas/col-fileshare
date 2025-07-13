@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4333480, "type": "ACCIDENT", "street": "1388 DAFFODIL LN", "polyline": "33.067695 -97.033680 33.068695 -97.032680", "starttime": "2025-07-13T00:43:53.337", "endtime": "2025-07-13T01:43:53.337", "description": "MAJOR ACCIDENT ON DAFFODIL LN", "reference": "LEWISVILLE"}]}
