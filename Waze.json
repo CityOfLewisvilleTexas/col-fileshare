@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4335158, "type": "ACCIDENT", "street": "Spinks Rd / S Valley Pkwy", "polyline": "32.997366 -97.015893 32.998366 -97.014893", "starttime": "2025-07-17T07:38:16.027", "endtime": "2025-07-17T08:38:16.027", "description": "MAJOR ACCIDENT ON SPINKS RD", "reference": "LEWISVILLE"}]}
