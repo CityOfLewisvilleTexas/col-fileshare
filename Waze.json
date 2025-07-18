@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4335443, "type": "ACCIDENT", "street": "Fox Ave / S Old Orchard Ln", "polyline": "33.035332 -97.027535 33.036332 -97.026535", "starttime": "2025-07-17T21:03:02.353", "endtime": "2025-07-17T22:03:02.353", "description": "MAJOR ACCIDENT ON FOX AVE", "reference": "LEWISVILLE"}]}
