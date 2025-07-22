@@ -111,6 +111,20 @@
         }
     </style>
 </head>
+        <script>
+    $( document ).ready(function() {
+      $("#startdate").datepicker();
+      $("#enddate").datepicker();
+    });
+    function AddRecord()
+    {
+      var startdate = document.getElementById("startdate").value;
+      var enddate = document.getElementById("enddate").value;
+      google.script.run.AddRecord(name, startdate, enddate);
+          document.getElementById("startdate").value = '';
+      document.getElementById("enddate").value = '';
+    }
+    </script>
 
 <body>
     <div id="form-container">
