@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4337451, "type": "ACCIDENT", "street": "Mockingbird Dr / Live Oak Dr", "polyline": "33.024540 -97.002240 33.025540 -97.001240", "starttime": "2025-07-22T02:48:43.697", "endtime": "2025-07-22T03:48:43.697", "description": "MAJOR ACCIDENT ON MOCKINGBIRD DR", "reference": "LEWISVILLE"}]}
