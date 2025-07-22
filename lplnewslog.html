@@ -50,7 +50,7 @@
         button.my-button {
             padding: 12px 24px;
             font-size: 18px;
-            background-color: red;
+            background-color: black;
             color: white;
             border: none;
             border-radius: 5px;
@@ -110,30 +110,14 @@
             display: block;
         }
     </style>
-
-     <script>
-    $( document ).ready(function() {
-      $("#startdate").datepicker();
-      $("#enddate").datepicker();
-    });
-    function AddRecord()
-    {
-      var startdate = document.getElementById("startdate").value;
-      var enddate = document.getElementById("enddate").value;
-      google.script.run.AddRecord(name, startdate, enddate);
-          document.getElementById("startdate").value = '';
-      document.getElementById("enddate").value = '';
-    }
-    </script>
-
-</head>
+    </head>
    
 <body>
     <div id="form-container">
         <form id="form" method="POST">
             <div class="form-group">
                 <label for="PaperDate" class="label">Date of Paper:</label>
-                <input type="date" id="PaperDate" placeholder="MM/DD/YYYY">
+                <input type="text" id="PaperDate" placeholder="MM/DD/YYYY">
             </div>
 
             <br><br>
