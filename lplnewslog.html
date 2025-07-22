@@ -116,65 +116,31 @@
     <div id="form-container">
         <form id="form" method="POST">
             <div class="form-group">
-                <label for="Value" class="label">How Many Transactions?</label>
-                <input type="text" id="Value" class="form-control" placeholder="Input Amount #" name="Value">
+                <label for="PaperDate" class="label">Date of Paper:</label>
+                <input type="text" id="PaperDate" class="form-control" placeholder="MM/DD/YYYY" name="Value">
             </div>
 
             <div class="form-group">
-                <label class="label">Choose Desk Transaction:</label>
+                <label class="label">Select Newspaper Vendor:</label>
                 <div class="radio-group">
                     <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="Accounts">
-                        Accounts
+                        <input type="radio" class="form-control" name="NewspaperVendor" value="DallasMorningNews">
+                        Dallas Morning News
                     </label>
                     <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="Reference">
-                        Reference
+                        <input type="radio" class="form-control" name="NewspaperVendor" value="WallStreetJounrnal">
+                        Wall Street Journal
                     </label>
                     <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="Internet/PC">
-                        Internet/PC
+                        <input type="radio" class="form-control" name="NewspaperVendor" value="DentonRecordChronicle">
+                        Denton Record Chronicle
                     </label>
                     <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="TexShare">
-                        TexShare
-                    </label>
-                    <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="Info Desk Support">
-                        Info Desk Support
+                        <input type="radio" class="form-control" name="NewspaperVendor" value="StarLocalNews">
+                        Star Local News
                     </label>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label class="label">Choose Window Transaction:</label>
-                <div class="radio-group">
-                    <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="Accounts Window">
-                        Accounts Window
-                    </label>
-                    <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="Reference Window">
-                        Reference Window
-                    </label>
-                    <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="Internet/PC Window">
-                        Internet/PC Window
-                    </label>
-                    <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="TexShare Window">
-                        TexShare Window
-                    </label>
-                    <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="Info Desk Support Window">
-                        Info Desk Support Window
-                    </label>
-                   <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="Receipt Printer Issue">
-                        Receipt Printer Issue
-                    </label>
-           </div>
-            </div>
+            </div>          
 
             <div class="form-group">
                 <button class="my-button" type="submit" id="submit-button">
@@ -189,13 +155,10 @@
 <div>
  <label for="customOptions"></label>
     <div class="custom-select" id="customOptions" tabindex="0">
-         <div class="option" data-value="option1"><b>Accounts Transactions:</b> Create new accounts; explain balances; accept $$$; renew an item; renew a library card; update patron contact information; assist patrons with self-check out; holds: retrieve, place, cancel, suspend.</div>
-            <div class="option" data-value="option2"><b>Reference Transactions:</b> Help patrons with particular info needs. Instruction in using information sources. Do you have xx book? Where do I vote? Where is City Hall?</div>
-            <div class="option" data-value="option3"><b>Internet/PC Transactions:</b> "How to Use" computers, printing, software, scanner, fax, accessing the Internet, WiFi, email, online catalog, electronic databases, laptops.</div>
-            <div class="option" data-value="option4"><b>TexShare:</b> Cards or questions.</div>
-            <div class="option" data-value="option5"><b>Info Desk Support:</b> Schedule rooms; check patrons in/out of room; check in/out laptops; Copy Ctr problems.</div>
-            <div class="option" data-value="option5"><b>Receipt Printer Issue:</b> Receipt Printer fails, restarted, or gives errors.</div>
-        </div>
+         <div class="option" data-value="option1"><b>Enter Date of Newspaper.</b></div>
+            <div class="option" data-value="option2"><b>Select the Newspaper Vendor.</b></div>
+            <div class="option" data-value="option3"><b>Submit.  (Date Received is done in the background by the script.)</b></div>
+    </div>
     </div>
 
 </form>
