@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4340520, "type": "ACCIDENT", "street": "1300 E State Highway 121", "polyline": "33.045295 -96.965044 33.046295 -96.964044", "starttime": "2025-07-28T17:00:54.950", "endtime": "2025-07-28T18:00:54.950", "description": "MAJOR ACCIDENT ON E STATE HIGHWAY 121", "reference": "LEWISVILLE"}]}
