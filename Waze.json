@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4342707, "type": "ACCIDENT", "street": "Fox Ave / S Valley Pkwy", "polyline": "33.034950 -97.018880 33.035950 -97.017880", "starttime": "2025-08-01T22:40:43.290", "endtime": "2025-08-01T23:40:43.290", "description": "MAJOR ACCIDENT ON FOX AVE", "reference": "LEWISVILLE"}]}
