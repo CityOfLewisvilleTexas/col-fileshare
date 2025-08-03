@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4343383, "type": "ACCIDENT", "street": "S Edmonds Ln / W Purnell St", "polyline": "33.042141 -97.010079 33.043141 -97.009079", "starttime": "2025-08-03T12:01:29.467", "endtime": "2025-08-03T13:01:29.467", "description": "MAJOR ACCIDENT ON S EDMONDS LN", "reference": "LEWISVILLE"}]}
