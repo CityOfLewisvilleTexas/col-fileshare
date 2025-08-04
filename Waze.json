@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4343853, "type": "ACCIDENT", "street": "Valley Ridge Blvd / N Old Orchard Ln", "polyline": "33.056737 -97.023548 33.057737 -97.022548", "starttime": "2025-08-04T13:15:05.117", "endtime": "2025-08-04T14:15:05.117", "description": "MAJOR ACCIDENT ON VALLEY RIDGE BLVD", "reference": "LEWISVILLE"}]}
