@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4343563, "type": "ACCIDENT", "street": "845 SWORD BRIDGE DR", "polyline": "33.036093 -96.912636 33.037093 -96.911636", "starttime": "2025-08-03T20:04:33.153", "endtime": "2025-08-03T21:04:33.153", "description": "MAJOR ACCIDENT ON SWORD BRIDGE DR", "reference": "LEWISVILLE"}]}
