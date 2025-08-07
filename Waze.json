@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4345384, "type": "ACCIDENT", "street": "W Purnell Rd / S Mill St", "polyline": "33.041943 -96.993745 33.042943 -96.992745", "starttime": "2025-08-07T18:35:41.247", "endtime": "2025-08-07T19:35:41.247", "description": "MAJOR ACCIDENT ON W PURNELL RD", "reference": "LEWISVILLE"}]}
