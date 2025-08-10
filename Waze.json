@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4346555, "type": "ACCIDENT", "street": "2800 MacArthur Blvd", "polyline": "32.993762 -96.975126 32.994762 -96.974126", "starttime": "2025-08-10T08:55:05.247", "endtime": "2025-08-10T09:55:05.247", "description": "MAJOR ACCIDENT ON MACARTHUR BLVD", "reference": "LEWISVILLE"}]}
