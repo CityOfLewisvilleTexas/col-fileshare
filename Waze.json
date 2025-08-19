@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4351176, "type": "ACCIDENT", "street": "1172 W MAIN ST", "polyline": "33.041715 -97.023568 33.042715 -97.022568", "starttime": "2025-08-19T08:16:04.947", "endtime": "2025-08-19T09:16:04.947", "description": "MAJOR ACCIDENT ON W MAIN ST", "reference": "LEWISVILLE"}]}
