@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4351754, "type": "ACCIDENT", "street": "N Valley Pkwy / N Old Orchard Ln", "polyline": "33.052090 -97.025040 33.053090 -97.024040", "starttime": "2025-08-20T14:49:54.973", "endtime": "2025-08-20T15:49:54.973", "description": "MAJOR ACCIDENT ON N VALLEY PKWY", "reference": "LEWISVILLE"}]}
