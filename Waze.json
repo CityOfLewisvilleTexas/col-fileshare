@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4352513, "type": "ACCIDENT", "street": "100 N I 35E SB", "polyline": "33.084528 -97.027528 33.085528 -97.026528", "starttime": "2025-08-22T12:04:57.703", "endtime": "2025-08-22T13:04:57.703", "description": "MAJOR ACCIDENT ON N I 35E SB", "reference": "LEWISVILLE"}]}
