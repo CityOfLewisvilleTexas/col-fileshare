@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4354051, "type": "ACCIDENT", "street": "1319 BOGARD LN", "polyline": "33.081292 -97.029073 33.082292 -97.028073", "starttime": "2025-08-26T12:55:15.183", "endtime": "2025-08-26T13:55:15.183", "description": "MAJOR ACCIDENT ON BOGARD LN", "reference": "LEWISVILLE"}]}
