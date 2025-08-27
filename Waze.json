@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4354553, "type": "ACCIDENT", "street": "Highland Dr / Bluffview Dr", "polyline": "32.989903 -96.986341 32.990903 -96.985341", "starttime": "2025-08-27T16:09:44.873", "endtime": "2025-08-27T17:09:44.873", "description": "MAJOR ACCIDENT ON HIGHLAND DR", "reference": "LEWISVILLE"}]}
