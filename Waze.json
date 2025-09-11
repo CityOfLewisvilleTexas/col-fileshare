@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4360212, "type": "ACCIDENT", "street": "E Church St / Leonard St", "polyline": "33.047238 -96.989220 33.048238 -96.988220", "starttime": "2025-09-10T19:50:23.180", "endtime": "2025-09-10T20:50:23.180", "description": "MAJOR ACCIDENT ON E CHURCH ST", "reference": "LEWISVILLE"}]}
