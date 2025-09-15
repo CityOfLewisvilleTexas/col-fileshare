@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4363896, "type": "ACCIDENT", "street": "Holfords Prairie Rd / E State Highway 121 Business", "polyline": "33.046730 -96.936641 33.047730 -96.935641", "starttime": "2025-09-15T10:18:17.970", "endtime": "2025-09-15T11:18:17.970", "description": "MAJOR ACCIDENT ON HOLFORDS PRAIRIE RD", "reference": "LEWISVILLE"}]}
