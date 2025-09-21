@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4366170, "type": "ACCIDENT", "street": "N Summit Ave / College Pkwy", "polyline": "33.050750 -97.017790 33.051750 -97.016790", "starttime": "2025-09-21T13:05:09.713", "endtime": "2025-09-21T14:05:09.713", "description": "MAJOR ACCIDENT ON N SUMMIT AVE", "reference": "LEWISVILLE"}]}
