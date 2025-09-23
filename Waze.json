@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4366934, "type": "ACCIDENT", "street": "N Garden Ridge Blvd / College Pkwy", "polyline": "33.049210 -97.035350 33.050210 -97.034350", "starttime": "2025-09-23T14:00:40.560", "endtime": "2025-09-23T15:00:40.560", "description": "MAJOR ACCIDENT ON N GARDEN RIDGE BLVD", "reference": "LEWISVILLE"}]}
