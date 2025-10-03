@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4370894, "type": "ACCIDENT", "street": "Vista Ridge Mall / MacArthur Blvd", "polyline": "33.000572 -96.977060 33.001572 -96.976060", "starttime": "2025-10-03T11:59:54.433", "endtime": "2025-10-03T12:59:54.433", "description": "MAJOR ACCIDENT ON VISTA RIDGE MALL", "reference": "LEWISVILLE"}]}
