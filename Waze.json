@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4371417, "type": "ACCIDENT", "street": "600 UNIVERSITY PL", "polyline": "33.041901 -97.009702 33.042901 -97.008702", "starttime": "2025-10-04T15:21:43.767", "endtime": "2025-10-04T16:21:43.767", "description": "MAJOR ACCIDENT ON UNIVERSITY PL", "reference": "LEWISVILLE"}]}
