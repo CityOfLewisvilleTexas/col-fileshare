@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4371370, "type": "ACCIDENT", "street": "101 CONTINENTAL DR", "polyline": "33.016573 -96.993790 33.017573 -96.992790", "starttime": "2025-10-04T13:08:47.413", "endtime": "2025-10-04T14:08:47.413", "description": "MAJOR ACCIDENT ON CONTINENTAL DR", "reference": "LEWISVILLE"}]}
