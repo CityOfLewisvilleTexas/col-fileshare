@@ -1,1 +1,1 @@
-{"incidents": [{"id": "", "type": "", "street": "", "polyline": "", "starttime": "", "endtime": "", "description": "", "reference": ""}]}
+{"incidents": [{"id": 4372788, "type": "ACCIDENT", "street": "W Main St / S Garden Ridge Blvd", "polyline": "33.042231 -97.036132 33.043231 -97.035132", "starttime": "2025-10-08T06:55:45.650", "endtime": "2025-10-08T07:55:45.650", "description": "MAJOR ACCIDENT ON W MAIN ST", "reference": "LEWISVILLE"}]}
