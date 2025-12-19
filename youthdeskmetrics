@@ -116,7 +116,7 @@
     <div id="form-container">
         <form id="form" method="POST">
             <div class="form-group">
-                <label for="Value" class="label">How Many Transactions?</label>
+                <label for="Value" class="label">How Many Transactions or Program Attendees?</label>
                 <input type="text" id="Value" class="form-control" placeholder="Input Amount #" name="Value">
             </div>
 
@@ -139,7 +139,7 @@
             </div>
 
             <div class="form-group">
-                <label class="label">Choose Program Transaction:</label>
+                <label class="label">Choose Program Attendees:</label>
                 <div class="radio-group">
                        <label class="radio">
                         <input type="radio" class="form-control" name="Transaction" value="Welcome Baby">
