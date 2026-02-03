@@ -256,19 +256,7 @@
                         "An error occurred while submitting the form.";
                     document.getElementById("message").style.display = "block";
 
-
-        document.getElementById("form").addEventListener("submit", function (e) {
-        if (!this.checkValidity()) {
-        e.preventDefault();
-        document.getElementById("message").textContent = "Please fill out all required fields.";
-        document.getElementById("message").style.display = "block";
-        document.getElementById("message").style.color = "red";
-        document.getElementById("message").style.backgroundColor = "#ffe6e6";
-        return; // Stop the script here
-    }
-
-    e.preventDefault();
-                });
+                 });
         });
     </script>
 
