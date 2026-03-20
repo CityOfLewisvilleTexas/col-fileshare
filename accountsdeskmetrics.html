@@ -3,7 +3,7 @@
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Ethereal Ledger - Transaction Entry</title>
+<title>Accounts Metrics</title>
 <!-- Google Fonts: Manrope -->
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <!-- Material Symbols -->
@@ -104,7 +104,7 @@
 <!-- Transaction Form Card -->
 <section class="glass-panel ghost-border rounded-lg p-8 shadow-[0_8px_32px_0_rgba(44,47,50,0.06)]">
 <div class="mb-8">
-<h1 class="text-2xl font-extrabold tracking-tight text-on-surface mb-2" style="">Log Transaction</h1>
+<h1 class="text-2xl font-extrabold tracking-tight text-on-surface mb-2" style="">Accounts Desk Metrics</h1>
 <p class="text-on-surface-variant text-sm" style="">Please provide the transaction details accurately.</p>
 </div>
 <form class="space-y-8">
@@ -114,29 +114,29 @@
 <label class="text-sm font-bold text-on-surface-variant tracking-wide" style="">How Many Transactions?</label>
 <span class="text-[10px] uppercase font-bold tracking-widest text-error px-2 py-0.5 bg-error/10 rounded-full" style="">Required</span>
 </div>
-<input class="w-full bg-surface-container-highest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-outline-variant text-on-surface" placeholder="Enter quantity" type="text"/>
+<input class="w-full bg-surface-container-highest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-outline-variant text-on-surface" id="Value" name="Value" placeholder="Enter Amount #" min="1" type="number" required/>
 </div>
 <!-- Radio Section 1 -->
 <div class="space-y-4">
 <label class="text-sm font-bold text-on-surface-variant tracking-wide" style="">Choose Desk Transaction</label>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
 <label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="desk" type="radio"/>
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="Transaction" value="Accounts" "type="radio" />
 <span class="text-on-surface font-medium" style="">Accounts </span>
 </label>
 <label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="desk" type="radio"/>
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="Transaction" value="Reference" type="radio"/>
 <span class="text-on-surface font-medium" style="">Reference </span>
 </label>
 <label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="desk" type="radio"/>
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="Transaction" value="Internet/PC" type="radio"/>
 <span class="text-on-surface font-medium" style="">Internet/PC</span>
 </label>
 <label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="desk" type="radio"/>
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="Transaction" value="TexShare" type="radio"/>
 <span class="text-on-surface font-medium" style="">TexShare</span>
 </label><label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="desk" type="radio"/>
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="Transaction" value="Info Desk Support" type="radio"/>
 <span class="text-on-surface font-medium" style="">Info Desk Support</span>
 </label></div>
 </div>
@@ -145,27 +145,27 @@
 <label class="text-sm font-bold text-on-surface-variant tracking-wide" style="">Choose Window Transaction</label>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
 <label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="window" type="radio"/>
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="Transaction" value="Accounts Window" type="radio"/>
 <span class="text-on-surface font-medium" style="">Accounts Window</span>
 </label>
 <label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="window" type="radio"/>
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="Transaction" value="Reference Window" type="radio"/>
 <span class="text-on-surface font-medium" style="">Reference Window</span>
 </label>
 <label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="window" type="radio"/>
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="Transaction" value="Texshare Window" type="radio"/>
 <span class="text-on-surface font-medium" style="">TexShare Window</span>
 </label>
 <label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="window" type="radio"/>
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="Transaction" value="Info Desk Support Window" type="radio"/>
 <span class="text-on-surface font-medium" style="">Info Desk Support Window</span>
 </label>
 <label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="window" type="radio"/>
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="Transaction" value="Receipt Printer Issue" type="radio"/>
 <span class="text-on-surface font-medium" style="">Receipt Printer Issue</span>
 </label>
 <label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="window" type="radio"/>
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="Transaction" value="Internet/PC Window" type="radio"/>
 <span class="text-on-surface font-medium" style="">Internet/PC Window</span>
 </label></div>
 </div>
