@@ -1,178 +1,181 @@
 <!DOCTYPE html>
-<html>
 
-<head>
-    <title>Hive Metrics</title>
-    <style>
-  body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            /* New Background Settings */
-            background-color: #f0f0f0;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='100'><text x='10' y='50' font-size='25' fill='rgba(0,0,0,0.05)' font-family='Arial'>Hive Metrics</text></svg>");
-            background-repeat: repeat;
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hive Metrics</title>
+<!-- Google Fonts: Manrope -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-dim": "#902c2b",
+              "tertiary": "#a03836",
+              "outline": "#74777a",
+              "error": "#b41340",
+              "on-error-container": "#510017",
+              "on-tertiary": "#ffefee",
+              "on-tertiary-fixed-variant": "#711517",
+              "tertiary-fixed-dim": "#fc7d77",
+              "surface-container-low": "#eef1f4",
+              "secondary-fixed-dim": "#fea4ff",
+              "primary": "#8930b0",
+              "secondary-dim": "#7c2e83",
+              "secondary-container": "#ffbbfd",
+              "on-tertiary-container": "#650a10",
+              "inverse-surface": "#0b0f11",
+              "outline-variant": "#abadb0",
+              "inverse-on-surface": "#9a9da0",
+              "inverse-primary": "#d97dff",
+              "primary-fixed": "#d97dff",
+              "on-surface": "#2c2f32",
+              "primary-dim": "#7c20a3",
+              "on-secondary-fixed-variant": "#7e2f84",
+              "background": "#f5f7fa",
+              "surface-tint": "#8930b0",
+              "tertiary-container": "#ff928b",
+              "primary-container": "#d97dff",
+              "surface-dim": "#d0d5d9",
+              "on-primary-fixed": "#010002",
+              "on-background": "#2c2f32",
+              "on-primary-container": "#41005b",
+              "surface-variant": "#d9dde1",
+              "on-secondary-fixed": "#5c0b64",
+              "on-primary": "#ffedff",
+              "surface-container": "#e5e8ec",
+              "on-surface-variant": "#595c5e",
+              "surface-container-high": "#dfe3e7",
+              "primary-fixed-dim": "#ca70f0",
+              "error-dim": "#a70138",
+              "surface-bright": "#f5f7fa",
+              "on-primary-fixed-variant": "#4f006d",
+              "surface": "#f5f7fa",
+              "tertiary-fixed": "#ff928b",
+              "secondary": "#8a3b90",
+              "surface-container-highest": "#d9dde1",
+              "on-secondary": "#ffeefa",
+              "on-secondary-container": "#73257a",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed": "#3a0003",
+              "secondary-fixed": "#ffbbfd",
+              "error-container": "#f74b6d",
+              "on-error": "#ffefef"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-        
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
-
-        #form-container {
-            width: 500px; /* Adjust as needed */
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            input:required:invalid { border: 2px solid red; }
-        }
-
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .radio {
-            margin-bottom: 5px;
-        }
-
-        button.my-button {
-            padding: 12px 24px;
-            font-size: 18px;
-            background-color: purple;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s ease;
-        }
-
-        button.my-button:hover {
-            background-color: #1a1a1a;
-        }
-
-        #message {
-            display: none;
-            margin-top: 20px;
-            padding: 10px;
-            font-weight: bold;
-            color: green;
-            background-color: beige;
-            border-radius: 4px;
-            border: 1px solid aquamarine;
-        }
-
-     
-        .selected-option {
-            width: 100%;
-        }
-
-        .options-container {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-top: none;
-            border-bottom-left-radius: 4px;
-            border-bottom-right-radius: 4px;
-            display: none;
-            overflow-y: auto;
-            max-height: 200px;
-            /* Adjust as needed */
-            z-index: 10;
-        }
-
-        .option {
-            padding: 8px;
-            white-space: normal;
-            word-wrap: break-word;
-            /* Enable word wrap */
-        }
-
-        .option:hover {
-            background-color: #f0f0f0;
-       }     
-        .active {
-            display: block;
+        .ghost-border {
+            border: 1px solid rgba(171, 173, 176, 0.2);
         }
     </style>
 </head>
+<body class="bg-background min-h-screen text-on-surface overflow-x-hidden">
+<!-- Top Navigation Anchor (Shared Component) -->
+<!-- Main Content Area -->
+<main class="pt-28 pb-12 px-6 flex flex-col items-center justify-center min-h-screen relative">
+<!-- Decorative Background Elements -->
+<div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-secondary/10 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="w-full max-w-2xl z-10 space-y-8">
+<!-- Transaction Form Card -->
+<section class="glass-panel ghost-border rounded-lg p-8 shadow-[0_8px_32px_0_rgba(44,47,50,0.06)]">
+<div class="mb-8">
+<h1 class="text-2xl font-extrabold tracking-tight text-on-surface mb-2" style="">Hive Desk Metrics</h1>
+<p class="text-on-surface-variant text-sm" style="">Please provide the transaction details accurately.</p>
+</div>
 
-<body>
-    <div id="form-container">
-        <form id="form" method="POST">
-            <div class="form-group">
-                <label for="Value" class="label">How Many Transactions?</label>
-                <input type="number" id="Value" class="form-control" placeholder="Input Amount #" name="Value" min="1" required><span style="color:red">*Required</span>
-            </div>
-
-            <div class="form-group">
-                <label class="label">Choose Desk Transaction:</label>
-                <div class="radio-group">
-                    <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="Accounts">
-                        Accounts
-                    </label>
-                    <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="Reference">
-                        Reference
-                    </label>
-                    <label class="radio">
-                        <input type="radio" class="form-control" name="Transaction" value="Internet/PC">
-                        Internet/PC
-                    </label>
-                 </div>
-            </div>
-
-             <div class="form-group">
-                <button class="my-button" type="submit" id="submit-button">
-                    Submit
-                </button>
-            </div>
-
-<div>
-        <div id="message"></div>
-    </div>
-
-<div>
- <label for="customOptions"></label>
-    <div class="custom-select" id="customOptions" tabindex="0">
-         <div class="option" data-value="option1"><b>Accounts Transactions:</b> Create new accounts; explain balances; accept $$$; renew an item; renew a library card; update patron contact information; assist patrons with self-check out; holds: retrieve, place, cancel, suspend.</div>
-            <div class="option" data-value="option2"><b>Reference Transactions:</b> Information consultations in which library staff recommend, interpret, evaluate, and/or use information resources or knowledge to help others to meet particular information needs. Instruction/assistance in using information sources. EXCLUDE: Directional transactions (ex: “Where is the restroom?” “Where are the graphic novels?”)</div>
-            <div class="option" data-value="option3"><b>Internet/PC Transactions:</b> Instruction with computers, printing, software, accessing the internet, WiFi, or email, the library online catalog, how to search electronic databases, etc.</div>
-          </div>
-    </div>
+<!-- Input Field -->
+<form id="form" method="POST">
+      <div class="form-group">
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<label class="text-sm font-bold text-on-surface-variant tracking-wide label" for="Value" class="label">How Many Transactions?</label>
+<span class="text-[10px] uppercase font-bold tracking-widest text-error px-2 py-0.5 bg-error/10 rounded-full" style="">Required</span>
+</div>
+<input class="w-full bg-surface-container-highest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-outline-variant text-on-surface" class="form-control" id="Value" name="Value" placeholder="Enter Amount #" min="1" type="number" required/>
+</div>
+<!-- Radio Section 1 -->
+<div class="space-y-4">
+      <div class="form-group">
+<label class="text-sm font-bold text-on-surface-variant tracking-wide" style="">Choose Desk Transaction</label>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="Accounts" type="radio"/>
+<span class="text-on-surface font-medium" style="">Accounts </span>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="Reference" type="radio"/>
+<span class="text-on-surface font-medium" style="">Reference </span>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="Internet/PC" type="radio"/>
+<span class="text-on-surface font-medium" style="">Internet/PC</span>
+</label>
+</div>
+<!-- Submit Button -->
+<div class="pt-4">
+      <div class="form-group">
+<button class="w-full bg-gradient-to-br from-primary to-primary-dim text-white font-bold py-5 rounded-full shadow-lg shadow-primary/30 hover:scale-[1.01] active:scale-[0.98] transition-all flex items-center justify-center gap-2" class="form-control" id="submit-button" type="submit">
+<span class="" style="">Submit Transaction</span>
+<span class="material-symbols-outlined text-xl" data-icon="send">send</span>
+</button>
+</div>
+   <div id="message"></div>
 
 </form>
+</section>
+<!-- Reference Guide Card -->
+<section class="glass-panel ghost-border rounded-lg p-8 shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="info" style="">info</span>
+<h2 class="text-lg font-bold tracking-tight" style="">Transaction Reference</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="space-y-1">
+<p class="text-xs font-black uppercase tracking-widest text-primary" style="">Accounts</p>
+<p class="text-sm text-on-surface-variant leading-relaxed" style="">Create new accounts; explain balances; accept $$$; renew an item; renew a library card; update patron contact information; assist patrons with self-check out; holds: retrieve, place, cancel, suspend.</p>
+</div>
+<div class="space-y-1">
+<p class="text-xs font-black uppercase tracking-widest text-primary" style="">Reference</p>
+<p class="text-sm text-on-surface-variant leading-relaxed" style="">Information consultations in which library staff recommend, interpret, evaluate, and/or use information resources or knowledge to help others to meet particular information needs. Instruction/assistance in using information sources. EXCLUDE: Directional transactions (ex: “Where is the restroom?” “Where are the graphic novels?”)</p>
+</div>
+<div class="space-y-1">
+<p class="text-xs font-black uppercase tracking-widest text-primary" style="">Internet/PC</p>
+<p class="text-sm text-on-surface-variant leading-relaxed" style="">Instruction with computers, printing, software, accessing the internet, WiFi, or email, the library online catalog, how to search electronic databases, etc.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+    
 
-    <script>
+<!--- Google POST script --->
+ <script>
         document.getElementById("form").addEventListener("submit", function (e) {
             e.preventDefault(); // Prevent the default form submission
             document.getElementById("message").textContent = "Submitting..";
@@ -213,10 +216,8 @@
                 .then(function (data) {
                     // Display a success message
                     document.getElementById("message").textContent =
-                        "Data submitted successfully!";
+                        "Submitted successfully!";
                     document.getElementById("message").style.display = "block";
-                    document.getElementById("message").style.backgroundColor = "green";
-                    document.getElementById("message").style.color = "beige";
                     document.getElementById("submit-button").disabled = false;
                     document.getElementById("form").reset();
 
@@ -236,6 +237,10 @@
     </script>
 
 
-</body>
-
-</html>
+      
+<!-- Side Navigation Trigger (Semantic Shell Placeholder) -->
+<!-- Footer Credit -->
+<footer class="py-12 text-center text-on-surface-variant/40 text-[10px] font-bold tracking-[0.2em] uppercase">
+        © 2026 Lewisville Public Library Accounts Team
+    </footer>
+</body></html>
