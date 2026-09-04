@@ -453,6 +453,7 @@ try {
       <option value="title">Title A–Z</option>
       <option value="author">Author A–Z</option>
       <option value="type">Item type</option>
+      <option value="type">Pickup Library</option>
       </select>
     <select id="loc" aria-label="Filter by shelf location">
       <option value="">All shelf locations</option>
@@ -491,7 +492,7 @@ try {
    of this file. No sign-in, no passwords, nothing to configure.
 
    Sheet columns it expects (any order, any capitalization):
-     Title | Item ID | Call Number | Location | Author | Item Type
+     Title | Item ID | Call Number | Location | Author | Item Type | Pickup Library
    plus the three the Apps Script maintains:
      cleared | cleared_by | cleared_at
    Extra columns are shown as tags automatically.
@@ -537,7 +538,7 @@ const FIELD_ALIASES = {
 const PREVIEW = {
   ok: true,
   tab: "preview (sample rows)",
-  headers: ["Title", "Item ID", "Call Number", "Location", "Author", "Item Type", "cleared", "cleared_by", "cleared_at"],
+  headers: ["Title", "Item ID", "Call Number", "Location", "Author", "Item Type", "Pickup Library", "cleared", "cleared_by", "cleared_at"],
   rows: [{"n": 2, "c": ["The spies of shilling lane : a novel / Jennifer Ryan", "ILPL003042534K", "F RYA", "ADULT-FIC", "Ryan, Jennifer (Jennifer L.)", "BOOK", "", "", ""]}, {"n": 3, "c": ["A long time comin' : a novel / Robin W. Pearson", "ILPL003061798X", "F INSP PEA", "ADULT-INSP", "Pearson, Robin W", "BOOK", "", "", ""]}, {"n": 4, "c": ["Violets are blue / James Patterson", "ILPL003028925S", "F MYS PAT", "ADULT-MYST", "Patterson, James, 1947-", "BOOK", "", "", ""]}, {"n": 5, "c": ["Gone before goodbye / Reese Witherspoon", "ILPL006023219M", "F MYS WIT", "ADULT-MYST", "Witherspoon, Reese, 1976-", "BOOK", "", "", ""]}, {"n": 6, "c": ["Before the coffee gets cold / Toshikazu Kawaguchi ; translated from th", "ILPL003075190O", "F SF KAW", "ADULT-SF", "Kawaguchi, Toshikazu, 1971-", "BOOK", "", "", ""]}, {"n": 7, "c": ["Batman has a plan / by Tina Gallo ; illustrated by Patrick Spaziante", "ILPL008072637W", "ER BAT", "EASYREADER", "Gallo, Tina", "BOOK", "", "", ""]}, {"n": 8, "c": ["Dr. Seuss's book of colors", "ILPL008070280O", "ER SEU", "EASYREADER", "Seuss, Dr", "BOOK", "", "", ""]}, {"n": 9, "c": ["Listen to my trumpet! / by Mo Willems", "ILPL008104829V", "ER WIL", "EASYREADER", "Willems, Mo", "BOOK", "", "", ""]}, {"n": 10, "c": ["I am George Washington / Brad Meltzer ; illustrated by Christopher Eli", "ILPL008063286W", "JB WASHINGTON, GEORGE", "JUV-BIO", "Meltzer, Brad", "BOOK", "", "", ""]}, {"n": 11, "c": ["Rowley Jefferson's awesome friendly spooky stories. 2 / Jeff Kinney", "ILPL006024043I", "JF KIN", "JUV-NEW", "Kinney, Jeff", "BOOK", "", "", ""]}, {"n": 12, "c": ["Passionate about penguins / Owen Davey", "ILPL008112064L", "J 598.47 DAV", "JUV-NONFIC", "Davey, Owen", "BOOK", "", "", ""]}, {"n": 13, "c": ["Wild Kratts [videorecording] : triple feature", "ILPL010425135K", "DVD JF WIL", "JUV-VIDEO", "PBS Distribution (Firm)", "VIDEO", "", "", ""]}, {"n": 14, "c": ["The Chilbury Ladies' Choir [large print] : a novel / Jennifer Ryan", "ILPL003031564L", "LT F RYA", "LARGE-TYPE", "Ryan, Jennifer, 1973-", "BOOK", "", "", ""]}, {"n": 15, "c": ["Halloween cars and trucks", "ILPL008132999/", "TOD HAL", "TODDLER", "Scarry, Richard", "BOOK", "", "", ""]}]
 };
 
@@ -869,6 +870,7 @@ function render() {
     title:    (r) => (get(r, "title") || "zzz").toLowerCase(),
     author:   (r) => (get(r, "author") || "zzz").toLowerCase(),
     type:     (r) => (get(r, "item_type") || "zzz").toLowerCase() + "|" + natKey(get(r, "call_number")),
+    pickup:   (r) => (get(r, "pickup") || "zzz").toLowerCase(),
     sheet:    (r) => r.order,
   }[mode] || ((r) => r.order);
   list = list.slice().sort((a, b) => {
