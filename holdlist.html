@@ -64,10 +64,15 @@ try {
     --ok-a:#84cc16;
     --ok-b:#4d7c0f;
     --check-mark:#ffffff;
+    --warn:#b45309;              /* the stubborn flag */
+    --warn-soft:rgba(180,83,9,.1);
+    --warn-edge:rgba(180,83,9,.34);
+    --warn-ink:#92400e;
 
     --glow-accent:none;
     --glow-alt:none;
     --glow-ok:none;
+    --glow-warn:none;
     --check-glow:0 2px 8px rgba(77,124,15,.35);
     --mark-bg:linear-gradient(150deg,rgba(14,116,144,.15),rgba(190,24,93,.1));
     --mark-glow:0 1px 3px rgba(15,45,90,.14);
@@ -125,10 +130,15 @@ try {
     --ok-a:#a3e635;
     --ok-b:#65a30d;
     --check-mark:#08160a;
+    --warn:#fbbf24;
+    --warn-soft:rgba(251,191,36,.13);
+    --warn-edge:rgba(251,191,36,.36);
+    --warn-ink:#fcd980;
 
     --glow-accent:0 0 12px var(--accent);
     --glow-alt:0 0 12px var(--alt);
     --glow-ok:0 0 12px var(--ok);
+    --glow-warn:0 0 12px var(--warn);
     --check-glow:0 0 20px rgba(163,230,53,.4);
     --mark-bg:linear-gradient(150deg,rgba(34,211,238,.22),rgba(244,114,182,.16));
     --mark-glow:0 0 22px rgba(34,211,238,.28),inset 0 0 14px rgba(34,211,238,.14);
@@ -263,6 +273,15 @@ try {
   .stat::after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent);box-shadow:var(--glow-accent)}
   .stat.pink::after{background:var(--alt);box-shadow:var(--glow-alt)}
   .stat.lime::after{background:var(--ok);box-shadow:var(--glow-ok)}
+  .stat.amber::after{background:var(--warn);box-shadow:var(--glow-warn)}
+  /* the Stubborn tile doubles as a filter, so it is a real button */
+  button.stat{font:inherit;color:inherit;text-align:left;width:100%;cursor:pointer;
+    transition:border-color .18s,background .18s,box-shadow .18s}
+  button.stat:hover{border-color:var(--warn-edge)}
+  button.stat:focus-visible{outline:2px solid var(--warn);outline-offset:2px}
+  button.stat[aria-pressed="true"]{background:var(--warn-soft);border-color:var(--warn-edge)}
+  button.stat[aria-pressed="true"] .n{color:var(--warn-ink)}
+  button.stat[aria-pressed="true"] .l::after{content:" · on";color:var(--warn)}
   .stat .n{font-family:var(--mono);font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
   .stat .l{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt-faint);font-family:var(--mono);margin-top:2px}
 
@@ -334,6 +353,27 @@ try {
   .row.done .check{background:linear-gradient(140deg,var(--ok-a),var(--ok-b));border-color:transparent;box-shadow:var(--check-glow)}
   .row.done .check svg{opacity:1;transform:scale(1)}
 
+  /* ---------- stubborn flag ---------- */
+  .flag{
+    flex:0 0 38px;width:38px;height:38px;align-self:flex-start;border-radius:11px;
+    display:grid;place-items:center;border:1px solid var(--line);background:var(--btn-bg);
+    color:var(--txt-faint);transition:color .18s,border-color .18s,background .18s,transform .12s;
+  }
+  .flag svg{width:17px;height:17px;display:block}
+  .flag:hover{color:var(--warn);border-color:var(--warn-edge)}
+  .flag:active{transform:scale(.92)}
+  .flag:focus-visible{outline:2px solid var(--warn);outline-offset:2px}
+  .row.stuck .flag{color:var(--warn);border-color:var(--warn-edge);background:var(--warn-soft)}
+  .row.stuck .flag svg{fill:var(--warn)}
+  .row.stuck::before{background:linear-gradient(180deg,var(--warn),var(--warn-edge))}
+  .row.stuck.done::before{background:linear-gradient(180deg,var(--ok),var(--warn))}
+  .badge{
+    display:inline-block;margin:0 0 6px 6px;padding:2px 8px;border-radius:7px;vertical-align:top;
+    font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--warn-soft);border:1px solid var(--warn-edge);color:var(--warn-ink);
+  }
+  .stamp.warn{color:var(--warn-ink)}
+
   .body{flex:1 1 auto;min-width:0;text-align:left}
   .call{
     display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;
@@ -349,8 +389,10 @@ try {
   .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;padding:2px 7px;border-radius:6px;background:var(--code-bg);border:1px solid var(--line);color:var(--txt-dim);overflow-wrap:anywhere}
   .tag b{color:var(--txt-faint);font-weight:600;margin-right:4px;text-transform:uppercase;font-size:9.5px}
   .tag.cyan{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent-txt)}
-  .stamp{margin-top:9px;font-family:var(--mono);font-size:10.5px;color:var(--ok-txt);letter-spacing:.06em;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-  .stamp svg{width:12px;height:12px;flex:0 0 12px}
+  .stamp{margin-top:9px;font-family:var(--mono);font-size:10.5px;color:var(--ok-txt);letter-spacing:.06em;
+    display:flex;align-items:flex-start;gap:6px}
+  .stamp svg{width:12px;height:12px;flex:0 0 12px;margin-top:2px}
+  .stamp span{min-width:0;overflow-wrap:anywhere}
 
   /* ---------- empty / loading ---------- */
   .empty-box{text-align:center;padding:44px 18px;color:var(--txt-faint);border:1px dashed var(--line);border-radius:var(--radius);font-size:14px}
@@ -387,6 +429,7 @@ try {
     .stat{padding:9px 10px}
     .stat .n{font-size:18px}
     .rows{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
     .head-right .label{display:none}
     h1{letter-spacing:.1em}
   }
@@ -439,6 +482,10 @@ try {
   <div class="stats">
     <div class="stat"><div class="n" id="nActive">–</div><div class="l">To pull</div></div>
     <div class="stat lime"><div class="n" id="nDone">–</div><div class="l">Cleared</div></div>
+    <button class="stat amber" id="stubTile" type="button" aria-pressed="false"
+            title="Show only the stubborn ones">
+      <div class="n" id="nStuck">–</div><div class="l">Stubborn</div>
+    </button>
     <div class="stat pink"><div class="n" id="nTotal">–</div><div class="l">Total</div></div>
   </div>
 
@@ -448,14 +495,15 @@ try {
       <input type="search" id="q" placeholder="Search title, author, call no, item ID…" autocomplete="off" />
     </div>
     <select id="sort" aria-label="Sort by">
-      <option value="">Sort by</option>
       <option value="location">Shelf location</option>
       <option value="call">Call number</option>
       <option value="title">Title A–Z</option>
       <option value="author">Author A–Z</option>
+      <option value="pickup">Pickup library</option>
       <option value="type">Item type</option>
-      <option value="pickup">Pickup Library</option> 
-      </select>
+      <option value="date">Oldest discharged</option>
+      <option value="sheet">Sheet order</option>
+    </select>
     <select id="pickup" aria-label="Filter by pickup library">
       <option value="">All pickup libraries</option>
     </select>
@@ -511,6 +559,7 @@ const S = {
   cols: {},      // whatever the script sent (cleared/cleared_by/cleared_at)
   records: [], tab: "",
   loaded: false, loading: false, showDone: false, online: true, preview: false,
+  stuckOnly: false,
   theme: "light",
 };
 let pollTimer = null, toastTimer = null;
@@ -535,6 +584,9 @@ const FIELD_ALIASES = {
                 "pickup_location", "hold_pickup_library", "pickup_branch"],
   discharged:  ["date_discharged", "discharge_date", "date_of_discharge",
                 "discharged", "datedischarged"],
+  stubborn:    ["stubborn", "stuck", "not_found", "missing"],
+  stubborn_by: ["stubborn_by", "stuck_by", "not_found_by"],
+  stubborn_at: ["stubborn_at", "stuck_at", "not_found_at"],
   cleared:     ["cleared", "pulled", "done"],
   cleared_by:  ["cleared_by", "pulled_by"],
   cleared_at:  ["cleared_at", "pulled_at", "cleared_time"],
@@ -619,6 +671,11 @@ function wireUI() {
   $("whoBtn").onclick = askWho;
   $("q").addEventListener("input", render);
   $("sort").addEventListener("change", render);
+  $("stubTile").onclick = () => {
+    S.stuckOnly = !S.stuckOnly;
+    $("stubTile").setAttribute("aria-pressed", String(S.stuckOnly));
+    render();
+  };
   $("pickup").addEventListener("change", render);
   $("loc").addEventListener("change", render);
   $("type").addEventListener("change", render);
@@ -736,45 +793,76 @@ function truthy(v) {
   return s === "yes" || s === "y" || s === "true" || s === "x" || s === "1" || s === "done" || s === "pulled";
 }
 
+/* The two marks a staffer can put on a row. Each owns three sheet columns and
+   three fields on the record; the Apps Script writes them the same way. */
+const FLAGS = {
+  cleared: {
+    cols: ["cleared", "cleared_by", "cleared_at"],
+    keys: ["done", "by", "at"],
+    action: "set",
+    on: "Cleared", off: "Restored",
+  },
+  stubborn: {
+    cols: ["stubborn", "stubborn_by", "stubborn_at"],
+    keys: ["stuck", "stuckBy", "stuckAt"],
+    action: "flag",
+    on: "Flagged stubborn", off: "Stubborn flag removed",
+  },
+};
+
 function makeRecord(r, order) {
   const cells = r.c || [];
-  const ci = S.col.cleared;
-  return {
-    rowNum: r.n,
-    cells: cells,
-    order: order,
-    done: ci == null ? false : truthy(cells[ci]),
-    by: S.col.cleared_by == null ? "" : String(cells[S.col.cleared_by] || ""),
-    at: S.col.cleared_at == null ? "" : String(cells[S.col.cleared_at] || ""),
-  };
+  const rec = { rowNum: r.n, cells: cells, order: order };
+  Object.keys(FLAGS).forEach((kind) => {
+    const F = FLAGS[kind];
+    const ci = S.col[F.cols[0]];
+    rec[F.keys[0]] = ci == null ? false : truthy(cells[ci]);
+    rec[F.keys[1]] = S.col[F.cols[1]] == null ? "" : String(cells[S.col[F.cols[1]]] || "");
+    rec[F.keys[2]] = S.col[F.cols[2]] == null ? "" : String(cells[S.col[F.cols[2]]] || "");
+  });
+  return rec;
 }
 
 /* ============================================================
-   TOGGLE — the strikethrough
+   MARKING A ROW — the strikethrough and the stubborn flag
    ============================================================ */
-async function toggle(rec, el) {
-  const next = !rec.done;
-  const prev = { done: rec.done, by: rec.by, at: rec.at };
+async function toggle(rec, el) { return setFlag(rec, "cleared", el); }
+async function flag(rec, el)   { return setFlag(rec, "stubborn", el); }
+
+async function setFlag(rec, kind, el) {
+  const F = FLAGS[kind];
+  const [kOn, kBy, kAt] = F.keys;
+
+  if (!S.preview && S.col[F.cols[0]] == null) {
+    toast("This sheet has no \u201c" + F.cols[0] + "\u201d column yet \u2014 hit refresh once.");
+    return;
+  }
+
+  const next = !rec[kOn];
+  const prev = { on: rec[kOn], by: rec[kBy], at: rec[kAt] };
+  const label = (next ? F.on : F.off) + " \u00b7 " + shortTitle(rec);
+  const again = () => setFlag(rec, kind, findEl(rec) || el);
 
   if (navigator.vibrate) { try { navigator.vibrate(next ? 18 : 8); } catch (e) {} }
 
   if (S.preview) {
-    rec.done = next;
-    rec.by = next ? (S.who || "preview") : "";
-    rec.at = next ? stampNow() : "";
+    rec[kOn] = next;
+    rec[kBy] = next ? (S.who || "preview") : "";
+    rec[kAt] = next ? stampNow() : "";
     render();
-    toast((next ? "Cleared · " : "Restored · ") + shortTitle(rec) + " (preview)", () => toggle(rec, findEl(rec) || el));
+    toast(label + " (preview)", again);
     return;
   }
 
-  rec.done = next;
-  rec.by = next ? S.who : "";
-  rec.at = next ? "saving…" : "";
+  rec[kOn] = next;
+  rec[kBy] = next ? S.who : "";
+  rec[kAt] = next ? "saving\u2026" : "";
   el.classList.add("busy");
-  el.classList.toggle("done", next);
+  if (kind === "cleared") el.classList.toggle("done", next);
+  else el.classList.toggle("stuck", next);
 
   const idCol = S.col.item_id;
-  const params = { action: "set", row: rec.rowNum, value: next ? 1 : 0, who: S.who };
+  const params = { action: F.action, kind: kind, row: rec.rowNum, value: next ? 1 : 0, who: S.who };
   if (idCol != null) params.id = String(rec.cells[idCol] || "");
 
   try {
@@ -783,20 +871,21 @@ async function toggle(rec, el) {
     if (res.row) {
       if (res.headers) absorb(res);
       const fresh = makeRecord(res.row, rec.order);
-      rec.cells = fresh.cells; rec.done = fresh.done; rec.by = fresh.by; rec.at = fresh.at;
+      rec.cells = fresh.cells;
+      Object.keys(FLAGS).forEach((k) => FLAGS[k].keys.forEach((key) => { rec[key] = fresh[key]; }));
     }
     render();
-    toast((next ? "Cleared · " : "Restored · ") + shortTitle(rec), () => toggle(rec, findEl(rec) || el));
+    toast(label, again);
   } catch (err) {
-    rec.done = prev.done; rec.by = prev.by; rec.at = prev.at;
+    rec[kOn] = prev.on; rec[kBy] = prev.by; rec[kAt] = prev.at;
     render();
     const m = String(err.message || "");
     if (m === "row_moved" || m === "row_gone") {
-      toast("That row moved in the sheet — refreshing.");
+      toast("That row moved in the sheet \u2014 refreshing.");
       load(false);
     } else {
       setOnline(false);
-      toast("Not saved — no connection to the sheet.");
+      toast("Not saved \u2014 no connection to the sheet.");
     }
   }
 }
@@ -824,7 +913,9 @@ function shortTitle(rec) {
 }
 
 /* shown big, so not repeated as a tag */
-const HIDE = new Set(["cleared", "cleared_by", "cleared_at", "title", "author", "call_number"]);
+const HIDE = new Set(["cleared", "cleared_by", "cleared_at",
+                      "stubborn", "stubborn_by", "stubborn_at",
+                      "title", "author", "call_number"]);
 const TAG_LABELS = {
   item_id: "item", item_type: "type", location: "shelf",
   pickup_library: "pickup", pickup: "pickup",
@@ -880,7 +971,7 @@ function render() {
       !S.loaded ? (S.online ? "Loading the pull list…" : "No list loaded yet.")
       : "This sheet has no rows yet. Once holds land in it, they'll show up here."
     );
-    ["nActive", "nDone", "nTotal", "pillActive"].forEach((id) => { $(id).textContent = "0"; });
+    ["nActive", "nDone", "nStuck", "nTotal", "pillActive"].forEach((id) => { $(id).textContent = "0"; });
     $("doneWrap").hidden = true;
     ["pickup", "loc", "type"].forEach((id) => { $(id).hidden = true; });
     return;
@@ -891,7 +982,12 @@ function render() {
   const pickType = syncFilter($("type"),   "item_type", "All item types");
   const q = $("q").value.trim().toLowerCase();
 
+  if (!canFlag() && S.stuckOnly) {
+    S.stuckOnly = false;
+    $("stubTile").setAttribute("aria-pressed", "false");
+  }
   let list = S.records.filter((r) => {
+    if (S.stuckOnly && !r.stuck) return false;
     if (!keeps(r, "pickup", pickPick)) return false;
     if (!keeps(r, "location", pickLoc)) return false;
     if (!keeps(r, "item_type", pickType)) return false;
@@ -922,6 +1018,8 @@ function render() {
 
   $("nActive").textContent = String(S.records.length - totalDone);
   $("nDone").textContent = String(totalDone);
+  $("nStuck").textContent = String(S.records.filter((r) => r.stuck).length);
+  $("stubTile").hidden = !canFlag();     // an un-updated Apps Script has nowhere to store it
   $("nTotal").textContent = String(S.records.length);
   $("pillActive").textContent = String(active.length);
   $("pillDone").textContent = String(done.length);
@@ -930,8 +1028,8 @@ function render() {
   const groupBy = { location: "location", type: "item_type", pickup: "pickup" }[mode] || "";
   $("activeRows").innerHTML = paint(active, groupBy);
   $("activeEmpty").innerHTML = active.length ? "" :
-    emptyBox(q || pickPick || pickLoc || pickType
-      ? "No matching rows to pull."
+    emptyBox(S.stuckOnly && !done.length ? "Nothing is flagged stubborn right now."
+      : q || pickPick || pickLoc || pickType || S.stuckOnly ? "No matching rows to pull."
       : (S.records.length ? "Everything on this list is cleared. Nice work." : "Nothing on the pull list."));
 
   $("doneWrap").hidden = done.length === 0;
@@ -960,6 +1058,9 @@ function paint(list, groupBy) {
   return out;
 }
 
+/* true once the sheet (or preview) actually has somewhere to store the flag */
+function canFlag() { return S.preview || S.col.stubborn != null; }
+
 function card(rec) {
   const call = get(rec, "call_number");
   const title = get(rec, "title") || "(untitled)";
@@ -977,21 +1078,35 @@ function card(rec) {
 
   const stamp = rec.done && (rec.by || rec.at)
     ? '<div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg>' +
-      esc([rec.by, rec.at].filter(Boolean).join(" · ")) + "</div>"
+      "<span>" + esc([rec.by, rec.at].filter(Boolean).join(" · ")) + "</span></div>"
     : "";
 
-  return '<article class="row' + (rec.done ? " done" : "") + '" data-row="' + rec.rowNum + '">' +
+  const stuckStamp = rec.stuck && (rec.stuckBy || rec.stuckAt)
+    ? '<div class="stamp warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h12l-2.2 4.5L17 13H5"/></svg>' +
+      "<span>" + esc(["flagged", rec.stuckBy, rec.stuckAt].filter(Boolean).join(" · ")) + "</span></div>"
+    : "";
+
+  return '<article class="row' + (rec.done ? " done" : "") + (rec.stuck ? " stuck" : "") +
+      '" data-row="' + rec.rowNum + '">' +
     '<button class="check" type="button" role="checkbox" aria-checked="' + (rec.done ? "true" : "false") +
       '" aria-label="' + (rec.done ? "Restore" : "Clear") + " " + esc(title) + '">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>' +
     "</button>" +
     '<div class="body">' +
       '<span class="call' + (call ? "" : " nocall") + '">' + esc(call || "no call no.") + "</span>" +
+      (rec.stuck ? '<span class="badge">stubborn</span>' : "") +
       '<h3 class="title">' + esc(title) + "</h3>" +
       (author ? '<p class="author">' + esc(author) + "</p>" : "") +
       (tags ? '<div class="meta">' + tags + "</div>" : "") +
-      stamp +
-    "</div></article>";
+      stamp + stuckStamp +
+    "</div>" +
+    (!canFlag() ? "" :
+    '<button class="flag" type="button" role="checkbox" aria-checked="' + (rec.stuck ? "true" : "false") +
+      '" aria-label="' + (rec.stuck ? "Clear the stubborn flag on " : "Flag as stubborn: ") + esc(title) +
+      '" title="' + (rec.stuck ? "Remove the stubborn flag" : "Couldn’t find it — flag as stubborn") + '">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h12l-2.2 4.5L17 13H5"/></svg>' +
+    "</button>") +
+    "</article>";
 }
 
 function bind() {
@@ -1000,6 +1115,12 @@ function bind() {
     const rec = S.records.find((r) => r.rowNum === n);
     if (!rec) return;
     el.addEventListener("click", (e) => { e.preventDefault(); toggle(rec, el); });
+    const fb = el.querySelector(".flag");
+    if (fb) fb.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();      // flagging must not also strike the row through
+      flag(rec, el);
+    });
   });
 }
 
