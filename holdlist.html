@@ -1,294 +1,700 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#05070d" />
+<meta name="referrer" content="no-referrer" />
+<title>Hold Shelf // Pull List</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23070b14'/%3E%3Cg fill='%2322d3ee'%3E%3Crect x='18' y='22' width='6' height='56' rx='2'/%3E%3Crect x='30' y='22' width='3' height='56' rx='1.5'/%3E%3Crect x='39' y='22' width='7' height='56' rx='2'/%3E%3Crect x='52' y='22' width='3' height='56' rx='1.5'/%3E%3Crect x='61' y='22' width='5' height='56' rx='2'/%3E%3C/g%3E%3Crect x='70' y='22' width='12' height='56' rx='3' fill='%23f472b6'/%3E%3C/svg%3E" />
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Accounts Metrics</title>
-<!-- Google Fonts: Manrope -->
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<!-- Material Symbols -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "tertiary-dim": "#902c2b",
-              "tertiary": "#a03836",
-              "outline": "#74777a",
-              "error": "#b41340",
-              "on-error-container": "#510017",
-              "on-tertiary": "#ffefee",
-              "on-tertiary-fixed-variant": "#711517",
-              "tertiary-fixed-dim": "#fc7d77",
-              "surface-container-low": "#eef1f4",
-              "secondary-fixed-dim": "#fea4ff",
-              "primary": "#8930b0",
-              "secondary-dim": "#7c2e83",
-              "secondary-container": "#ffbbfd",
-              "on-tertiary-container": "#650a10",
-              "inverse-surface": "#0b0f11",
-              "outline-variant": "#abadb0",
-              "inverse-on-surface": "#9a9da0",
-              "inverse-primary": "#d97dff",
-              "primary-fixed": "#d97dff",
-              "on-surface": "#2c2f32",
-              "primary-dim": "#7c20a3",
-              "on-secondary-fixed-variant": "#7e2f84",
-              "background": "#f5f7fa",
-              "surface-tint": "#8930b0",
-              "tertiary-container": "#ff928b",
-              "primary-container": "#d97dff",
-              "surface-dim": "#d0d5d9",
-              "on-primary-fixed": "#010002",
-              "on-background": "#2c2f32",
-              "on-primary-container": "#41005b",
-              "surface-variant": "#d9dde1",
-              "on-secondary-fixed": "#5c0b64",
-              "on-primary": "#ffedff",
-              "surface-container": "#e5e8ec",
-              "on-surface-variant": "#595c5e",
-              "surface-container-high": "#dfe3e7",
-              "primary-fixed-dim": "#ca70f0",
-              "error-dim": "#a70138",
-              "surface-bright": "#f5f7fa",
-              "on-primary-fixed-variant": "#4f006d",
-              "surface": "#f5f7fa",
-              "tertiary-fixed": "#ff928b",
-              "secondary": "#8a3b90",
-              "surface-container-highest": "#d9dde1",
-              "on-secondary": "#ffeefa",
-              "on-secondary-container": "#73257a",
-              "surface-container-lowest": "#ffffff",
-              "on-tertiary-fixed": "#3a0003",
-              "secondary-fixed": "#ffbbfd",
-              "error-container": "#f74b6d",
-              "on-error": "#ffefef"
-            },
-            fontFamily: {
-              "headline": ["Manrope"],
-              "body": ["Manrope"],
-              "label": ["Manrope"]
-            },
-            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
-          },
-        },
-      }
-    </script>
+<script>
+/* ==========================================================================
+   ▼▼▼  THE ONLY LINE YOU EVER EDIT  ▼▼▼
+   Paste the Apps Script web app URL between the quotes. It ends in /exec.
+   (Google Sheet → Extensions → Apps Script → Deploy → New deployment → Web app)
+   ========================================================================== */
+var SCRIPT_URL = "PASTE_YOUR_EXEC_URL_HERE";
+/* ==========================================================================
+   ▲▲▲  nothing else needs changing  ▲▲▲
+   ========================================================================== */
+</script>
+
 <style>
-        body { font-family: 'Manrope', sans-serif; }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-        .ghost-border {
-            border: 1px solid rgba(171, 173, 176, 0.2);
-        }
-    </style>
+  :root{
+    --bg:#05070d;
+    --bg2:#080d18;
+    --panel:rgba(14,22,38,.72);
+    --line:rgba(88,166,255,.16);
+    --line-strong:rgba(34,211,238,.42);
+    --txt:#dbe7f5;
+    --txt-dim:#7e91ad;
+    --txt-faint:#55647c;
+    --cyan:#22d3ee;
+    --pink:#f472b6;
+    --lime:#a3e635;
+    --radius:14px;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  [hidden]{display:none!important}
+  html{overflow-x:hidden}
+  html,body{margin:0;padding:0;max-width:100%}
+  body{
+    background:var(--bg);color:var(--txt);font-family:var(--sans);
+    font-size:15px;line-height:1.45;min-height:100vh;overflow-x:hidden;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  /* ---------- futuristic backdrop ---------- */
+  .bg-fx{position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(900px 520px at 12% -8%, rgba(34,211,238,.17), transparent 62%),
+      radial-gradient(760px 480px at 96% 4%, rgba(244,114,182,.13), transparent 60%),
+      radial-gradient(1000px 700px at 50% 118%, rgba(99,102,241,.15), transparent 62%),
+      linear-gradient(180deg,var(--bg) 0%,var(--bg2) 55%,var(--bg) 100%);
+  }
+  .bg-grid{position:fixed;left:0;right:0;top:-40%;bottom:-10%;z-index:-1;pointer-events:none;opacity:.5;
+    background-image:
+      linear-gradient(rgba(88,166,255,.075) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(88,166,255,.075) 1px,transparent 1px);
+    background-size:52px 52px;
+    transform:perspective(520px) rotateX(58deg);
+    mask-image:linear-gradient(180deg,transparent 42%,#000 78%,transparent 100%);
+    -webkit-mask-image:linear-gradient(180deg,transparent 42%,#000 78%,transparent 100%);
+    animation:drift 24s linear infinite;
+  }
+  @keyframes drift{to{background-position:0 52px,52px 0}}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(12px,3vw,26px) 84px}
+
+  /* ---------- header ---------- */
+  header.top{
+    position:sticky;top:0;z-index:40;width:100%;
+    padding:14px clamp(12px,3vw,26px) 12px;
+    padding-top:calc(14px + env(safe-area-inset-top));
+    background:linear-gradient(180deg,rgba(5,7,13,.96),rgba(5,7,13,.82) 70%,rgba(5,7,13,0));
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .inner{max-width:1180px;margin:0 auto}
+  .brand{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .mark{
+    width:38px;height:38px;flex:0 0 38px;border-radius:11px;display:grid;place-items:center;
+    background:linear-gradient(150deg,rgba(34,211,238,.22),rgba(244,114,182,.16));
+    border:1px solid var(--line-strong);
+    box-shadow:0 0 22px rgba(34,211,238,.28),inset 0 0 14px rgba(34,211,238,.14);
+  }
+  .mark svg{width:20px;height:20px;display:block}
+  h1{
+    margin:0;font-size:clamp(15px,4vw,20px);font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;font-family:var(--mono);
+    background:linear-gradient(92deg,#eaf6ff,var(--cyan) 55%,var(--pink));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .sub{margin:2px 0 0;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--txt-faint);font-family:var(--mono)}
+  .head-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+
+  /* ---------- controls ---------- */
+  button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    min-height:44px;padding:0 15px;border-radius:11px;
+    background:rgba(20,32,52,.8);border:1px solid var(--line);
+    color:var(--txt);font-size:13px;font-weight:600;letter-spacing:.04em;
+    transition:border-color .18s,background .18s,transform .1s,box-shadow .18s;
+  }
+  .btn:hover{border-color:var(--line-strong);background:rgba(28,44,70,.9)}
+  .btn:active{transform:translateY(1px)}
+  .btn:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+  .btn.icon{width:44px;padding:0}
+  .btn svg{width:17px;height:17px;flex:0 0 17px}
+  .who-btn{
+    min-height:36px;padding:0 11px;border-radius:99px;border:1px solid var(--line);
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--txt-dim);
+    max-width:34vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .who-btn:hover{border-color:var(--line-strong);color:var(--txt)}
+
+  /* ---------- notices ---------- */
+  .notice{
+    display:flex;gap:10px;align-items:flex-start;
+    margin:16px 0 0;padding:13px 15px;border-radius:12px;font-size:13.5px;line-height:1.5;
+    background:rgba(251,191,36,.09);border:1px solid rgba(251,191,36,.34);color:#f7dfa5;
+  }
+  .notice svg{width:18px;height:18px;flex:0 0 18px;margin-top:1px}
+  .notice.err{background:rgba(244,114,182,.1);border-color:rgba(244,114,182,.4);color:#ffd0e6}
+  .notice code{
+    font-family:var(--mono);font-size:12px;padding:1px 5px;border-radius:5px;
+    background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.09);
+  }
+
+  /* ---------- stats + toolbar ---------- */
+  .stats{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));margin:18px 0 14px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:11px 13px;position:relative;overflow:hidden}
+  .stat::after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+  .stat.pink::after{background:var(--pink);box-shadow:0 0 12px var(--pink)}
+  .stat.lime::after{background:var(--lime);box-shadow:0 0 12px var(--lime)}
+  .stat .n{font-family:var(--mono);font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+  .stat .l{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt-faint);font-family:var(--mono);margin-top:2px}
+
+  .toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+  .search{position:relative;flex:1 1 220px;min-width:0}
+  .search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--txt-faint);pointer-events:none}
+  input[type=search]{
+    width:100%;min-height:46px;padding:0 14px 0 40px;border-radius:11px;
+    background:rgba(6,11,20,.85);border:1px solid var(--line);color:var(--txt);font:inherit;font-size:15px;
+  }
+  input:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,.16)}
+  select{
+    min-height:46px;padding:0 34px 0 13px;border-radius:11px;font:inherit;font-size:13px;
+    background:rgba(20,32,52,.8) no-repeat right 12px center;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237e91ad' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    border:1px solid var(--line);color:var(--txt);appearance:none;-webkit-appearance:none;
+  }
+  select:focus{outline:none;border-color:var(--cyan)}
+
+  /* ---------- section head ---------- */
+  .sec-head{display:flex;align-items:center;gap:10px;margin:22px 0 12px}
+  .sec-head h2{margin:0;font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-family:var(--mono);color:var(--txt-dim);font-weight:700}
+  .sec-head .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line-strong),transparent)}
+  .count-pill{font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:99px;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.35);color:var(--cyan)}
+  .count-pill.lime{background:rgba(163,230,53,.1);border-color:rgba(163,230,53,.34);color:var(--lime)}
+  .toggle-sec{min-height:36px;padding:0 12px;border-radius:99px;border:1px solid var(--line);font-size:12px;font-family:var(--mono);color:var(--txt-dim);letter-spacing:.06em}
+  .toggle-sec:hover{border-color:var(--line-strong);color:var(--txt)}
+
+  /* ---------- row cards ---------- */
+  .rows{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+  .row{
+    position:relative;display:flex;gap:12px;align-items:stretch;
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:12px;overflow:hidden;
+    transition:border-color .2s,transform .12s,opacity .3s,box-shadow .2s;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  }
+  .row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--cyan),rgba(59,130,246,.35));opacity:.9}
+  .row:hover{border-color:var(--line-strong);box-shadow:0 0 0 1px rgba(34,211,238,.1),0 14px 40px -26px rgba(34,211,238,.5)}
+  .row.done{opacity:.6}
+  .row.done::before{background:linear-gradient(180deg,var(--lime),rgba(163,230,53,.25))}
+  .row.busy{pointer-events:none}
+  .row.busy::after{content:"";position:absolute;inset:0;background:rgba(5,7,13,.45)}
+
+  .check{
+    position:relative;flex:0 0 46px;width:46px;min-height:46px;align-self:flex-start;
+    border-radius:12px;display:grid;place-items:center;
+    border:1px solid var(--line-strong);background:rgba(9,16,28,.7);
+    transition:background .18s,border-color .18s,transform .12s;
+  }
+  .check::before{content:"";position:absolute;width:21px;height:21px;border-radius:50%;border:1.5px dashed rgba(34,211,238,.5);transition:opacity .18s}
+  .check svg{width:22px;height:22px;opacity:0;transform:scale(.5);transition:opacity .18s,transform .18s;color:#08160a}
+  .check:active{transform:scale(.93)}
+  .row.done .check::before{opacity:0}
+  .row.done .check{background:linear-gradient(140deg,var(--lime),#65a30d);border-color:transparent;box-shadow:0 0 20px rgba(163,230,53,.4)}
+  .row.done .check svg{opacity:1;transform:scale(1)}
+
+  .body{flex:1 1 auto;min-width:0;text-align:left}
+  .call{
+    display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;
+    padding:2px 8px;border-radius:7px;margin-bottom:6px;
+    background:rgba(244,114,182,.13);border:1px solid rgba(244,114,182,.34);color:#ffc4e2;
+    max-width:100%;overflow-wrap:anywhere;
+  }
+  .call.nocall{background:rgba(126,145,173,.1);border-color:var(--line);color:var(--txt-faint)}
+  .title{margin:0;font-size:15.5px;font-weight:650;line-height:1.28;overflow-wrap:anywhere}
+  .author{margin:2px 0 0;font-size:13px;color:var(--txt-dim);overflow-wrap:anywhere}
+  .row.done .title,.row.done .author,.row.done .call{text-decoration:line-through;text-decoration-color:rgba(163,230,53,.75);text-decoration-thickness:2px}
+  .meta{display:flex;flex-wrap:wrap;gap:5px 6px;margin-top:9px}
+  .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;padding:2px 7px;border-radius:6px;background:rgba(88,166,255,.09);border:1px solid var(--line);color:#9fb4d0;overflow-wrap:anywhere}
+  .tag b{color:var(--txt-faint);font-weight:600;margin-right:4px;text-transform:uppercase;font-size:9.5px}
+  .tag.cyan{background:rgba(34,211,238,.1);border-color:rgba(34,211,238,.3);color:#a5eefb}
+  .stamp{margin-top:9px;font-family:var(--mono);font-size:10.5px;color:var(--lime);letter-spacing:.06em;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .stamp svg{width:12px;height:12px;flex:0 0 12px}
+
+  /* ---------- empty / loading ---------- */
+  .empty-box{text-align:center;padding:44px 18px;color:var(--txt-faint);border:1px dashed var(--line);border-radius:var(--radius);font-size:14px}
+  .empty-box svg{width:34px;height:34px;margin-bottom:10px;opacity:.55}
+  .skel{height:86px;border-radius:var(--radius);background:linear-gradient(90deg,rgba(20,32,52,.5),rgba(30,46,72,.7),rgba(20,32,52,.5));background-size:220% 100%;animation:sh 1.3s linear infinite;border:1px solid var(--line)}
+  @keyframes sh{to{background-position:-220% 0}}
+  .spin{animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));
+    transform:translate(-50%,150%);z-index:90;visibility:hidden;
+    display:flex;align-items:center;gap:12px;
+    padding:11px 12px 11px 15px;border-radius:13px;max-width:min(92vw,440px);
+    background:rgba(12,21,38,.97);border:1px solid var(--line-strong);
+    box-shadow:0 20px 50px -18px rgba(0,0,0,.9);font-size:13.5px;
+    transition:transform .3s cubic-bezier(.2,.9,.3,1.2),visibility .3s;
+  }
+  .toast.show{transform:translate(-50%,0);visibility:visible}
+  .toast .msg{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .toast button{
+    min-height:36px;padding:0 12px;border-radius:9px;flex:0 0 auto;
+    background:rgba(34,211,238,.16);border:1px solid rgba(34,211,238,.4);
+    color:var(--cyan);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono);
+  }
+  .live{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-faint)}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime);animation:pulse 2.4s ease-in-out infinite}
+  .dot.off{background:var(--pink);box-shadow:0 0 8px var(--pink);animation:none}
+  @keyframes pulse{50%{opacity:.35}}
+
+  @media (max-width:600px){
+    .stats{grid-template-columns:repeat(3,1fr);gap:8px}
+    .stat{padding:9px 10px}
+    .stat .n{font-size:18px}
+    .rows{grid-template-columns:1fr}
+    .head-right .label{display:none}
+    h1{letter-spacing:.1em}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001s!important;transition-duration:.001s!important}
+  }
+</style>
 </head>
-<body class="bg-background min-h-screen text-on-surface overflow-x-hidden">
-<!-- Top Navigation Anchor (Shared Component) -->
-<!-- Main Content Area -->
-<main class="pt-28 pb-12 px-6 flex flex-col items-center justify-center min-h-screen relative">
-<!-- Decorative Background Elements -->
-<div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
-<div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-secondary/10 rounded-full blur-[120px] pointer-events-none"></div>
-<div class="w-full max-w-2xl z-10 space-y-8">
-<!-- Transaction Form Card -->
-<section class="glass-panel ghost-border rounded-lg p-8 shadow-[0_8px_32px_0_rgba(44,47,50,0.06)]">
-<div class="mb-8">
-<h1 class="text-2xl font-extrabold tracking-tight text-on-surface mb-2" style="">Accounts Desk Metrics</h1>
-<p class="text-on-surface-variant text-sm" style="">Please provide the transaction details accurately.</p>
-</div>
+<body>
+<div class="bg-fx"></div>
+<div class="bg-grid"></div>
 
-<!-- Input Field -->
-<form id="form" method="POST">
-      <div class="form-group">
-<div class="space-y-3">
-<div class="flex justify-between items-center">
-<label class="text-sm font-bold text-on-surface-variant tracking-wide label" for="Value" class="label">How Many Transactions?</label>
-<span class="text-[10px] uppercase font-bold tracking-widest text-error px-2 py-0.5 bg-error/10 rounded-full" style="">Required</span>
-</div>
-<input class="w-full bg-surface-container-highest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-outline-variant text-on-surface" class="form-control" id="Value" name="Value" placeholder="Enter Amount #" min="1" type="number" required/>
-</div>
-<!-- Radio Section 1 -->
-<div class="space-y-4">
-      <div class="form-group">
-<label class="text-sm font-bold text-on-surface-variant tracking-wide" style="">Choose Desk Transaction</label>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-<label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="Accounts" type="radio"/>
-<span class="text-on-surface font-medium" style="">Accounts </span>
-</label>
-<label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="Reference" type="radio"/>
-<span class="text-on-surface font-medium" style="">Reference </span>
-</label>
-<label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="Internet/PC" type="radio"/>
-<span class="text-on-surface font-medium" style="">Internet/PC</span>
-</label>
-<label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="TexShare" type="radio"/>
-<span class="text-on-surface font-medium" style="">TexShare</span>
-</label><label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="Info Desk Support" type="radio"/>
-<span class="text-on-surface font-medium" style="">Info Desk Support</span>
-</label></div>
-</div>
-<!-- Radio Section 2 -->
-<div class="space-y-4">
-      <div class="form-group">
-<label class="text-sm font-bold text-on-surface-variant tracking-wide" style="">Choose Window Transaction</label>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-<label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="Accounts Window" type="radio"/>
-<span class="text-on-surface font-medium" style="">Accounts Window</span>
-</label>
-<label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="Reference Window" type="radio"/>
-<span class="text-on-surface font-medium" style="">Reference Window</span>
-</label>
-<label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="Texshare Window" type="radio"/>
-<span class="text-on-surface font-medium" style="">TexShare Window</span>
-</label>
-<label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="Info Desk Support Window" type="radio"/>
-<span class="text-on-surface font-medium" style="">Info Desk Support Window</span>
-</label>
-<label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="Receipt Printer Issue" type="radio"/>
-<span class="text-on-surface font-medium" style="">Receipt Printer Issue</span>
-</label>
-<label class="flex items-center gap-3 p-4 rounded-lg bg-surface-container-lowest/50 border border-transparent hover:border-primary/30 cursor-pointer transition-all" style="">
-<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" class="form-control" name="Transaction" value="Internet/PC Window" type="radio"/>
-<span class="text-on-surface font-medium" style="">Internet/PC Window</span>
-</label></div>
-</div>
-<!-- Submit Button -->
-<div class="pt-4">
-      <div class="form-group">
-<button class="w-full bg-gradient-to-br from-primary to-primary-dim text-white font-bold py-5 rounded-full shadow-lg shadow-primary/30 hover:scale-[1.01] active:scale-[0.98] transition-all flex items-center justify-center gap-2" class="form-control" id="submit-button" type="submit">
-<span class="" style="">Submit Transaction</span>
-<span class="material-symbols-outlined text-xl" data-icon="send">send</span>
-</button>
-</div>
-   <div id="message"></div>
+<header class="top">
+  <div class="inner">
+    <div class="brand">
+      <div class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.7" stroke-linecap="round">
+          <path d="M4 4v16M8 4v16M12 4v16M16.5 4v16M20 4v16"/>
+        </svg>
+      </div>
+      <div style="min-width:0">
+        <h1>Hold Shelf Pull List</h1>
+        <p class="sub" id="sheetTitle">loading…</p>
+      </div>
+      <div class="head-right">
+        <span class="live" id="liveFlag"><span class="dot" id="liveDot"></span><span class="label">live</span></span>
+      </div>
+    </div>
+  </div>
+</header>
 
-</form>
-</section>
-<!-- Reference Guide Card -->
-<section class="glass-panel ghost-border rounded-lg p-8 shadow-sm">
-<div class="flex items-center gap-3 mb-6">
-<span class="material-symbols-outlined text-primary" data-icon="info" style="">info</span>
-<h2 class="text-lg font-bold tracking-tight" style="">Transaction Reference</h2>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<div class="space-y-1">
-<p class="text-xs font-black uppercase tracking-widest text-primary" style="">Accounts</p>
-<p class="text-sm text-on-surface-variant leading-relaxed" style="">Create new accounts; explain balances; accept $$$; renew an item; renew a library card; update patron contact information; assist patrons with self-check out; holds: retrieve, place, cancel, suspend.</p>
-</div>
-<div class="space-y-1">
-<p class="text-xs font-black uppercase tracking-widest text-primary" style="">Reference</p>
-<p class="text-sm text-on-surface-variant leading-relaxed" style="">Help patrons with particular info needs. Instruction in using information sources. Do you have xx book? Where do I vote? Where is City Hall?</p>
-</div>
-<div class="space-y-1">
-<p class="text-xs font-black uppercase tracking-widest text-primary" style="">Internet/PC</p>
-<p class="text-sm text-on-surface-variant leading-relaxed" style="">"How to Use" computers, printing, software, scanner, fax, accessing the Internet, WiFi, email, online catalog, electronic databases, laptops.</p>
-</div>
-<div class="space-y-1">
-<p class="text-xs font-black uppercase tracking-widest text-primary" style="">Texshare</p>
-<p class="text-sm text-on-surface-variant leading-relaxed" style="">Cards or questions.</p>
-</div>
-<div class="space-y-1">
-<p class="text-xs font-black uppercase tracking-widest text-primary" style="">Info Desk Support</p>
-<p class="text-sm text-on-surface-variant leading-relaxed" style="">Schedule rooms; check patrons in/out of room; check in/out laptops; Copy Ctr problems.</p>
-</div>
-<div class="space-y-1">
-<p class="text-xs font-black uppercase tracking-widest text-primary" style="">Receipt Printer Issue</p>
-<p class="text-sm text-on-surface-variant leading-relaxed" style=""><div>Receipt Printer fails, restarted, or gives errors.</div></p>
-</div>
-</div>
-</section>
-</div>
+<main class="wrap">
+  <div id="appNotice"></div>
+
+  <div class="stats">
+    <div class="stat"><div class="n" id="nActive">–</div><div class="l">To pull</div></div>
+    <div class="stat lime"><div class="n" id="nDone">–</div><div class="l">Cleared</div></div>
+    <div class="stat pink"><div class="n" id="nTotal">–</div><div class="l">Total</div></div>
+  </div>
+
+  <div class="toolbar">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input type="search" id="q" placeholder="Search title, author, call no…" autocomplete="off" />
+    </div>
+    <select id="sort" aria-label="Sort by">
+      <option value="pickup">Location</option>
+      <option value="call">Call No.</option>
+      <option value="title">Title A–Z</option>
+      <option value="date">Discharge date</option>
+      </select>
+    <select id="pickup" aria-label="Filter by pickup library">
+        <option value="">All Library locations</option>
+	<option value="Lewisville">Lewisville</option>
+	<option value="Lewisville Window">Lewisville Window</option>
+	<option value="Holds Locker">Holds Locker</option>
+    </select>
+  </div>
+
+  <div class="sec-head">
+    <h2>To pull</h2><span class="count-pill" id="pillActive">0</span>
+    <span class="rule"></span>
+  </div>
+  <div class="rows" id="activeRows"></div>
+  <div id="activeEmpty"></div>
+
+  <div id="doneWrap" hidden>
+    <div class="sec-head">
+      <h2>Cleared</h2><span class="count-pill lime" id="pillDone">0</span>
+      <span class="rule"></span>
+      <button class="toggle-sec" id="toggleDone" aria-expanded="false">Show</button>
+    </div>
+    <div class="rows" id="doneRows" hidden></div>
+  </div>
 </main>
-    
 
-<!--- Google POST script --->
- <script>
-        document.getElementById("form").addEventListener("submit", function (e) {
-            e.preventDefault(); // Prevent the default form submission
-            document.getElementById("message").textContent = "Submitting..";
-            document.getElementById("message").style.display = "block";
-            document.getElementById("submit-button").disabled = true;
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span class="msg" id="toastMsg"></span>
+  <button id="toastAction" hidden>Undo</button>
+</div>
 
-            // Collect the form data
-            var formData = new FormData(this);
-            var keyValuePairs = [];
-            for (var pair of formData.entries()) {
-                keyValuePairs.push(pair[0] + "=" + pair[1]);
-            }
+<script>
+/* ============================================================
+   The pull list. Data and shared strikethroughs live in the
+   Google Sheet, reached through the Apps Script URL at the top
+   of this file. No sign-in, no passwords, nothing to configure.
+   ============================================================ */
+const POLL_MS = 30000;   // how often the list re-checks the sheet
 
-            var formDataString = keyValuePairs.join("&");
+const S = {
+  who: "",
+  headers: [], col: {}, cols: {},
+  records: [], tab: "",
+  loaded: false, loading: false, showDone: false, online: true,
+};
+let pollTimer = null, toastTimer = null;
+const $ = (id) => document.getElementById(id);
+const CONFIGURED = /^https:\/\/script\.google(usercontent)?\.com\/.+/.test(String(SCRIPT_URL || ""));
 
-            // Send a POST request to your Google Apps Script
-            fetch(
-                "https://script.google.com/macros/s/AKfycbzBmjrQSbcZU3W6zw44Zqv4W2FNnXhKeqEzzcByx6V09LPI1V_wD5P7Wz4lJSNzJusRWA/exec",
+/* ============================================================
+   BOOT
+   ============================================================ */
+window.addEventListener("DOMContentLoaded", () => {
+  wireUI();
+  S.who = store("pl_who") || "";
+  paintWho();
 
-                {
-                    redirect: "follow",
-                    method: "POST",
-                    mode: 'no-cors',
-                    body: formDataString,
-                    headers: {
-                        "Content-Type": "text/plain;charset=utf-8",
-                    },
-                }
-            )
-                .then(function (response) {
-                    // Check if the request was successful
-                    if (response) {
-                        return response; // Assuming your script returns JSON response
-                    } else {
-                        throw new Error("Failed to submit the form.");
-                    }
-                })
-                .then(function (data) {
-                    // Display a success message
-                    document.getElementById("message").textContent =
-                        "Submitted successfully!";
-                    document.getElementById("message").style.display = "block";
-                    document.getElementById("submit-button").disabled = false;
-                    document.getElementById("form").reset();
+  if (!CONFIGURED) {
+    $("sheetTitle").textContent = "not connected";
+    setOnline(false);
+    notice("appNotice",
+      'This copy isn\'t pointed at the sheet yet. Open the file in a text editor and paste the Apps Script web app link (it ends in <code>/exec</code>) into the <code>SCRIPT_URL</code> line near the top.',
+      true, true);
+    render();
+    return;
+  }
+  load(true);
+  pollTimer = setInterval(() => {
+    if (document.visibilityState === "visible") load(false);
+  }, POLL_MS);
+});
 
-                    setTimeout(function () {
-                        document.getElementById("message").textContent = "";
-                        document.getElementById("message").style.display = "none";
-                    }, 2600);
-                })
-                .catch(function (error) {
-                    // Handle errors, you can display an error message here
-                    console.error(error);
-                    document.getElementById("message").textContent =
-                        "An error occurred while submitting the form.";
-                    document.getElementById("message").style.display = "block";
-                });
-        });
-    </script>
+function store(k, v) {
+  try {
+    if (v === undefined) return localStorage.getItem(k);
+    localStorage.setItem(k, v);
+  } catch (e) {}
+  return null;
+}
 
+function wireUI() {
+  $("refreshBtn").onclick = () => load(true);
+  $("whoBtn").onclick = askWho;
+  $("q").addEventListener("input", render);
+  $("sort").addEventListener("change", render);
+  $("pickup").addEventListener("change", render);
+  $("toggleDone").onclick = () => {
+    S.showDone = !S.showDone;
+    $("doneRows").hidden = !S.showDone;
+    $("toggleDone").textContent = S.showDone ? "Hide" : "Show";
+    $("toggleDone").setAttribute("aria-expanded", String(S.showDone));
+  };
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible" && CONFIGURED) load(false);
+  });
+}
 
-      
-<!-- Side Navigation Trigger (Semantic Shell Placeholder) -->
-<!-- Footer Credit -->
-<footer class="py-12 text-center text-on-surface-variant/40 text-[10px] font-bold tracking-[0.2em] uppercase">
-        © 2026 Lewisville Public Library Accounts Team
-    </footer>
-</body></html>
+function paintWho() { $("whoBtn").textContent = S.who || "add your name"; }
+
+function askWho() {
+  const v = window.prompt("Your name or initials (stamped on rows you clear):", S.who || "");
+  if (v === null) return;
+  S.who = v.trim().slice(0, 40);
+  store("pl_who", S.who);
+  paintWho();
+}
+
+/* ============================================================
+   DATA — plain GET calls to the Apps Script, no auth
+   ============================================================ */
+function endpoint(params) {
+  const u = new URL(SCRIPT_URL);
+  Object.keys(params).forEach((k) => u.searchParams.set(k, params[k]));
+  u.searchParams.set("t", String(Date.now()));  // dodge caches
+  return u.toString();
+}
+
+async function callApi(params) {
+  const res = await fetch(endpoint(params), { method: "GET", redirect: "follow" });
+  if (!res.ok) throw new Error("http_" + res.status);
+  const text = await res.text();
+  let json;
+  try { json = JSON.parse(text); } catch (e) { throw new Error("not_json"); }
+  if (json.ok === false) throw new Error(json.error || "server");
+  return json;
+}
+
+function setOnline(ok) {
+  S.online = ok;
+  $("liveDot").classList.toggle("off", !ok);
+  $("liveFlag").querySelector(".label").textContent = ok ? "live" : "offline";
+}
+
+function explain(err) {
+  const m = String((err && err.message) || err);
+  if (m === "not_json") {
+    return "That link answered, but not with list data. In Apps Script check the deployment is a <b>Web app</b> with <b>Who has access: Anyone</b>.";
+  }
+  if (m.indexOf("http_") === 0) {
+    return "The sheet link returned an error (" + m.replace("http_", "") + "). Re-check the Apps Script deployment.";
+  }
+  return "Can't reach the pull list right now — it'll keep retrying.";
+}
+
+/* ============================================================
+   LOAD
+   ============================================================ */
+async function load(showSkeleton) {
+  if (S.loading || !CONFIGURED) return;
+  S.loading = true;
+  $("refreshBtn").querySelector("svg").classList.add("spin");
+  if (showSkeleton && !S.loaded) {
+    $("activeRows").innerHTML = '<div class="skel"></div><div class="skel"></div><div class="skel"></div>';
+  }
+  try {
+    const data = await callApi({ action: "list" });
+    absorb(data);
+    S.records = (data.rows || []).map((r, i) => makeRecord(r, i));
+    S.loaded = true;
+    S.tab = data.tab || "";
+    $("sheetTitle").textContent = S.tab || "pull list";
+    $("appNotice").innerHTML = "";
+    setOnline(true);
+    render();
+  } catch (err) {
+    setOnline(false);
+    notice("appNotice", explain(err), true, true);
+    if (!S.loaded) $("activeRows").innerHTML = "";
+  } finally {
+    S.loading = false;
+    $("refreshBtn").querySelector("svg").classList.remove("spin");
+  }
+}
+
+function absorb(data) {
+  S.headers = (data.headers || []).map((h) => String(h == null ? "" : h).trim());
+  S.cols = data.cols || {};
+  S.col = {};
+  S.headers.forEach((h, i) => { if (h) S.col[h.toLowerCase()] = i; });
+}
+
+function makeRecord(r, order) {
+  const cells = r.c || [];
+  const ci = S.cols.cleared;
+  const v = ci == null ? "" : String(cells[ci] || "").trim().toLowerCase();
+  return {
+    rowNum: r.n,
+    cells: cells,
+    order: order,
+    done: v === "yes" || v === "true" || v === "y" || v === "x" || v === "1",
+    by: S.cols.cleared_by == null ? "" : (cells[S.cols.cleared_by] || ""),
+    at: S.cols.cleared_at == null ? "" : (cells[S.cols.cleared_at] || ""),
+  };
+}
+
+/* ============================================================
+   TOGGLE — the strikethrough
+   ============================================================ */
+async function toggle(rec, el) {
+  const next = !rec.done;
+  const prev = { done: rec.done, by: rec.by, at: rec.at };
+
+  rec.done = next;
+  rec.by = next ? S.who : "";
+  rec.at = next ? "saving…" : "";
+  el.classList.add("busy");
+  el.classList.toggle("done", next);
+  if (navigator.vibrate) { try { navigator.vibrate(next ? 18 : 8); } catch (e) {} }
+
+  const idCol = S.col["item_id"];
+  const params = { action: "set", row: rec.rowNum, value: next ? 1 : 0, who: S.who };
+  if (idCol != null) params.id = String(rec.cells[idCol] || "");
+
+  try {
+    const res = await callApi(params);
+    setOnline(true);
+    if (res.row) {
+      absorb(res);
+      const fresh = makeRecord(res.row, rec.order);
+      rec.cells = fresh.cells; rec.done = fresh.done; rec.by = fresh.by; rec.at = fresh.at;
+    }
+    render();
+    const label = shortTitle(rec);
+    toast(next ? "Cleared · " + label : "Restored · " + label, () => toggle(rec, findEl(rec) || el));
+  } catch (err) {
+    rec.done = prev.done; rec.by = prev.by; rec.at = prev.at;
+    render();
+    const m = String(err.message || "");
+    if (m === "row_moved" || m === "row_gone") {
+      toast("That row moved in the sheet — refreshing.");
+      load(false);
+    } else {
+      setOnline(false);
+      toast("Not saved — no connection to the sheet.");
+    }
+  }
+}
+
+function findEl(rec) { return document.querySelector('[data-row="' + rec.rowNum + '"]'); }
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function get(rec, name) {
+  const i = S.col[name];
+  return i == null ? "" : String(rec.cells[i] == null ? "" : rec.cells[i]).trim();
+}
+function shortTitle(rec) {
+  const t = get(rec, "title") || get(rec, "call_number") || ("Row " + rec.rowNum);
+  return t.length > 42 ? t.slice(0, 41) + "…" : t;
+}
+
+const HIDE = new Set(["cleared", "cleared_by", "cleared_at", "title", "author", "call_number"]);
+const TAG_LABELS = {
+  item_id: "item", item_type: "type", location: "loc", pickup_library: "pickup",
+  date_of_discharge: "discharged", snapshot_date: "snapshot", copy: "copy",
+};
+
+function render() {
+  if (!S.records.length && !S.headers.length) {
+    $("activeRows").innerHTML = "";
+    $("activeEmpty").innerHTML = emptyBox(
+      !CONFIGURED ? "Waiting on the sheet link."
+      : S.online ? "This sheet is empty. Once rows land in it, they'll show up here."
+      : "No list loaded yet."
+    );
+    ["nActive", "nDone", "nTotal", "pillActive"].forEach((id) => { $(id).textContent = "0"; });
+    $("doneWrap").hidden = true;
+    return;
+  }
+
+  const sel = $("pickup");
+  if (S.col["pickup_library"] != null) {
+    const vals = Array.from(new Set(S.records.map((r) => get(r, "pickup_library")).filter(Boolean))).sort();
+    const cur = sel.value;
+    if (sel.dataset.sig !== vals.join("|")) {
+      sel.dataset.sig = vals.join("|");
+      sel.innerHTML = '<option value="">All pickup sites</option>' +
+        vals.map((v) => '<option value="' + esc(v) + '">' + esc(v) + "</option>").join("");
+      sel.value = vals.indexOf(cur) >= 0 ? cur : "";
+    }
+    sel.hidden = vals.length < 2;
+  } else { sel.hidden = true; }
+
+  const q = $("q").value.trim().toLowerCase();
+  const pick = sel.hidden ? "" : sel.value;
+
+  let list = S.records.filter((r) => {
+    if (pick && get(r, "pickup_library") !== pick) return false;
+    if (!q) return true;
+    return r.cells.some((c) => String(c || "").toLowerCase().indexOf(q) >= 0);
+  });
+
+  const mode = $("sort").value;
+  const key = {
+    call: (r) => natKey(get(r, "call_number") || "zzz"),
+    title: (r) => (get(r, "title") || "zzz").toLowerCase(),
+    date: (r) => dateKey(get(r, "date_of_discharge")),
+    sheet: (r) => r.order,
+  }[mode] || ((r) => r.order);
+  list = list.slice().sort((a, b) => {
+    const ka = key(a), kb = key(b);
+    return ka < kb ? -1 : ka > kb ? 1 : a.order - b.order;
+  });
+
+  const active = list.filter((r) => !r.done);
+  const done = list.filter((r) => r.done);
+  const totalDone = S.records.filter((r) => r.done).length;
+
+  $("nActive").textContent = String(S.records.length - totalDone);
+  $("nDone").textContent = String(totalDone);
+  $("nTotal").textContent = String(S.records.length);
+  $("pillActive").textContent = String(active.length);
+  $("pillDone").textContent = String(done.length);
+
+  $("activeRows").innerHTML = active.map(card).join("");
+  $("activeEmpty").innerHTML = active.length ? "" :
+    emptyBox(q || pick
+      ? "No matching rows to pull."
+      : (S.records.length ? "Everything on this list is cleared. Nice work." : "Nothing on the pull list."));
+
+  $("doneWrap").hidden = done.length === 0;
+  $("doneRows").innerHTML = done.map(card).join("");
+  $("doneRows").hidden = !S.showDone;
+
+  bind();
+}
+
+function card(rec) {
+  const call = get(rec, "call_number");
+  const title = get(rec, "title") || "(untitled)";
+  const author = get(rec, "author");
+  const tags = S.headers.map((h, i) => {
+    const name = (h || "").toLowerCase();
+    if (!name || HIDE.has(name)) return "";
+    const v = String(rec.cells[i] == null ? "" : rec.cells[i]).trim();
+    if (!v) return "";
+    const label = TAG_LABELS[name] || name.replace(/_/g, " ");
+    const cls = (name === "pickup_library" || name === "u_name") ? " cyan" : "";
+    return '<span class="tag' + cls + '"><b>' + esc(label) + "</b>" + esc(v) + "</span>";
+  }).join("");
+
+  const stamp = rec.done && (rec.by || rec.at)
+    ? '<div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg>' +
+      esc([rec.by, rec.at].filter(Boolean).join(" · ")) + "</div>"
+    : "";
+
+  return '<article class="row' + (rec.done ? " done" : "") + '" data-row="' + rec.rowNum + '">' +
+    '<button class="check" role="checkbox" aria-checked="' + (rec.done ? "true" : "false") +
+      '" aria-label="' + (rec.done ? "Restore" : "Clear") + " " + esc(title) + '">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>' +
+    "</button>" +
+    '<div class="body">' +
+      '<span class="call' + (call ? "" : " nocall") + '">' + esc(call || "no call no.") + "</span>" +
+      '<h3 class="title">' + esc(title) + "</h3>" +
+      (author ? '<p class="author">' + esc(author) + "</p>" : "") +
+      (tags ? '<div class="meta">' + tags + "</div>" : "") +
+      stamp +
+    "</div></article>";
+}
+
+function bind() {
+  document.querySelectorAll(".row").forEach((el) => {
+    const n = parseInt(el.dataset.row, 10);
+    const rec = S.records.find((r) => r.rowNum === n);
+    if (!rec) return;
+    el.addEventListener("click", (e) => { e.preventDefault(); toggle(rec, el); });
+  });
+}
+
+function emptyBox(msg) {
+  return '<div class="empty-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">' +
+    '<path d="M4 5h16v14H4zM4 10h16M9 5v14"/></svg><div>' + esc(msg) + "</div></div>";
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function natKey(s) { return String(s).toLowerCase().replace(/\d+/g, (d) => d.padStart(10, "0")); }
+function dateKey(s) { const t = Date.parse(s); return isNaN(t) ? 8.64e15 : t; }
+
+/* trusted is true only for our own hard-coded messages, which may contain markup */
+function notice(id, msg, isErr, trusted) {
+  $(id).innerHTML = '<div class="notice' + (isErr ? " err" : "") + '">' +
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>' +
+    "<div>" + (trusted ? msg : esc(msg)) + "</div></div>";
+}
+function toast(msg, undo) {
+  const t = $("toast"), a = $("toastAction");
+  $("toastMsg").textContent = msg;
+  a.hidden = !undo;
+  a.onclick = undo ? () => { hideToast(); undo(); } : null;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(hideToast, undo ? 6000 : 3600);
+}
+function hideToast() { $("toast").classList.remove("show"); }
+</script>
+</body>
+</html>
