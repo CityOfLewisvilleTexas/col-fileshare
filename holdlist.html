@@ -448,13 +448,17 @@ try {
       <input type="search" id="q" placeholder="Search title, author, call no, item ID…" autocomplete="off" />
     </div>
     <select id="sort" aria-label="Sort by">
+      <option value="">Sort by</option>
       <option value="location">Shelf location</option>
       <option value="call">Call number</option>
       <option value="title">Title A–Z</option>
       <option value="author">Author A–Z</option>
       <option value="type">Item type</option>
-      <option value="type">Pickup Library</option>
+      <option value="pickup">Pickup Library</option> 
       </select>
+    <select id="pickup" aria-label="Filter by pickup library">
+      <option value="">All pickup libraries</option>
+    </select>
     <select id="loc" aria-label="Filter by shelf location">
       <option value="">All shelf locations</option>
     </select>
@@ -492,7 +496,7 @@ try {
    of this file. No sign-in, no passwords, nothing to configure.
 
    Sheet columns it expects (any order, any capitalization):
-     Title | Item ID | Call Number | Location | Author | Item Type | Pickup Library
+     Title | Item ID | Call Number | Location | Author | Item Type
    plus the three the Apps Script maintains:
      cleared | cleared_by | cleared_at
    Extra columns are shown as tags automatically.
@@ -527,6 +531,10 @@ const FIELD_ALIASES = {
   item_id:     ["item_id", "itemid", "barcode", "item_barcode", "id"],
   location:    ["location", "shelf_location", "current_location", "home_location", "loc"],
   item_type:   ["item_type", "itemtype", "type", "material_type"],
+  pickup:      ["pickup_library", "pickup", "pickuplibrary", "pickup_lib",
+                "pickup_location", "hold_pickup_library", "pickup_branch"],
+  discharged:  ["date_discharged", "discharge_date", "date_of_discharge",
+                "discharged", "datedischarged"],
   cleared:     ["cleared", "pulled", "done"],
   cleared_by:  ["cleared_by", "pulled_by"],
   cleared_at:  ["cleared_at", "pulled_at", "cleared_time"],
@@ -538,8 +546,8 @@ const FIELD_ALIASES = {
 const PREVIEW = {
   ok: true,
   tab: "preview (sample rows)",
-  headers: ["Title", "Item ID", "Call Number", "Location", "Author", "Item Type", "Pickup Library", "cleared", "cleared_by", "cleared_at"],
-  rows: [{"n": 2, "c": ["The spies of shilling lane : a novel / Jennifer Ryan", "ILPL003042534K", "F RYA", "ADULT-FIC", "Ryan, Jennifer (Jennifer L.)", "BOOK", "", "", ""]}, {"n": 3, "c": ["A long time comin' : a novel / Robin W. Pearson", "ILPL003061798X", "F INSP PEA", "ADULT-INSP", "Pearson, Robin W", "BOOK", "", "", ""]}, {"n": 4, "c": ["Violets are blue / James Patterson", "ILPL003028925S", "F MYS PAT", "ADULT-MYST", "Patterson, James, 1947-", "BOOK", "", "", ""]}, {"n": 5, "c": ["Gone before goodbye / Reese Witherspoon", "ILPL006023219M", "F MYS WIT", "ADULT-MYST", "Witherspoon, Reese, 1976-", "BOOK", "", "", ""]}, {"n": 6, "c": ["Before the coffee gets cold / Toshikazu Kawaguchi ; translated from th", "ILPL003075190O", "F SF KAW", "ADULT-SF", "Kawaguchi, Toshikazu, 1971-", "BOOK", "", "", ""]}, {"n": 7, "c": ["Batman has a plan / by Tina Gallo ; illustrated by Patrick Spaziante", "ILPL008072637W", "ER BAT", "EASYREADER", "Gallo, Tina", "BOOK", "", "", ""]}, {"n": 8, "c": ["Dr. Seuss's book of colors", "ILPL008070280O", "ER SEU", "EASYREADER", "Seuss, Dr", "BOOK", "", "", ""]}, {"n": 9, "c": ["Listen to my trumpet! / by Mo Willems", "ILPL008104829V", "ER WIL", "EASYREADER", "Willems, Mo", "BOOK", "", "", ""]}, {"n": 10, "c": ["I am George Washington / Brad Meltzer ; illustrated by Christopher Eli", "ILPL008063286W", "JB WASHINGTON, GEORGE", "JUV-BIO", "Meltzer, Brad", "BOOK", "", "", ""]}, {"n": 11, "c": ["Rowley Jefferson's awesome friendly spooky stories. 2 / Jeff Kinney", "ILPL006024043I", "JF KIN", "JUV-NEW", "Kinney, Jeff", "BOOK", "", "", ""]}, {"n": 12, "c": ["Passionate about penguins / Owen Davey", "ILPL008112064L", "J 598.47 DAV", "JUV-NONFIC", "Davey, Owen", "BOOK", "", "", ""]}, {"n": 13, "c": ["Wild Kratts [videorecording] : triple feature", "ILPL010425135K", "DVD JF WIL", "JUV-VIDEO", "PBS Distribution (Firm)", "VIDEO", "", "", ""]}, {"n": 14, "c": ["The Chilbury Ladies' Choir [large print] : a novel / Jennifer Ryan", "ILPL003031564L", "LT F RYA", "LARGE-TYPE", "Ryan, Jennifer, 1973-", "BOOK", "", "", ""]}, {"n": 15, "c": ["Halloween cars and trucks", "ILPL008132999/", "TOD HAL", "TODDLER", "Scarry, Richard", "BOOK", "", "", ""]}]
+  headers: ["Title", "Item ID", "Call Number", "Location", "Author", "Item Type", "Pickup Library", "Date Discharged", "cleared", "cleared_by", "cleared_at"],
+  rows: [{"n": 2, "c": ["Uniquely human : a different way of seeing autism / Barry Prizant, Ph.", "ILPL003058250M", "618.9285 PRI", "ADULT-NF", "Prizant, Barry M", "BOOK", "", "", "", "", ""]}, {"n": 3, "c": ["Butterfly 3 / Ashley Antoinette", "ILPL003068816V", "F ASH", "ADULT-FIC", "Ashley Antoinette, 1985-", "BOOK", "LEWISVILLE", "06/11/2025", "", "", ""]}, {"n": 4, "c": ["The collected regrets of Clover / Mikki Brammer", "ILPL003063382O", "F BRA", "ADULT-FIC", "Brammer, Mikki", "BOOK", "LEWISVILLE", "06/16/2026", "", "", ""]}, {"n": 5, "c": ["Steering by starlight : find your right life no matter what / Martha B", "ILPL002057220H", "158.1 BEC", "ADULT-NF", "Beck, Martha Nibley, 1962-", "BOOK", "LEWISVILLE", "11/19/2024", "", "", ""]}, {"n": 6, "c": ["Let love have the last word : a memoir / Common with Mensah Demary", "ILPL003043526M", "177.7 COM", "ADULT-NF", "Common (Musician)", "BOOK", "LEWISVILLE", "04/16/2024", "", "", ""]}, {"n": 7, "c": ["Autism / by John Marble, Khushboo Chabria, Ranga Jayaraman ; foreword", "ILPL003074190N", "616.8588 MAR", "ADULT-NF", "Marble, John (Neurodiversity strategist)", "BOOK", "LEWISVILLE", "04/29/2026", "", "", ""]}, {"n": 8, "c": ["A fellowship of librarians & dragons / J. Penner", "ILPL003078062P", "F SF PEN", "ADULT-SF", "Penner, J. (Jenetta)", "BOOK", "LEWISVILLE", "05/22/2026", "", "", ""]}, {"n": 9, "c": ["Counting [storytime kit]", "ILPL001161819Q", "STORY KIT COUNTING", "DISCARD", "Baker, Keith, 1953- Big fat hen", "STKIT", "LEWISVILLE", "08/21/2026", "", "", ""]}, {"n": 10, "c": ["My hero academia. Vol. 6, Struggling / Kohei Horikoshi ; translation &", "ILPL008074546X", "GN TF HOR", "TEENGRAPHI", "Horikoshi, Kohei, 1986-", "BOOK", "LEWISVILLE", "08/20/2026", "", "", ""]}, {"n": 11, "c": ["Cracking the AP Spanish language & culture exam with audio CD / by the", "ILPL008069294.", "", "TEENNONFIC", "", "BOOK", "LEWISVILLE", "08/08/2026", "", "", ""]}, {"n": 12, "c": ["The intruder / Freida McFadden", "ILPL003075857Y", "F MYS MCF", "ADULT-MYST", "McFadden, Freida", "BOOK", "LEWPWINDOW", "09/02/2026", "", "", ""]}, {"n": 13, "c": ["Wait and see / Iris Johansen and Roy Johansen", "ILPL006024124I", "F MYS JOH", "ADULT-NEW", "Johansen, Iris", "BOOK", "LEWPWINDOW", "09/01/2026", "", "", ""]}, {"n": 14, "c": ["The crossover / by Kwame Alexander", "ILPL008051527R", "JF ALE", "NEWBERY", "Alexander, Kwame", "BOOK", "LEWPWINDOW", "08/22/2026", "", "", ""]}, {"n": 15, "c": ["Demon slayer = Kimetsu no yaiba. 19, Flapping butterfly wings / Koyoha", "ILPL008131846U", "GN TF GOT", "TEENGRAPHI", "Gotoge, Koyoharu, 1988-", "BOOK", "LEWPWINDOW", "02/14/2026", "", "", ""]}]
 };
 
 /* ============================================================
@@ -611,6 +619,7 @@ function wireUI() {
   $("whoBtn").onclick = askWho;
   $("q").addEventListener("input", render);
   $("sort").addEventListener("change", render);
+  $("pickup").addEventListener("change", render);
   $("loc").addEventListener("change", render);
   $("type").addEventListener("change", render);
   $("toggleDone").onclick = () => {
@@ -818,24 +827,49 @@ function shortTitle(rec) {
 const HIDE = new Set(["cleared", "cleared_by", "cleared_at", "title", "author", "call_number"]);
 const TAG_LABELS = {
   item_id: "item", item_type: "type", location: "shelf",
-  pickup_library: "pickup", date_of_discharge: "discharged",
+  pickup_library: "pickup", pickup: "pickup",
+  date_discharged: "discharged", date_of_discharge: "discharged", discharge_date: "discharged",
   snapshot_date: "snapshot", copy: "copy",
 };
 
+/* Plain-English names for the pickup codes in the sheet. Anything not listed
+   here shows exactly as the sheet spells it, so new codes still work — add a
+   line when you want a friendlier label. */
+const PICKUP_NAMES = {
+  LEWISVILLE: "Lewisville",
+  LEWPWINDOW: "Lewisville Window",
+  LEWLOCKER: "Holds Locker",
+};
+function pickupName(v) { return PICKUP_NAMES[String(v).trim().toUpperCase()] || v; }
+
+/* rows where the column is empty are reachable through this option */
+const BLANK = "__blank__";
+
 /* keep a <select>'s options in step with the data without losing the choice */
-function syncFilter(sel, field, allLabel) {
+function syncFilter(sel, field, allLabel, prettify) {
   if (S.col[field] == null) { sel.hidden = true; sel.value = ""; return ""; }
-  const vals = Array.from(new Set(S.records.map((r) => get(r, field)).filter(Boolean))).sort();
-  const sig = vals.join("|");
+  const seen = S.records.map((r) => get(r, field));
+  const vals = Array.from(new Set(seen.filter(Boolean))).sort();
+  const anyBlank = seen.some((v) => !v);
+  const sig = vals.join("|") + (anyBlank ? "|+blank" : "");
   if (sel.dataset.sig !== sig) {
     const cur = sel.value;
     sel.dataset.sig = sig;
     sel.innerHTML = '<option value="">' + esc(allLabel) + "</option>" +
-      vals.map((v) => '<option value="' + esc(v) + '">' + esc(v) + "</option>").join("");
-    sel.value = vals.indexOf(cur) >= 0 ? cur : "";
+      vals.map((v) => '<option value="' + esc(v) + '">' +
+        esc(prettify ? prettify(v) : v) + "</option>").join("") +
+      (anyBlank ? '<option value="' + BLANK + '">(not set)</option>' : "");
+    sel.value = (cur === BLANK && anyBlank) || vals.indexOf(cur) >= 0 ? cur : "";
   }
-  sel.hidden = vals.length < 2;
+  sel.hidden = vals.length + (anyBlank ? 1 : 0) < 2;
   return sel.hidden ? "" : sel.value;
+}
+
+/* one filter's verdict on one row */
+function keeps(rec, field, pick) {
+  if (!pick) return true;
+  const v = get(rec, field);
+  return pick === BLANK ? !v : v === pick;
 }
 
 function render() {
@@ -848,17 +882,19 @@ function render() {
     );
     ["nActive", "nDone", "nTotal", "pillActive"].forEach((id) => { $(id).textContent = "0"; });
     $("doneWrap").hidden = true;
-    ["loc", "type"].forEach((id) => { $(id).hidden = true; });
+    ["pickup", "loc", "type"].forEach((id) => { $(id).hidden = true; });
     return;
   }
 
-  const pickLoc  = syncFilter($("loc"),  "location",  "All shelf locations");
-  const pickType = syncFilter($("type"), "item_type", "All item types");
+  const pickPick = syncFilter($("pickup"), "pickup",    "All pickup libraries", pickupName);
+  const pickLoc  = syncFilter($("loc"),    "location",  "All shelf locations");
+  const pickType = syncFilter($("type"),   "item_type", "All item types");
   const q = $("q").value.trim().toLowerCase();
 
   let list = S.records.filter((r) => {
-    if (pickLoc && get(r, "location") !== pickLoc) return false;
-    if (pickType && get(r, "item_type") !== pickType) return false;
+    if (!keeps(r, "pickup", pickPick)) return false;
+    if (!keeps(r, "location", pickLoc)) return false;
+    if (!keeps(r, "item_type", pickType)) return false;
     if (!q) return true;
     return r.cells.some((c) => String(c == null ? "" : c).toLowerCase().indexOf(q) >= 0);
   });
@@ -869,8 +905,10 @@ function render() {
     call:     (r) => natKey(get(r, "call_number") || "zzz"),
     title:    (r) => (get(r, "title") || "zzz").toLowerCase(),
     author:   (r) => (get(r, "author") || "zzz").toLowerCase(),
+    pickup:   (r) => (get(r, "pickup") || "zzz").toLowerCase() + "|" +
+                     (get(r, "location") || "").toLowerCase() + "|" + natKey(get(r, "call_number")),
     type:     (r) => (get(r, "item_type") || "zzz").toLowerCase() + "|" + natKey(get(r, "call_number")),
-    pickup:   (r) => (get(r, "pickup") || "zzz").toLowerCase(),
+    date:     (r) => dateKey(get(r, "discharged")),
     sheet:    (r) => r.order,
   }[mode] || ((r) => r.order);
   list = list.slice().sort((a, b) => {
@@ -889,10 +927,10 @@ function render() {
   $("pillDone").textContent = String(done.length);
 
   // group headings only make sense when the sort groups things
-  const groupBy = mode === "location" ? "location" : mode === "type" ? "item_type" : "";
+  const groupBy = { location: "location", type: "item_type", pickup: "pickup" }[mode] || "";
   $("activeRows").innerHTML = paint(active, groupBy);
   $("activeEmpty").innerHTML = active.length ? "" :
-    emptyBox(q || pickLoc || pickType
+    emptyBox(q || pickPick || pickLoc || pickType
       ? "No matching rows to pull."
       : (S.records.length ? "Everything on this list is cleared. Nice work." : "Nothing on the pull list."));
 
@@ -912,8 +950,9 @@ function paint(list, groupBy) {
            '</span><span class="rule"></span></div>' + buf.join("");
     buf = [];
   };
+  const pretty = groupBy === "pickup" ? pickupName : (v) => v;
   list.forEach((r) => {
-    const g = get(r, groupBy) || "—";
+    const g = pretty(get(r, groupBy)) || "not set";
     if (g !== last) { flush(); last = g; }
     buf.push(card(r));
   });
@@ -927,10 +966,12 @@ function card(rec) {
   const author = get(rec, "author");
   const tags = S.keys.map((name, i) => {
     if (!name || HIDE.has(name)) return "";
-    const v = String(rec.cells[i] == null ? "" : rec.cells[i]).trim();
+    let v = String(rec.cells[i] == null ? "" : rec.cells[i]).trim();
     if (!v) return "";
+    const isPickup = i === S.col.pickup;
+    if (isPickup) v = pickupName(v);
     const label = TAG_LABELS[name] || name.replace(/_/g, " ");
-    const cls = (name === "location" || name === "pickup_library") ? " cyan" : "";
+    const cls = (isPickup || i === S.col.location) ? " cyan" : "";
     return '<span class="tag' + cls + '"><b>' + esc(label) + "</b>" + esc(v) + "</span>";
   }).join("");
 
@@ -974,6 +1015,8 @@ function esc(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 function natKey(s) { return String(s).toLowerCase().replace(/\d+/g, (d) => d.padStart(10, "0")); }
+/* blank / unparseable dates sort last */
+function dateKey(s) { const t = Date.parse(s); return isNaN(t) ? 8.64e15 : t; }
 
 /* trusted is true only for our own hard-coded messages, which may contain markup */
 function notice(id, msg, isErr, trusted) {
