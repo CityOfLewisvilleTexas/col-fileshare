@@ -1,1 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#f4f7fb" />
+<meta name="referrer" content="no-referrer" />
+<title>Hold Shelf // Pull List</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23070b14'/%3E%3Cg fill='%2322d3ee'%3E%3Crect x='18' y='22' width='6' height='56' rx='2'/%3E%3Crect x='30' y='22' width='3' height='56' rx='1.5'/%3E%3Crect x='39' y='22' width='7' height='56' rx='2'/%3E%3Crect x='52' y='22' width='3' height='56' rx='1.5'/%3E%3Crect x='61' y='22' width='5' height='56' rx='2'/%3E%3C/g%3E%3Crect x='70' y='22' width='12' height='56' rx='3' fill='%23f472b6'/%3E%3C/svg%3E" />
+
+<script>
+/* ==========================================================================
+   ▼▼▼  THE ONLY LINE YOU EVER EDIT  ▼▼▼
+   Paste the Apps Script web app URL between the quotes. It ends in /exec.
+   (Google Sheet → Extensions → Apps Script → Deploy → New deployment → Web app)
+   ========================================================================== */
+var SCRIPT_URL = "PASTE_YOUR_EXEC_URL_HERE";
+/* ==========================================================================
+   ▲▲▲  nothing else needs changing  ▲▲▲
+   Until that URL is pasted in, the page runs in PREVIEW mode with a handful
+   of sample rows so you can see how it behaves. Nothing is saved in preview.
+   ========================================================================== */
+
+/* Light is the default look. If this browser was last set to dark, put the
+   attribute on <html> before anything paints so there's no white flash. */
+try {
+  if (localStorage.getItem("pl_theme") === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+} catch (e) {}
+</script>
+
+<style>
+  /* ==========================================================================
+     THEME TOKENS
+     Light is the default. The toggle button in the header sets
+     data-theme="dark" on <html>, which swaps the block further down.
+     Every color in this file comes from one of these variables, so the two
+     themes stay in step.
+     ========================================================================== */
+  :root{
+    color-scheme:light;
+    --bg:#f4f7fb;
+    --bg2:#e9eff8;
+    --panel:rgba(255,255,255,.88);
+    --line:rgba(15,45,90,.14);
+    --line-strong:rgba(14,116,144,.42);
+    --txt:#152134;
+    --txt-dim:#4d5f7a;
+    --txt-faint:#6b7d96;
+
+    --accent:#0e7490;            /* was cyan */
+    --accent-soft:rgba(14,116,144,.09);
+    --accent-line:rgba(14,116,144,.32);
+    --accent-txt:#0b5c73;
+    --alt:#be185d;               /* was pink */
+    --alt-soft:rgba(190,24,93,.08);
+    --alt-line:rgba(190,24,93,.3);
+    --alt-txt:#9d174d;
+    --ok:#4d7c0f;                /* was lime */
+    --ok-soft:rgba(77,124,15,.1);
+    --ok-line:rgba(77,124,15,.35);
+    --ok-txt:#3f6212;
+    --ok-a:#84cc16;
+    --ok-b:#4d7c0f;
+    --check-mark:#ffffff;
+    --warn:#b45309;              /* the stubborn flag */
+    --warn-soft:rgba(180,83,9,.1);
+    --warn-edge:rgba(180,83,9,.34);
+    --warn-ink:#92400e;
+
+    --glow-accent:none;
+    --glow-alt:none;
+    --glow-ok:none;
+    --glow-warn:none;
+    --check-glow:0 2px 8px rgba(77,124,15,.35);
+    --mark-bg:linear-gradient(150deg,rgba(14,116,144,.15),rgba(190,24,93,.1));
+    --mark-glow:0 1px 3px rgba(15,45,90,.14);
+    --h1-a:#12263c; --h1-b:#0e7490; --h1-c:#be185d;
+    --head-a:rgba(244,247,251,.97); --head-b:rgba(244,247,251,.82);
+
+    --fx1:rgba(14,116,144,.10);
+    --fx2:rgba(190,24,93,.07);
+    --fx3:rgba(99,102,241,.08);
+    --grid-line:rgba(15,45,90,.055);
+    --grid-opacity:.85;
+
+    --btn-bg:#ffffff;
+    --btn-bg-hover:#eff5fb;
+    --field-bg:#ffffff;
+
+    --warn-bg:rgba(180,83,9,.07); --warn-line:rgba(180,83,9,.3); --warn-txt:#7c4508;
+    --err-bg:rgba(190,24,93,.07); --err-line:rgba(190,24,93,.32); --err-txt:#8c1349;
+    --code-bg:rgba(15,45,90,.06); --code-line:rgba(15,45,90,.12);
+
+    --toast-bg:#ffffff;
+    --toast-shadow:0 18px 44px -20px rgba(15,45,90,.45);
+    --skel-a:rgba(15,45,90,.05); --skel-b:rgba(15,45,90,.11);
+    --card-shadow:0 1px 2px rgba(15,45,90,.07);
+    --card-shadow-hover:0 12px 30px -20px rgba(15,45,90,.5);
+    --blur:blur(6px);
+
+    --radius:14px;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,system-ui,sans-serif;
+  }
+  :root[data-theme="dark"]{
+    color-scheme:dark;
+    --bg:#05070d;
+    --bg2:#080d18;
+    --panel:rgba(14,22,38,.72);
+    --line:rgba(88,166,255,.16);
+    --line-strong:rgba(34,211,238,.42);
+    --txt:#dbe7f5;
+    --txt-dim:#7e91ad;
+    --txt-faint:#55647c;
+
+    --accent:#22d3ee;
+    --accent-soft:rgba(34,211,238,.12);
+    --accent-line:rgba(34,211,238,.35);
+    --accent-txt:#a5eefb;
+    --alt:#f472b6;
+    --alt-soft:rgba(244,114,182,.13);
+    --alt-line:rgba(244,114,182,.34);
+    --alt-txt:#ffc4e2;
+    --ok:#a3e635;
+    --ok-soft:rgba(163,230,53,.1);
+    --ok-line:rgba(163,230,53,.34);
+    --ok-txt:#a3e635;
+    --ok-a:#a3e635;
+    --ok-b:#65a30d;
+    --check-mark:#08160a;
+    --warn:#fbbf24;
+    --warn-soft:rgba(251,191,36,.13);
+    --warn-edge:rgba(251,191,36,.36);
+    --warn-ink:#fcd980;
+
+    --glow-accent:0 0 12px var(--accent);
+    --glow-alt:0 0 12px var(--alt);
+    --glow-ok:0 0 12px var(--ok);
+    --glow-warn:0 0 12px var(--warn);
+    --check-glow:0 0 20px rgba(163,230,53,.4);
+    --mark-bg:linear-gradient(150deg,rgba(34,211,238,.22),rgba(244,114,182,.16));
+    --mark-glow:0 0 22px rgba(34,211,238,.28),inset 0 0 14px rgba(34,211,238,.14);
+    --h1-a:#eaf6ff; --h1-b:#22d3ee; --h1-c:#f472b6;
+    --head-a:rgba(5,7,13,.96); --head-b:rgba(5,7,13,.82);
+
+    --fx1:rgba(34,211,238,.17);
+    --fx2:rgba(244,114,182,.13);
+    --fx3:rgba(99,102,241,.15);
+    --grid-line:rgba(88,166,255,.075);
+    --grid-opacity:.5;
+
+    --btn-bg:rgba(20,32,52,.8);
+    --btn-bg-hover:rgba(28,44,70,.9);
+    --field-bg:rgba(6,11,20,.85);
+
+    --warn-bg:rgba(251,191,36,.09); --warn-line:rgba(251,191,36,.34); --warn-txt:#f7dfa5;
+    --err-bg:rgba(244,114,182,.1); --err-line:rgba(244,114,182,.4); --err-txt:#ffd0e6;
+    --code-bg:rgba(0,0,0,.35); --code-line:rgba(255,255,255,.09);
+
+    --toast-bg:rgba(12,21,38,.97);
+    --toast-shadow:0 20px 50px -18px rgba(0,0,0,.9);
+    --skel-a:rgba(20,32,52,.5); --skel-b:rgba(30,46,72,.7);
+    --card-shadow:none;
+    --card-shadow-hover:0 0 0 1px rgba(34,211,238,.1),0 14px 40px -26px rgba(34,211,238,.5);
+    --blur:blur(8px);
+  }
+
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  [hidden]{display:none!important}
+  html{overflow-x:hidden}
+  html,body{margin:0;padding:0;max-width:100%}
+  body{
+    background:var(--bg);color:var(--txt);font-family:var(--sans);
+    font-size:15px;line-height:1.45;min-height:100vh;overflow-x:hidden;
+    padding-bottom:env(safe-area-inset-bottom);
+    transition:background .25s,color .25s;
+  }
+  /* ---------- backdrop ---------- */
+  .bg-fx{position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(900px 520px at 12% -8%, var(--fx1), transparent 62%),
+      radial-gradient(760px 480px at 96% 4%, var(--fx2), transparent 60%),
+      radial-gradient(1000px 700px at 50% 118%, var(--fx3), transparent 62%),
+      linear-gradient(180deg,var(--bg) 0%,var(--bg2) 55%,var(--bg) 100%);
+  }
+  .bg-grid{position:fixed;left:0;right:0;top:-40%;bottom:-10%;z-index:-1;pointer-events:none;opacity:var(--grid-opacity);
+    background-image:
+      linear-gradient(var(--grid-line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+    background-size:52px 52px;
+    transform:perspective(520px) rotateX(58deg);
+    mask-image:linear-gradient(180deg,transparent 42%,#000 78%,transparent 100%);
+    -webkit-mask-image:linear-gradient(180deg,transparent 42%,#000 78%,transparent 100%);
+    animation:drift 24s linear infinite;
+  }
+  @keyframes drift{to{background-position:0 52px,52px 0}}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(12px,3vw,26px) 84px}
+
+  /* ---------- header ---------- */
+  header.top{
+    position:sticky;top:0;z-index:40;width:100%;
+    padding:14px clamp(12px,3vw,26px) 12px;
+    padding-top:calc(14px + env(safe-area-inset-top));
+    background:linear-gradient(180deg,var(--head-a),var(--head-b) 70%,transparent);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .inner{max-width:1180px;margin:0 auto}
+  .brand{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .mark{
+    width:38px;height:38px;flex:0 0 38px;border-radius:11px;display:grid;place-items:center;
+    background:var(--mark-bg);
+    border:1px solid var(--line-strong);
+    box-shadow:var(--mark-glow);
+  }
+  .mark svg{width:20px;height:20px;display:block;stroke:var(--accent)}
+  h1{
+    margin:0;font-size:clamp(15px,4vw,20px);font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;font-family:var(--mono);
+    background:linear-gradient(92deg,var(--h1-a),var(--h1-b) 55%,var(--h1-c));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .sub{margin:2px 0 0;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--txt-faint);font-family:var(--mono)}
+  .head-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+
+  /* ---------- controls ---------- */
+  button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    min-height:44px;padding:0 15px;border-radius:11px;
+    background:var(--btn-bg);border:1px solid var(--line);
+    color:var(--txt);font-size:13px;font-weight:600;letter-spacing:.04em;
+    transition:border-color .18s,background .18s,transform .1s,box-shadow .18s;
+  }
+  .btn:hover{border-color:var(--line-strong);background:var(--btn-bg-hover)}
+  .btn:active{transform:translateY(1px)}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .btn.icon{width:44px;padding:0}
+  .btn svg{width:17px;height:17px;flex:0 0 17px}
+  /* theme button: moon while light ("go dark"), sun while dark ("go light").
+     Driven by CSS, not the hidden attribute — SVG elements don't support it. */
+  #iconSun{display:none}
+  :root[data-theme="dark"] #iconMoon{display:none}
+  :root[data-theme="dark"] #iconSun{display:block}
+  .who-btn{
+    min-height:36px;padding:0 11px;border-radius:99px;border:1px solid var(--line);
+    background:var(--btn-bg);
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--txt-dim);
+    max-width:34vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+    transition:border-color .18s,color .18s;
+  }
+  .who-btn:hover{border-color:var(--line-strong);color:var(--txt)}
+
+  /* ---------- notices ---------- */
+  .notice{
+    display:flex;gap:10px;align-items:flex-start;
+    margin:16px 0 0;padding:13px 15px;border-radius:12px;font-size:13.5px;line-height:1.5;
+    background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-txt);
+  }
+  .notice svg{width:18px;height:18px;flex:0 0 18px;margin-top:1px}
+  .notice.err{background:var(--err-bg);border-color:var(--err-line);color:var(--err-txt)}
+  .notice code{
+    font-family:var(--mono);font-size:12px;padding:1px 5px;border-radius:5px;
+    background:var(--code-bg);border:1px solid var(--code-line);
+  }
+
+  /* ---------- stats + toolbar ---------- */
+  .stats{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));margin:18px 0 14px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:11px 13px;position:relative;overflow:hidden;box-shadow:var(--card-shadow)}
+  .stat::after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent);box-shadow:var(--glow-accent)}
+  .stat.pink::after{background:var(--alt);box-shadow:var(--glow-alt)}
+  .stat.lime::after{background:var(--ok);box-shadow:var(--glow-ok)}
+  .stat.amber::after{background:var(--warn);box-shadow:var(--glow-warn)}
+  /* the Stubborn tile doubles as a filter, so it is a real button */
+  button.stat{font:inherit;color:inherit;text-align:left;width:100%;cursor:pointer;
+    transition:border-color .18s,background .18s,box-shadow .18s}
+  button.stat:hover{border-color:var(--warn-edge)}
+  button.stat:focus-visible{outline:2px solid var(--warn);outline-offset:2px}
+  button.stat[aria-pressed="true"]{background:var(--warn-soft);border-color:var(--warn-edge)}
+  button.stat[aria-pressed="true"] .n{color:var(--warn-ink)}
+  button.stat[aria-pressed="true"] .l::after{content:" · on";color:var(--warn)}
+  .stat .n{font-family:var(--mono);font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+  .stat .l{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt-faint);font-family:var(--mono);margin-top:2px}
+
+  .toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+  .search{position:relative;flex:1 1 220px;min-width:0}
+  .search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--txt-faint);pointer-events:none}
+  input[type=search]{
+    width:100%;min-height:46px;padding:0 14px 0 40px;border-radius:11px;
+    background:var(--field-bg);border:1px solid var(--line);color:var(--txt);font:inherit;font-size:15px;
+  }
+  input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  select{
+    min-height:46px;padding:0 34px 0 13px;border-radius:11px;font:inherit;font-size:13px;
+    background:var(--btn-bg) no-repeat right 12px center;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234d5f7a' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    border:1px solid var(--line);color:var(--txt);appearance:none;-webkit-appearance:none;
+    max-width:100%;
+  }
+  :root[data-theme="dark"] select{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237e91ad' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  }
+  select:focus{outline:none;border-color:var(--accent)}
+
+  /* ---------- section head ---------- */
+  .sec-head{display:flex;align-items:center;gap:10px;margin:22px 0 12px}
+  .sec-head h2{margin:0;font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-family:var(--mono);color:var(--txt-dim);font-weight:700}
+  .sec-head .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line-strong),transparent)}
+  .count-pill{font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:99px;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent-txt)}
+  .count-pill.lime{background:var(--ok-soft);border-color:var(--ok-line);color:var(--ok-txt)}
+  .toggle-sec{min-height:36px;padding:0 12px;border-radius:99px;border:1px solid var(--line);background:var(--btn-bg);font-size:12px;font-family:var(--mono);color:var(--txt-dim);letter-spacing:.06em}
+  .toggle-sec:hover{border-color:var(--line-strong);color:var(--txt)}
+
+  /* ---------- group divider (when sorted by shelf location / type) ---------- */
+  .grp{
+    grid-column:1/-1;display:flex;align-items:center;gap:9px;margin:6px 0 -2px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-txt);
+  }
+  :root:not([data-theme="dark"]) .grp{color:var(--accent);font-weight:700}
+  .grp:first-child{margin-top:0}
+  .grp .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--accent-line),transparent)}
+  .grp .n{color:var(--txt-faint);letter-spacing:.08em;font-weight:400}
+
+  /* ---------- row cards ---------- */
+  .rows{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+  .row{
+    position:relative;display:flex;gap:12px;align-items:stretch;
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:12px;overflow:hidden;box-shadow:var(--card-shadow);
+    transition:border-color .2s,transform .12s,opacity .3s,box-shadow .2s;
+    backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  }
+  .row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent),var(--accent-line));opacity:.9}
+  .row:hover{border-color:var(--line-strong);box-shadow:var(--card-shadow-hover)}
+  .row.done{opacity:.62}
+  .row.done::before{background:linear-gradient(180deg,var(--ok),var(--ok-line))}
+  .row.busy{pointer-events:none}
+  .row.busy::after{content:"";position:absolute;inset:0;background:var(--panel)}
+
+  /* The cover art IS the clear button: tap the picture to strike the row.
+     A fixed box either way, so the grid never jumps as covers arrive. */
+  .check{
+    position:relative;flex:0 0 52px;width:52px;height:78px;align-self:flex-start;padding:0;
+    border-radius:9px;overflow:hidden;
+    border:1px solid var(--line-strong);background:var(--field-bg);
+    transition:border-color .18s,transform .12s,box-shadow .18s;
+  }
+  .check:active{transform:scale(.95)}
+  .cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+  /* shows through when there is no cover, or the image fails to load */
+  .spine{
+    position:absolute;inset:0;display:grid;place-items:center;padding:4px;pointer-events:none;
+    background:linear-gradient(140deg,var(--accent-soft),var(--alt-soft));
+    font-family:var(--mono);font-size:8.5px;line-height:1.25;letter-spacing:.02em;
+    color:var(--txt-faint);text-align:center;overflow:hidden;word-break:break-word;
+  }
+  .check .tick{
+    position:absolute;left:50%;top:50%;width:30px;height:30px;margin:-15px 0 0 -15px;
+    opacity:0;transform:scale(.5);transition:opacity .18s,transform .18s;
+    color:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));
+  }
+  .row.done .check{border-color:transparent;box-shadow:var(--check-glow)}
+  .row.done .check::after{content:"";position:absolute;inset:0;background:var(--ok);opacity:.62}
+  .row.done .check .tick{opacity:1;transform:scale(1)}
+
+  /* ---------- stubborn flag ---------- */
+  .flag{
+    flex:0 0 38px;width:38px;height:38px;align-self:flex-start;border-radius:11px;
+    display:grid;place-items:center;border:1px solid var(--line);background:var(--btn-bg);
+    color:var(--txt-faint);transition:color .18s,border-color .18s,background .18s,transform .12s;
+  }
+  .flag svg{width:17px;height:17px;display:block}
+  .flag:hover{color:var(--warn);border-color:var(--warn-edge)}
+  .flag:active{transform:scale(.92)}
+  .flag:focus-visible{outline:2px solid var(--warn);outline-offset:2px}
+  .row.stuck .flag{color:var(--warn);border-color:var(--warn-edge);background:var(--warn-soft)}
+  .row.stuck .flag svg{fill:var(--warn)}
+  .row.stuck .check{border-color:var(--warn-edge)}
+  .row.stuck::before{background:linear-gradient(180deg,var(--warn),var(--warn-edge))}
+  .row.stuck.done::before{background:linear-gradient(180deg,var(--ok),var(--warn))}
+  .badge{
+    display:inline-block;margin:0 0 6px 6px;padding:2px 8px;border-radius:7px;vertical-align:top;
+    font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--warn-soft);border:1px solid var(--warn-edge);color:var(--warn-ink);
+  }
+  .stamp.warn{color:var(--warn-ink)}
+
+  .body{flex:1 1 auto;min-width:0;text-align:left}
+  .call{
+    display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;
+    padding:2px 8px;border-radius:7px;margin-bottom:6px;
+    background:var(--alt-soft);border:1px solid var(--alt-line);color:var(--alt-txt);
+    max-width:100%;overflow-wrap:anywhere;
+  }
+  .call.nocall{background:var(--code-bg);border-color:var(--line);color:var(--txt-faint)}
+  .title{margin:0;font-size:15.5px;font-weight:650;line-height:1.28;overflow-wrap:anywhere}
+  .author{margin:2px 0 0;font-size:13px;color:var(--txt-dim);overflow-wrap:anywhere}
+  .row.done .title,.row.done .author,.row.done .call{text-decoration:line-through;text-decoration-color:var(--ok);text-decoration-thickness:2px}
+  .meta{display:flex;flex-wrap:wrap;gap:5px 6px;margin-top:9px}
+  .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;padding:2px 7px;border-radius:6px;background:var(--code-bg);border:1px solid var(--line);color:var(--txt-dim);overflow-wrap:anywhere}
+  .tag b{color:var(--txt-faint);font-weight:600;margin-right:4px;text-transform:uppercase;font-size:9.5px}
+  .tag.cyan{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent-txt)}
+  .stamp{margin-top:9px;font-family:var(--mono);font-size:10.5px;color:var(--ok-txt);letter-spacing:.06em;
+    display:flex;align-items:flex-start;gap:6px}
+  .stamp svg{width:12px;height:12px;flex:0 0 12px;margin-top:2px}
+  .stamp span{min-width:0;overflow-wrap:anywhere}
+
+  /* ---------- empty / loading ---------- */
+  .empty-box{text-align:center;padding:44px 18px;color:var(--txt-faint);border:1px dashed var(--line);border-radius:var(--radius);font-size:14px}
+  .empty-box svg{width:34px;height:34px;margin-bottom:10px;opacity:.55}
+  .skel{height:86px;border-radius:var(--radius);background:linear-gradient(90deg,var(--skel-a),var(--skel-b),var(--skel-a));background-size:220% 100%;animation:sh 1.3s linear infinite;border:1px solid var(--line)}
+  @keyframes sh{to{background-position:-220% 0}}
+  .spin{animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));
+    transform:translate(-50%,150%);z-index:90;visibility:hidden;
+    display:flex;align-items:center;gap:12px;
+    padding:11px 12px 11px 15px;border-radius:13px;max-width:min(92vw,440px);
+    background:var(--toast-bg);border:1px solid var(--line-strong);
+    box-shadow:var(--toast-shadow);font-size:13.5px;
+    transition:transform .3s cubic-bezier(.2,.9,.3,1.2),visibility .3s;
+  }
+  .toast.show{transform:translate(-50%,0);visibility:visible}
+  .toast .msg{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .toast button{
+    min-height:36px;padding:0 12px;border-radius:9px;flex:0 0 auto;
+    background:var(--accent-soft);border:1px solid var(--accent-line);
+    color:var(--accent-txt);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono);
+  }
+  .live{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-faint)}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:var(--glow-ok);animation:pulse 2.4s ease-in-out infinite}
+  .dot.off{background:var(--alt);box-shadow:var(--glow-alt);animation:none}
+  @keyframes pulse{50%{opacity:.35}}
+
+  @media (max-width:600px){
+    .stats{grid-template-columns:repeat(3,1fr);gap:8px}
+    .stat{padding:9px 10px}
+    .stat .n{font-size:18px}
+    .rows{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .head-right .label{display:none}
+    h1{letter-spacing:.1em}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001s!important;transition-duration:.001s!important}
+  }
+</style>
+</head>
+<body>
+<div class="bg-fx"></div>
+<div class="bg-grid"></div>
+
+<header class="top">
+  <div class="inner">
+    <div class="brand">
+      <div class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.7" stroke-linecap="round">
+          <path d="M4 4v16M8 4v16M12 4v16M16.5 4v16M20 4v16"/>
+        </svg>
+      </div>
+      <div style="min-width:0">
+        <h1>Hold Shelf Pull List</h1>
+        <p class="sub" id="sheetTitle">loading…</p>
+      </div>
+      <div class="head-right">
+        <span class="live" id="liveFlag"><span class="dot" id="liveDot"></span><span class="label">live</span></span>
+        <button class="who-btn" id="whoBtn" type="button" title="Your name is stamped on rows you clear">add your name</button>
+        <button class="btn icon" id="themeBtn" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+          <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.5 14.6A8.6 8.6 0 019.4 3.5 8.6 8.6 0 1020.5 14.6z"/>
+          </svg>
+          <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.2"/>
+            <path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/>
+          </svg>
+        </button>
+        <button class="btn icon" id="refreshBtn" type="button" aria-label="Refresh" title="Refresh">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 11a8 8 0 10-2.6 5.9"/><path d="M20 4.5V11h-6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="appNotice"></div>
+
+  <div class="stats">
+    <div class="stat"><div class="n" id="nActive">–</div><div class="l">To pull</div></div>
+    <div class="stat lime"><div class="n" id="nDone">–</div><div class="l">Cleared</div></div>
+    <button class="stat amber" id="stubTile" type="button" aria-pressed="false"
+            title="Show only the stubborn ones">
+      <div class="n" id="nStuck">–</div><div class="l">Stubborn</div>
+    </button>
+    <div class="stat pink"><div class="n" id="nTotal">–</div><div class="l">Total</div></div>
+  </div>
+
+  <div class="toolbar">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input type="search" id="q" placeholder="Search title, author, call no, item ID…" autocomplete="off" />
+    </div>
+    <select id="sort" aria-label="Sort by">
+      <option value="location">Shelf location</option>
+      <option value="call">Call number</option>
+      <option value="title">Title A–Z</option>
+      <option value="author">Author A–Z</option>
+      <option value="pickup">Pickup library</option>
+      <option value="type">Item type</option>
+      <option value="date">Oldest discharged</option>
+      <option value="sheet">Sheet order</option>
+    </select>
+    <select id="pickup" aria-label="Filter by pickup library">
+      <option value="">All pickup libraries</option>
+    </select>
+    <select id="loc" aria-label="Filter by shelf location">
+      <option value="">All shelf locations</option>
+    </select>
+    <select id="type" aria-label="Filter by item type">
+      <option value="">All item types</option>
+    </select>
+  </div>
+
+  <div class="sec-head">
+    <h2>To pull</h2><span class="count-pill" id="pillActive">0</span>
+    <span class="rule"></span>
+  </div>
+  <div class="rows" id="activeRows"></div>
+  <div id="activeEmpty"></div>
+
+  <div id="doneWrap" hidden>
+    <div class="sec-head">
+      <h2>Cleared</h2><span class="count-pill lime" id="pillDone">0</span>
+      <span class="rule"></span>
+      <button class="toggle-sec" id="toggleDone" aria-expanded="false">Show</button>
+    </div>
+    <div class="rows" id="doneRows" hidden></div>
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span class="msg" id="toastMsg"></span>
+  <button id="toastAction" hidden>Undo</button>
+</div>
+
+<script>
+/* ============================================================
+   The pull list. Data and shared strikethroughs live in the
+   Google Sheet, reached through the Apps Script URL at the top
+   of this file. No sign-in, no passwords, nothing to configure.
+
+   Sheet columns it expects (any order, any capitalization):
+     Title | Item ID | Call Number | Location | Author | Item Type
+   plus the three the Apps Script maintains:
+     cleared | cleared_by | cleared_at
+   Extra columns are shown as tags automatically.
+   ============================================================ */
+const POLL_MS = 30000;   // how often the list re-checks the sheet
+
+const S = {
+  who: "",
+  headers: [],   // raw header text, in sheet order
+  keys: [],      // normalized header key per column index
+  col: {},       // normalized name -> column index
+  cols: {},      // whatever the script sent (cleared/cleared_by/cleared_at)
+  records: [], tab: "",
+  loaded: false, loading: false, showDone: false, online: true, preview: false,
+  stuckOnly: false,
+  theme: "light",
+};
+let pollTimer = null, toastTimer = null;
+const $ = (id) => document.getElementById(id);
+const CONFIGURED = /^https:\/\/script\.google(usercontent)?\.com\/.+\/exec/.test(String(SCRIPT_URL || ""));
+
+/* Header text -> a stable key. "Item ID" and "item_id" both become item_id. */
+function normKey(h) {
+  return String(h == null ? "" : h).trim().toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+}
+
+/* Different exports name the same thing differently. First match wins. */
+const FIELD_ALIASES = {
+  title:       ["title", "item_title", "bib_title"],
+  author:      ["author", "creator"],
+  call_number: ["call_number", "callnumber", "call_no", "call", "callno"],
+  item_id:     ["item_id", "itemid", "barcode", "item_barcode", "id"],
+  location:    ["location", "shelf_location", "current_location", "home_location", "loc"],
+  item_type:   ["item_type", "itemtype", "type", "material_type"],
+  pickup:      ["pickup_library", "pickup", "pickuplibrary", "pickup_lib",
+                "pickup_location", "hold_pickup_library", "pickup_branch"],
+  discharged:  ["date_discharged", "discharge_date", "date_of_discharge",
+                "discharged", "datedischarged"],
+  isbn:        ["isbn", "isbn13", "isbn_13", "isbn_10", "standard_number"],
+  cover_url:   ["cover_url", "cover", "cover_image", "thumbnail", "cover_link"],
+  stubborn:    ["stubborn", "stuck", "not_found", "missing"],
+  stubborn_by: ["stubborn_by", "stuck_by", "not_found_by"],
+  stubborn_at: ["stubborn_at", "stuck_at", "not_found_at"],
+  cleared:     ["cleared", "pulled", "done"],
+  cleared_by:  ["cleared_by", "pulled_by"],
+  cleared_at:  ["cleared_at", "pulled_at", "cleared_time"],
+};
+
+/* ============================================================
+   PREVIEW DATA — only used until SCRIPT_URL is filled in
+   ============================================================ */
+const PREVIEW = {
+  ok: true,
+  tab: "preview (sample rows)",
+  headers: ["Title", "Item ID", "Call Number", "Location", "Author", "Item Type", "Pickup Library", "Date Discharged", "cleared", "cleared_by", "cleared_at"],
+  rows: [{"n": 2, "c": ["Uniquely human : a different way of seeing autism / Barry Prizant, Ph.", "ILPL003058250M", "618.9285 PRI", "ADULT-NF", "Prizant, Barry M", "BOOK", "", "", "", "", ""]}, {"n": 3, "c": ["Butterfly 3 / Ashley Antoinette", "ILPL003068816V", "F ASH", "ADULT-FIC", "Ashley Antoinette, 1985-", "BOOK", "LEWISVILLE", "06/11/2025", "", "", ""]}, {"n": 4, "c": ["The collected regrets of Clover / Mikki Brammer", "ILPL003063382O", "F BRA", "ADULT-FIC", "Brammer, Mikki", "BOOK", "LEWISVILLE", "06/16/2026", "", "", ""]}, {"n": 5, "c": ["Steering by starlight : find your right life no matter what / Martha B", "ILPL002057220H", "158.1 BEC", "ADULT-NF", "Beck, Martha Nibley, 1962-", "BOOK", "LEWISVILLE", "11/19/2024", "", "", ""]}, {"n": 6, "c": ["Let love have the last word : a memoir / Common with Mensah Demary", "ILPL003043526M", "177.7 COM", "ADULT-NF", "Common (Musician)", "BOOK", "LEWISVILLE", "04/16/2024", "", "", ""]}, {"n": 7, "c": ["Autism / by John Marble, Khushboo Chabria, Ranga Jayaraman ; foreword", "ILPL003074190N", "616.8588 MAR", "ADULT-NF", "Marble, John (Neurodiversity strategist)", "BOOK", "LEWISVILLE", "04/29/2026", "", "", ""]}, {"n": 8, "c": ["A fellowship of librarians & dragons / J. Penner", "ILPL003078062P", "F SF PEN", "ADULT-SF", "Penner, J. (Jenetta)", "BOOK", "LEWISVILLE", "05/22/2026", "", "", ""]}, {"n": 9, "c": ["Counting [storytime kit]", "ILPL001161819Q", "STORY KIT COUNTING", "DISCARD", "Baker, Keith, 1953- Big fat hen", "STKIT", "LEWISVILLE", "08/21/2026", "", "", ""]}, {"n": 10, "c": ["My hero academia. Vol. 6, Struggling / Kohei Horikoshi ; translation &", "ILPL008074546X", "GN TF HOR", "TEENGRAPHI", "Horikoshi, Kohei, 1986-", "BOOK", "LEWISVILLE", "08/20/2026", "", "", ""]}, {"n": 11, "c": ["Cracking the AP Spanish language & culture exam with audio CD / by the", "ILPL008069294.", "", "TEENNONFIC", "", "BOOK", "LEWISVILLE", "08/08/2026", "", "", ""]}, {"n": 12, "c": ["The intruder / Freida McFadden", "ILPL003075857Y", "F MYS MCF", "ADULT-MYST", "McFadden, Freida", "BOOK", "LEWPWINDOW", "09/02/2026", "", "", ""]}, {"n": 13, "c": ["Wait and see / Iris Johansen and Roy Johansen", "ILPL006024124I", "F MYS JOH", "ADULT-NEW", "Johansen, Iris", "BOOK", "LEWPWINDOW", "09/01/2026", "", "", ""]}, {"n": 14, "c": ["The crossover / by Kwame Alexander", "ILPL008051527R", "JF ALE", "NEWBERY", "Alexander, Kwame", "BOOK", "LEWPWINDOW", "08/22/2026", "", "", ""]}, {"n": 15, "c": ["Demon slayer = Kimetsu no yaiba. 19, Flapping butterfly wings / Koyoha", "ILPL008131846U", "GN TF GOT", "TEENGRAPHI", "Gotoge, Koyoharu, 1988-", "BOOK", "LEWPWINDOW", "02/14/2026", "", "", ""]}]
+};
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+window.addEventListener("DOMContentLoaded", () => {
+  wireUI();
+  paintTheme(store("pl_theme") === "dark" ? "dark" : "light");
+  S.who = store("pl_who") || "";
+  paintWho();
+
+  if (!CONFIGURED) {
+    S.preview = true;
+    setOnline(false);
+    notice("appNotice",
+      '<b>Preview mode.</b> These are sample rows — check marks are not saved. ' +
+      'To go live, open this file in Notepad and paste your Apps Script web app link ' +
+      '(it ends in <code>/exec</code>) into the <code>SCRIPT_URL</code> line near the top.',
+      false, true);
+    absorb(PREVIEW);
+    S.records = PREVIEW.rows.map((r, i) => makeRecord(r, i));
+    S.loaded = true;
+    $("sheetTitle").textContent = PREVIEW.tab;
+    render();
+    return;
+  }
+  load(true);
+  pollTimer = setInterval(() => {
+    if (document.visibilityState === "visible") load(false);
+  }, POLL_MS);
+});
+
+function store(k, v) {
+  try {
+    if (v === undefined) return localStorage.getItem(k);
+    localStorage.setItem(k, v);
+  } catch (e) {}
+  return null;
+}
+
+/* ============================================================
+   THEME — light by default, remembered per browser
+   ============================================================ */
+const THEME_COLOR = { light: "#f4f7fb", dark: "#05070d" };
+
+function paintTheme(mode) {
+  const dark = mode === "dark";
+  S.theme = dark ? "dark" : "light";
+  const root = document.documentElement;
+  if (dark) root.setAttribute("data-theme", "dark");
+  else root.removeAttribute("data-theme");
+
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", THEME_COLOR[S.theme]);
+
+  const label = dark ? "Switch to light mode" : "Switch to dark mode";
+  $("themeBtn").setAttribute("aria-label", label);
+  $("themeBtn").setAttribute("title", label);
+}
+
+function toggleTheme() {
+  paintTheme(S.theme === "dark" ? "light" : "dark");
+  store("pl_theme", S.theme);
+}
+
+function wireUI() {
+  $("themeBtn").onclick = toggleTheme;
+  $("refreshBtn").onclick = () => { if (S.preview) { render(); toast("Preview mode — nothing to refresh."); } else load(true); };
+  $("whoBtn").onclick = askWho;
+  $("q").addEventListener("input", render);
+  $("sort").addEventListener("change", render);
+  $("stubTile").onclick = () => {
+    S.stuckOnly = !S.stuckOnly;
+    $("stubTile").setAttribute("aria-pressed", String(S.stuckOnly));
+    render();
+  };
+  $("pickup").addEventListener("change", render);
+  $("loc").addEventListener("change", render);
+  $("type").addEventListener("change", render);
+  $("toggleDone").onclick = () => {
+    S.showDone = !S.showDone;
+    $("doneRows").hidden = !S.showDone;
+    $("toggleDone").textContent = S.showDone ? "Hide" : "Show";
+    $("toggleDone").setAttribute("aria-expanded", String(S.showDone));
+  };
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible" && CONFIGURED) load(false);
+  });
+}
+
+function paintWho() { $("whoBtn").textContent = S.who || "add your name"; }
+
+function askWho() {
+  const v = window.prompt("Your name or initials (stamped on rows you clear):", S.who || "");
+  if (v === null) return;
+  S.who = v.trim().slice(0, 40);
+  store("pl_who", S.who);
+  paintWho();
+  render();
+}
+
+/* ============================================================
+   DATA — plain GET calls to the Apps Script, no auth
+   ============================================================ */
+function endpoint(params) {
+  const u = new URL(SCRIPT_URL);
+  Object.keys(params).forEach((k) => u.searchParams.set(k, params[k]));
+  u.searchParams.set("t", String(Date.now()));  // dodge caches
+  return u.toString();
+}
+
+async function callApi(params) {
+  const res = await fetch(endpoint(params), { method: "GET", redirect: "follow" });
+  if (!res.ok) throw new Error("http_" + res.status);
+  const text = await res.text();
+  let json;
+  try { json = JSON.parse(text); } catch (e) { throw new Error("not_json"); }
+  if (json.ok === false) throw new Error(json.error || "server");
+  return json;
+}
+
+function setOnline(ok) {
+  S.online = ok;
+  $("liveDot").classList.toggle("off", !ok);
+  $("liveFlag").querySelector(".label").textContent = S.preview ? "preview" : (ok ? "live" : "offline");
+}
+
+function explain(err) {
+  const m = String((err && err.message) || err);
+  if (m === "not_json") {
+    return "That link answered, but not with list data. In Apps Script check the deployment is a <b>Web app</b> with <b>Who has access: Anyone</b>.";
+  }
+  if (m.indexOf("http_") === 0) {
+    return "The sheet link returned an error (" + m.replace("http_", "") + "). Re-check the Apps Script deployment.";
+  }
+  if (m === "no_headers") {
+    return "The first row of the sheet is empty. Row 1 needs the column names: <code>Title</code>, <code>Item ID</code>, <code>Call Number</code>, <code>Location</code>, <code>Author</code>, <code>Item Type</code>.";
+  }
+  return "Can't reach the pull list right now — it'll keep retrying.";
+}
+
+/* ============================================================
+   LOAD
+   ============================================================ */
+async function load(showSkeleton) {
+  if (S.loading || !CONFIGURED) return;
+  S.loading = true;
+  $("refreshBtn").querySelector("svg").classList.add("spin");
+  if (showSkeleton && !S.loaded) {
+    $("activeRows").innerHTML = '<div class="skel"></div><div class="skel"></div><div class="skel"></div>';
+  }
+  try {
+    const data = await callApi({ action: "list" });
+    absorb(data);
+    S.records = (data.rows || []).map((r, i) => makeRecord(r, i));
+    S.loaded = true;
+    S.tab = data.tab || "";
+    $("sheetTitle").textContent = S.tab || "pull list";
+    $("appNotice").innerHTML = "";
+    setOnline(true);
+    render();
+  } catch (err) {
+    setOnline(false);
+    notice("appNotice", explain(err), true, true);
+    if (!S.loaded) { $("activeRows").innerHTML = ""; render(); }
+  } finally {
+    S.loading = false;
+    $("refreshBtn").querySelector("svg").classList.remove("spin");
+  }
+}
+
+function absorb(data) {
+  S.headers = (data.headers || []).map((h) => String(h == null ? "" : h).trim());
+  S.keys = S.headers.map(normKey);
+  S.cols = data.cols || {};
+
+  // normalized header -> index (first occurrence wins)
+  const byKey = {};
+  S.keys.forEach((k, i) => { if (k && byKey[k] == null) byKey[k] = i; });
+
+  // then resolve the fields we care about through their aliases
+  S.col = Object.assign({}, byKey);
+  Object.keys(FIELD_ALIASES).forEach((field) => {
+    const hit = FIELD_ALIASES[field].find((a) => byKey[a] != null);
+    if (hit != null) S.col[field] = byKey[hit];
+  });
+}
+
+function truthy(v) {
+  const s = String(v == null ? "" : v).trim().toLowerCase();
+  return s === "yes" || s === "y" || s === "true" || s === "x" || s === "1" || s === "done" || s === "pulled";
+}
+
+/* The two marks a staffer can put on a row. Each owns three sheet columns and
+   three fields on the record; the Apps Script writes them the same way. */
+const FLAGS = {
+  cleared: {
+    cols: ["cleared", "cleared_by", "cleared_at"],
+    keys: ["done", "by", "at"],
+    action: "set",
+    on: "Cleared", off: "Restored",
+  },
+  stubborn: {
+    cols: ["stubborn", "stubborn_by", "stubborn_at"],
+    keys: ["stuck", "stuckBy", "stuckAt"],
+    action: "flag",
+    on: "Flagged stubborn", off: "Stubborn flag removed",
+  },
+};
+
+function makeRecord(r, order) {
+  const cells = r.c || [];
+  const rec = { rowNum: r.n, cells: cells, order: order };
+  Object.keys(FLAGS).forEach((kind) => {
+    const F = FLAGS[kind];
+    const ci = S.col[F.cols[0]];
+    rec[F.keys[0]] = ci == null ? false : truthy(cells[ci]);
+    rec[F.keys[1]] = S.col[F.cols[1]] == null ? "" : String(cells[S.col[F.cols[1]]] || "");
+    rec[F.keys[2]] = S.col[F.cols[2]] == null ? "" : String(cells[S.col[F.cols[2]]] || "");
+  });
+  return rec;
+}
+
+/* ============================================================
+   MARKING A ROW — the strikethrough and the stubborn flag
+   ============================================================ */
+async function toggle(rec, el) { return setFlag(rec, "cleared", el); }
+async function flag(rec, el)   { return setFlag(rec, "stubborn", el); }
+
+async function setFlag(rec, kind, el) {
+  const F = FLAGS[kind];
+  const [kOn, kBy, kAt] = F.keys;
+
+  if (!S.preview && S.col[F.cols[0]] == null) {
+    toast("This sheet has no \u201c" + F.cols[0] + "\u201d column yet \u2014 hit refresh once.");
+    return;
+  }
+
+  const next = !rec[kOn];
+  const prev = { on: rec[kOn], by: rec[kBy], at: rec[kAt] };
+  const label = (next ? F.on : F.off) + " \u00b7 " + shortTitle(rec);
+  const again = () => setFlag(rec, kind, findEl(rec) || el);
+
+  if (navigator.vibrate) { try { navigator.vibrate(next ? 18 : 8); } catch (e) {} }
+
+  if (S.preview) {
+    rec[kOn] = next;
+    rec[kBy] = next ? (S.who || "preview") : "";
+    rec[kAt] = next ? stampNow() : "";
+    render();
+    toast(label + " (preview)", again);
+    return;
+  }
+
+  rec[kOn] = next;
+  rec[kBy] = next ? S.who : "";
+  rec[kAt] = next ? "saving\u2026" : "";
+  el.classList.add("busy");
+  if (kind === "cleared") el.classList.toggle("done", next);
+  else el.classList.toggle("stuck", next);
+
+  const idCol = S.col.item_id;
+  const params = { action: F.action, kind: kind, row: rec.rowNum, value: next ? 1 : 0, who: S.who };
+  if (idCol != null) params.id = String(rec.cells[idCol] || "");
+
+  try {
+    const res = await callApi(params);
+    setOnline(true);
+    if (res.row) {
+      if (res.headers) absorb(res);
+      const fresh = makeRecord(res.row, rec.order);
+      rec.cells = fresh.cells;
+      Object.keys(FLAGS).forEach((k) => FLAGS[k].keys.forEach((key) => { rec[key] = fresh[key]; }));
+    }
+    render();
+    toast(label, again);
+  } catch (err) {
+    rec[kOn] = prev.on; rec[kBy] = prev.by; rec[kAt] = prev.at;
+    render();
+    const m = String(err.message || "");
+    if (m === "row_moved" || m === "row_gone") {
+      toast("That row moved in the sheet \u2014 refreshing.");
+      load(false);
+    } else {
+      setOnline(false);
+      toast("Not saved \u2014 no connection to the sheet.");
+    }
+  }
+}
+
+function stampNow() {
+  const d = new Date();
+  let h = d.getHours(); const ap = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+  return (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " +
+    h + ":" + String(d.getMinutes()).padStart(2, "0") + " " + ap;
+}
+
+function findEl(rec) { return document.querySelector('[data-row="' + rec.rowNum + '"]'); }
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function get(rec, name) {
+  const i = S.col[name];
+  return i == null ? "" : String(rec.cells[i] == null ? "" : rec.cells[i]).trim();
+}
+function shortTitle(rec) {
+  const t = get(rec, "title") || get(rec, "call_number") || ("Row " + rec.rowNum);
+  return t.length > 42 ? t.slice(0, 41) + "…" : t;
+}
+
+/* shown big, so not repeated as a tag */
+const HIDE = new Set(["cleared", "cleared_by", "cleared_at",
+                      "stubborn", "stubborn_by", "stubborn_at",
+                      "cover_url", "title", "author", "call_number"]);
+const TAG_LABELS = {
+  item_id: "item", item_type: "type", location: "shelf",
+  pickup_library: "pickup", pickup: "pickup",
+  date_discharged: "discharged", date_of_discharge: "discharged", discharge_date: "discharged",
+  snapshot_date: "snapshot", copy: "copy",
+};
+
+/* Plain-English names for the pickup codes in the sheet. Anything not listed
+   here shows exactly as the sheet spells it, so new codes still work — add a
+   line when you want a friendlier label. */
+const PICKUP_NAMES = {
+  LEWISVILLE: "Lewisville",
+  LEWPWINDOW: "Lewisville Window",
+  LEWLOCKER: "Holds Locker",
+};
+function pickupName(v) { return PICKUP_NAMES[String(v).trim().toUpperCase()] || v; }
+
+/* rows where the column is empty are reachable through this option */
+const BLANK = "__blank__";
+
+/* keep a <select>'s options in step with the data without losing the choice */
+function syncFilter(sel, field, allLabel, prettify) {
+  if (S.col[field] == null) { sel.hidden = true; sel.value = ""; return ""; }
+  const seen = S.records.map((r) => get(r, field));
+  const vals = Array.from(new Set(seen.filter(Boolean))).sort();
+  const anyBlank = seen.some((v) => !v);
+  const sig = vals.join("|") + (anyBlank ? "|+blank" : "");
+  if (sel.dataset.sig !== sig) {
+    const cur = sel.value;
+    sel.dataset.sig = sig;
+    sel.innerHTML = '<option value="">' + esc(allLabel) + "</option>" +
+      vals.map((v) => '<option value="' + esc(v) + '">' +
+        esc(prettify ? prettify(v) : v) + "</option>").join("") +
+      (anyBlank ? '<option value="' + BLANK + '">(not set)</option>' : "");
+    sel.value = (cur === BLANK && anyBlank) || vals.indexOf(cur) >= 0 ? cur : "";
+  }
+  sel.hidden = vals.length + (anyBlank ? 1 : 0) < 2;
+  return sel.hidden ? "" : sel.value;
+}
+
+/* one filter's verdict on one row */
+function keeps(rec, field, pick) {
+  if (!pick) return true;
+  const v = get(rec, field);
+  return pick === BLANK ? !v : v === pick;
+}
+
+function render() {
+  if (!S.records.length) {
+    $("activeRows").innerHTML = "";
+    $("doneRows").innerHTML = "";
+    $("activeEmpty").innerHTML = emptyBox(
+      !S.loaded ? (S.online ? "Loading the pull list…" : "No list loaded yet.")
+      : "This sheet has no rows yet. Once holds land in it, they'll show up here."
+    );
+    ["nActive", "nDone", "nStuck", "nTotal", "pillActive"].forEach((id) => { $(id).textContent = "0"; });
+    $("doneWrap").hidden = true;
+    ["pickup", "loc", "type"].forEach((id) => { $(id).hidden = true; });
+    return;
+  }
+
+  const pickPick = syncFilter($("pickup"), "pickup",    "All pickup libraries", pickupName);
+  const pickLoc  = syncFilter($("loc"),    "location",  "All shelf locations");
+  const pickType = syncFilter($("type"),   "item_type", "All item types");
+  const q = $("q").value.trim().toLowerCase();
+
+  if (!canFlag() && S.stuckOnly) {
+    S.stuckOnly = false;
+    $("stubTile").setAttribute("aria-pressed", "false");
+  }
+  let list = S.records.filter((r) => {
+    if (S.stuckOnly && !r.stuck) return false;
+    if (!keeps(r, "pickup", pickPick)) return false;
+    if (!keeps(r, "location", pickLoc)) return false;
+    if (!keeps(r, "item_type", pickType)) return false;
+    if (!q) return true;
+    return r.cells.some((c) => String(c == null ? "" : c).toLowerCase().indexOf(q) >= 0);
+  });
+
+  const mode = $("sort").value;
+  const key = {
+    location: (r) => (get(r, "location") || "zzz").toLowerCase() + "|" + natKey(get(r, "call_number")),
+    call:     (r) => natKey(get(r, "call_number") || "zzz"),
+    title:    (r) => (get(r, "title") || "zzz").toLowerCase(),
+    author:   (r) => (get(r, "author") || "zzz").toLowerCase(),
+    pickup:   (r) => (get(r, "pickup") || "zzz").toLowerCase() + "|" +
+                     (get(r, "location") || "").toLowerCase() + "|" + natKey(get(r, "call_number")),
+    type:     (r) => (get(r, "item_type") || "zzz").toLowerCase() + "|" + natKey(get(r, "call_number")),
+    date:     (r) => dateKey(get(r, "discharged")),
+    sheet:    (r) => r.order,
+  }[mode] || ((r) => r.order);
+  list = list.slice().sort((a, b) => {
+    const ka = key(a), kb = key(b);
+    return ka < kb ? -1 : ka > kb ? 1 : a.order - b.order;
+  });
+
+  const active = list.filter((r) => !r.done);
+  const done = list.filter((r) => r.done);
+  const totalDone = S.records.filter((r) => r.done).length;
+
+  $("nActive").textContent = String(S.records.length - totalDone);
+  $("nDone").textContent = String(totalDone);
+  $("nStuck").textContent = String(S.records.filter((r) => r.stuck).length);
+  $("stubTile").hidden = !canFlag();     // an un-updated Apps Script has nowhere to store it
+  $("nTotal").textContent = String(S.records.length);
+  $("pillActive").textContent = String(active.length);
+  $("pillDone").textContent = String(done.length);
+
+  // group headings only make sense when the sort groups things
+  const groupBy = { location: "location", type: "item_type", pickup: "pickup" }[mode] || "";
+  $("activeRows").innerHTML = paint(active, groupBy);
+  $("activeEmpty").innerHTML = active.length ? "" :
+    emptyBox(S.stuckOnly && !done.length ? "Nothing is flagged stubborn right now."
+      : q || pickPick || pickLoc || pickType || S.stuckOnly ? "No matching rows to pull."
+      : (S.records.length ? "Everything on this list is cleared. Nice work." : "Nothing on the pull list."));
+
+  $("doneWrap").hidden = done.length === 0;
+  $("doneRows").innerHTML = paint(done, groupBy);
+  $("doneRows").hidden = !S.showDone;
+
+  bind();
+}
+
+function paint(list, groupBy) {
+  if (!groupBy || S.col[groupBy] == null) return list.map(card).join("");
+  let out = "", last = null, buf = [];
+  const flush = () => {
+    if (!buf.length) return;
+    out += '<div class="grp"><span>' + esc(last || "—") + '</span><span class="n">' + buf.length +
+           '</span><span class="rule"></span></div>' + buf.join("");
+    buf = [];
+  };
+  const pretty = groupBy === "pickup" ? pickupName : (v) => v;
+  list.forEach((r) => {
+    const g = pretty(get(r, groupBy)) || "not set";
+    if (g !== last) { flush(); last = g; }
+    buf.push(card(r));
+  });
+  flush();
+  return out;
+}
+
+/* The Apps Script caches a Google Books thumbnail per row in cover_url and
+   writes the word "none" when there is nothing to show. Only https images can
+   load here, so anything else falls back to the call-number spine. */
+function coverSrc(rec) {
+  const v = get(rec, "cover_url");
+  if (!v || v.toLowerCase() === "none") return "";
+  const url = v.replace(/^http:/i, "https:");
+  return /^https:\/\//i.test(url) ? url : "";
+}
+
+/* true once the sheet (or preview) actually has somewhere to store the flag */
+function canFlag() { return S.preview || S.col.stubborn != null; }
+
+function card(rec) {
+  const call = get(rec, "call_number");
+  const art = coverSrc(rec);
+  const title = get(rec, "title") || "(untitled)";
+  const author = get(rec, "author");
+  const tags = S.keys.map((name, i) => {
+    if (!name || HIDE.has(name)) return "";
+    let v = String(rec.cells[i] == null ? "" : rec.cells[i]).trim();
+    if (!v) return "";
+    const isPickup = i === S.col.pickup;
+    if (isPickup) v = pickupName(v);
+    const label = TAG_LABELS[name] || name.replace(/_/g, " ");
+    const cls = (isPickup || i === S.col.location) ? " cyan" : "";
+    return '<span class="tag' + cls + '"><b>' + esc(label) + "</b>" + esc(v) + "</span>";
+  }).join("");
+
+  const stamp = rec.done && (rec.by || rec.at)
+    ? '<div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg>' +
+      "<span>" + esc([rec.by, rec.at].filter(Boolean).join(" · ")) + "</span></div>"
+    : "";
+
+  const stuckStamp = rec.stuck && (rec.stuckBy || rec.stuckAt)
+    ? '<div class="stamp warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h12l-2.2 4.5L17 13H5"/></svg>' +
+      "<span>" + esc(["flagged", rec.stuckBy, rec.stuckAt].filter(Boolean).join(" · ")) + "</span></div>"
+    : "";
+
+  return '<article class="row' + (rec.done ? " done" : "") + (rec.stuck ? " stuck" : "") +
+      '" data-row="' + rec.rowNum + '">' +
+    '<button class="check" type="button" role="checkbox" aria-checked="' + (rec.done ? "true" : "false") +
+      '" aria-label="' + (rec.done ? "Restore" : "Clear") + " " + esc(title) + '">' +
+      '<span class="spine">' + esc(call || "no call no.") + "</span>" +
+      (art ? '<img class="cover" src="' + esc(art) + '" alt="" loading="lazy" decoding="async" ' +
+             'onerror="this.remove()">' : "") +
+      '<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>' +
+    "</button>" +
+    '<div class="body">' +
+      '<span class="call' + (call ? "" : " nocall") + '">' + esc(call || "no call no.") + "</span>" +
+      (rec.stuck ? '<span class="badge">stubborn</span>' : "") +
+      '<h3 class="title">' + esc(title) + "</h3>" +
+      (author ? '<p class="author">' + esc(author) + "</p>" : "") +
+      (tags ? '<div class="meta">' + tags + "</div>" : "") +
+      stamp + stuckStamp +
+    "</div>" +
+    (!canFlag() ? "" :
+    '<button class="flag" type="button" role="checkbox" aria-checked="' + (rec.stuck ? "true" : "false") +
+      '" aria-label="' + (rec.stuck ? "Clear the stubborn flag on " : "Flag as stubborn: ") + esc(title) +
+      '" title="' + (rec.stuck ? "Remove the stubborn flag" : "Couldn’t find it — flag as stubborn") + '">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h12l-2.2 4.5L17 13H5"/></svg>' +
+    "</button>") +
+    "</article>";
+}
+
+function bind() {
+  document.querySelectorAll(".row").forEach((el) => {
+    const n = parseInt(el.dataset.row, 10);
+    const rec = S.records.find((r) => r.rowNum === n);
+    if (!rec) return;
+    el.addEventListener("click", (e) => { e.preventDefault(); toggle(rec, el); });
+    const fb = el.querySelector(".flag");
+    if (fb) fb.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();      // flagging must not also strike the row through
+      flag(rec, el);
+    });
+  });
+}
+
+function emptyBox(msg) {
+  return '<div class="empty-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">' +
+    '<path d="M4 5h16v14H4zM4 10h16M9 5v14"/></svg><div>' + esc(msg) + "</div></div>";
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function natKey(s) { return String(s).toLowerCase().replace(/\d+/g, (d) => d.padStart(10, "0")); }
+/* blank / unparseable dates sort last */
+function dateKey(s) { const t = Date.parse(s); return isNaN(t) ? 8.64e15 : t; }
+
+/* trusted is true only for our own hard-coded messages, which may contain markup */
+function notice(id, msg, isErr, trusted) {
+  $(id).innerHTML = '<div class="notice' + (isErr ? " err" : "") + '">' +
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>' +
+    "<div>" + (trusted ? msg : esc(msg)) + "</div></div>";
+}
+function toast(msg, undo) {
+  const t = $("toast"), a = $("toastAction");
+  $("toastMsg").textContent = msg;
+  a.hidden = !undo;
+  a.onclick = undo ? () => { hideToast(); undo(); } : null;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(hideToast, undo ? 6000 : 3600);
+}
+function hideToast() { $("toast").classList.remove("show"); }
+</script>
+</body>
+</html>
 
