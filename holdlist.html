@@ -245,14 +245,6 @@ try {
   #iconSun{display:none}
   :root[data-theme="dark"] #iconMoon{display:none}
   :root[data-theme="dark"] #iconSun{display:block}
-  .who-btn{
-    min-height:36px;padding:0 11px;border-radius:99px;border:1px solid var(--line);
-    background:var(--btn-bg);
-    font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--txt-dim);
-    max-width:34vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-    transition:border-color .18s,color .18s;
-  }
-  .who-btn:hover{border-color:var(--line-strong);color:var(--txt)}
 
   /* ---------- notices ---------- */
   .notice{
@@ -286,12 +278,6 @@ try {
   .stat .l{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt-faint);font-family:var(--mono);margin-top:2px}
 
   .toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
-  .search{position:relative;flex:1 1 220px;min-width:0}
-  .search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--txt-faint);pointer-events:none}
-  input[type=search]{
-    width:100%;min-height:46px;padding:0 14px 0 40px;border-radius:11px;
-    background:var(--field-bg);border:1px solid var(--line);color:var(--txt);font:inherit;font-size:15px;
-  }
   input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
   select{
     min-height:46px;padding:0 34px 0 13px;border-radius:11px;font:inherit;font-size:13px;
@@ -402,6 +388,22 @@ try {
   .spin{animation:spin 1s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
 
+  /* ---------- scroll jump buttons ---------- */
+  .jump{
+    position:fixed;right:calc(16px + env(safe-area-inset-right));
+    bottom:calc(16px + env(safe-area-inset-bottom));
+    z-index:60;display:flex;flex-direction:column;gap:8px;
+  }
+  .jump .btn.icon{
+    width:42px;min-height:42px;border-radius:50%;
+    box-shadow:var(--card-shadow);backdrop-filter:blur(6px);
+  }
+  .jump[hidden],
+  .jump .btn.icon[hidden]{display:none}
+  @media (max-width:520px){
+    .jump{right:calc(10px + env(safe-area-inset-right));bottom:calc(66px + env(safe-area-inset-bottom))}
+  }
+
   /* ---------- toast ---------- */
   .toast{
     position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));
@@ -456,7 +458,6 @@ try {
       </div>
       <div class="head-right">
         <span class="live" id="liveFlag"><span class="dot" id="liveDot"></span><span class="label">live</span></span>
-        <button class="who-btn" id="whoBtn" type="button" title="Your name is stamped on rows you clear">add your name</button>
         <button class="btn icon" id="themeBtn" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
           <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20.5 14.6A8.6 8.6 0 019.4 3.5 8.6 8.6 0 1020.5 14.6z"/>
@@ -490,10 +491,6 @@ try {
   </div>
 
   <div class="toolbar">
-    <div class="search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      <input type="search" id="q" placeholder="Search title, author, call no, item ID…" autocomplete="off" />
-    </div>
     <select id="sort" aria-label="Sort by">
       <option value="">Sort by</option>
       <option value="location">Shelf location</option>
@@ -530,6 +527,19 @@ try {
     <div class="rows" id="doneRows" hidden></div>
   </div>
 </main>
+
+<div class="jump" id="jump">
+  <button class="btn icon" id="toTopBtn" type="button" aria-label="Jump to top" title="Jump to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5"/><path d="M5.5 11.5L12 5l6.5 6.5"/>
+    </svg>
+  </button>
+  <button class="btn icon" id="toBottomBtn" type="button" aria-label="Jump to bottom" title="Jump to bottom">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 5v14"/><path d="M5.5 12.5L12 19l6.5-6.5"/>
+    </svg>
+  </button>
+</div>
 
 <div class="toast" id="toast" role="status" aria-live="polite">
   <span class="msg" id="toastMsg"></span>
@@ -608,7 +618,6 @@ window.addEventListener("DOMContentLoaded", () => {
   wireUI();
   paintTheme(store("pl_theme") === "dark" ? "dark" : "light");
   S.who = store("pl_who") || "";
-  paintWho();
 
   if (!CONFIGURED) {
     S.preview = true;
@@ -667,8 +676,12 @@ function toggleTheme() {
 function wireUI() {
   $("themeBtn").onclick = toggleTheme;
   $("refreshBtn").onclick = () => { if (S.preview) { render(); toast("Preview mode — nothing to refresh."); } else load(true); };
-  $("whoBtn").onclick = askWho;
-  $("q").addEventListener("input", render);
+  $("toTopBtn").onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  $("toBottomBtn").onclick = () =>
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+  window.addEventListener("scroll", paintJump, { passive: true });
+  window.addEventListener("resize", paintJump);
+  paintJump();
   $("sort").addEventListener("change", render);
   $("stubTile").onclick = () => {
     S.stuckOnly = !S.stuckOnly;
@@ -689,16 +702,6 @@ function wireUI() {
   });
 }
 
-function paintWho() { $("whoBtn").textContent = S.who || "add your name"; }
-
-function askWho() {
-  const v = window.prompt("Your name or initials (stamped on rows you clear):", S.who || "");
-  if (v === null) return;
-  S.who = v.trim().slice(0, 40);
-  store("pl_who", S.who);
-  paintWho();
-  render();
-}
 
 /* ============================================================
    DATA — plain GET calls to the Apps Script, no auth
@@ -979,7 +982,7 @@ function render() {
   const pickPick = syncFilter($("pickup"), "pickup",    "All pickup libraries", pickupName);
   const pickLoc  = syncFilter($("loc"),    "location",  "All shelf locations");
   const pickType = syncFilter($("type"),   "item_type", "All item types");
-  const q = $("q").value.trim().toLowerCase();
+  const q = "";
 
   if (!canFlag() && S.stuckOnly) {
     S.stuckOnly = false;
@@ -1036,6 +1039,20 @@ function render() {
   $("doneRows").hidden = !S.showDone;
 
   bind();
+  paintJump();
+}
+
+/* Hide each jump button when there's nowhere to go in that direction, and
+   hide the pair entirely when the page doesn't scroll at all. */
+function paintJump() {
+  const doc = document.documentElement;
+  const y = window.scrollY || doc.scrollTop || 0;
+  const max = doc.scrollHeight - window.innerHeight;
+  const scrolls = max > 120;
+  $("jump").hidden = !scrolls;
+  if (!scrolls) return;
+  $("toTopBtn").hidden = y < 80;
+  $("toBottomBtn").hidden = y > max - 80;
 }
 
 function paint(list, groupBy) {
