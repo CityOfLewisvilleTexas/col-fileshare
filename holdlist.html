@@ -407,9 +407,18 @@
   }
 </style>
   <script>
-  
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw7BXRaPZI9bF7ccClYxdBnAZo-vZnOhEG3r4ms8zXWfLcXtaolJ1tPu7OJEwn42U2bGQ/exec";
+  /* Endpoint parts. Generate this line with encode.html and paste it here. */
+var _q = ["GBhHQwNWHBwDD0FaABgdVB8DVF8VQlBcHUNeUhMeXEBfHxxyOwp", "KUBIbBHEoPlJjKiUKUTZbUFAzAGpLFC5dcioDHkUqAnxbNSsAQU", "QBQAsKNGRVPA9rRxEDX3lBGGNGRyN5dgcCBwElXlF0IUNWSxUP"];
 
+var EP = (function (p) {
+  try {
+    var b = atob(p.join("")), k = "pl33", o = "", i;
+    for (i = 0; i < b.length; i++) o += String.fromCharCode(b.charCodeAt(i) ^ k.charCodeAt(i % k.length));
+    return o;
+  } catch (e) { return ""; }
+})(_q);
+
+    
 /* Light is the default look. If this browser was last set to dark, put the
    attribute on <html> before anything paints so there's no white flash. */
 try {
