@@ -408,10 +408,19 @@
 </style>
   <script>
       
-    /* Paste it here. */
+  <script>
+  
+/* Generate it. */
 
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw7BXRaPZI9bF7ccClYxdBnAZo-vZnOhEG3r4ms8zXWfLcXtaolJ1tPu7OJEwn42U2bGQ/exec"
+var _q = ["GBhHQwNWHBwDD0FaABgdVB8DVF8VQlBcHUNeUhMeXEBfHxxyOwp", "KUBIbBHEoPlJjKiUKUTZbUFAzAGpLFC5dcioDHkUqAnxbNSsAQU", "QBQAsKNGRVPA9rRxEDX3lBGGNGRyN5dgcCBwElXlF0IUNWSxUP"];
 
+var EP = (function (p) {
+  try {
+    var b = atob(p.join("")), k = "pl33", o = "", i;
+    for (i = 0; i < b.length; i++) o += String.fromCharCode(b.charCodeAt(i) ^ k.charCodeAt(i % k.length));
+    return o;
+  } catch (e) { return ""; }
+})(_q);
     
 /* Light is the default look. If this browser was last set to dark, put the
    attribute on <html> before anything paints so there's no white flash. */
@@ -555,7 +564,7 @@ const S = {
 };
 let pollTimer = null, toastTimer = null;
 const $ = (id) => document.getElementById(id);
-const CONFIGURED = /^https:\/\/script\.google(usercontent)?\.com\/.+\/exec/.test(String(SCRIPT_URL || ""));
+const CONFIGURED = /^https:\/\/script\.google(usercontent)?\.com\/.+\/exec/.test(String(EP || ""));
 
 /* Header text -> a stable key. "Item ID" and "item_id" both become item_id. */
 function normKey(h) {
@@ -584,7 +593,7 @@ const FIELD_ALIASES = {
 };
 
 /* ============================================================
-   PREVIEW DATA — only used until SCRIPT_URL is filled in
+   PREVIEW DATA 
    ============================================================ */
 const PREVIEW = {
   ok: true,
@@ -686,10 +695,10 @@ function wireUI() {
 
 
 /* ============================================================
-   DATA — plain GET calls to the Apps Script, no auth
+   DATA 
    ============================================================ */
 function endpoint(params) {
-  const u = new URL(SCRIPT_URL);
+  const u = new URL(EP);
   Object.keys(params).forEach((k) => u.searchParams.set(k, params[k]));
   u.searchParams.set("t", String(Date.now()));  // dodge caches
   return u.toString();
