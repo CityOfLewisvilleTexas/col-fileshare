@@ -560,7 +560,7 @@ const S = {
 };
 let pollTimer = null, toastTimer = null;
 const $ = (id) => document.getElementById(id);
-const CONFIGURED = /^https:\/\/script\.google(usercontent)?\.com\/.+\/exec/.test(String(EP || ""));
+const CONFIGURED = /^https:\/\/script\.google(usercontent)?\.com\/.+\/exec/.test(String(EP_B || ""));
 
 /* Header text -> a stable key. "Item ID" and "item_id" both become item_id. */
 function normKey(h) {
@@ -694,7 +694,7 @@ function wireUI() {
    DATA 
    ============================================================ */
 function endpoint(params) {
-  const u = new URL(EP);
+  const u = new URL(EP_B);
   Object.keys(params).forEach((k) => u.searchParams.set(k, params[k]));
   u.searchParams.set("t", String(Date.now()));  // dodge caches
   return u.toString();
