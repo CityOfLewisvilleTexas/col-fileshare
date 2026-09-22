@@ -239,9 +239,10 @@
 
             var formDataString = keyValuePairs.join("&");
 
-            // Send a POST request to your Google Apps Script
-            fetch(
-                "https://script.google.com/macros/s/AKfycbzBmjrQSbcZU3W6zw44Zqv4W2FNnXhKeqEzzcByx6V09LPI1V_wD5P7Wz4lJSNzJusRWA/exec",
+            // Generate it
+            var EP_BUrl = atob("aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6Qm1qclFTYmNaVTNXNnp3NDRacXY0VzJGTm5YaEtlcUV6emNCeXg2VjA5TFBJMVZfd0Q1UDdXejRsSlNOekp1c1JXQS9leGVj");
+            // Send it
+            fetch( EP_BUrl,
 
                 {
                     redirect: "follow",
