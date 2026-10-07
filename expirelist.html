@@ -460,6 +460,7 @@ input.mono { font-size: 16px; letter-spacing: .05em; }
 .sync i { width: 8px; height: 8px; background: var(--ok); box-shadow: 0 0 10px var(--ok); display: inline-block; }
 .sync.off i { background: var(--warn); box-shadow: 0 0 10px var(--warn); }
 .card-actions .btn.icon { width: 40px; }
+.marked.old { color: var(--warn); }
 .marked { font-size: 13px; color: var(--muted); margin: -6px 0 12px; height: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .readonly { display: grid; grid-template-columns: 110px 1fr; gap: 6px 12px; font-size: 15px; margin-bottom: 16px; }
 .readonly dt { color: var(--muted); font-size: 13px; }
@@ -547,16 +548,19 @@ var EP = (function (s) {
  // how often to re-read the sheet while the page is open
 const POLL_SECONDS = 160;  
 
+ // items that drop off the sheet but were never marked pulled stay on the list this many days
+const KEEP_DAYS = 14;
+
 /* Sample rows. */
 const DEMO = {
-  headers: ["Library","Patron Name","Call Number","Author","Title","Location","Item ID","Item Type","On Hold For"],
+  headers: ["Library","Patron Name","Call Number","Author","Title","Location","Item ID","Item Type"],
   rows: [
-    ["LEWISVILLE","Sample, Alex","JB ANDREWS, JULIE","Hedlund, Julie","Song after song : the musical life of Julie Andrews","JUV-BIO","ILPL0000000001","BOOK",""],
-    ["LEWISVILLE","Tester, Bea","E KAR","Karas, G. Brian","On the farm, at the market","EASY","ILPL0000000002","BOOK",""],
-    ["LEWISVILLE","Demo, Casey","TF HIN","Hinton, S. E","The outsiders","HOLDS","ILPL0000000003","BOOK","PLPL0000001111"],
-    ["LEWISVILLE","Example, Dana","WIFI HOTSPOT 03","T-Mobile USA","T-Mobile hotspot","HOLDS","ILPL0000000004","WIFI-EQUIP","PLPL0000002222"],
-    ["LEWISVILLE","Example, Dana","E EHL","Ehlert, Lois","Leaf Man","HOLDS","ILPL0000000005","BOOK","PLPL0000002222"],
-    ["LEWISVILLE","Placeholder, Eli","J 551.482 RUT","Rutherford, Geo","Spooky lakes : 25 strange and mysterious lakes that dot our planet","JUV-NONFIC","ILPL0000000006","BOOK",""],
+    ["LEWISVILLE","Sample, Alex","JB ANDREWS, JULIE","Hedlund, Julie","Song after song : the musical life of Julie Andrews","JUV-BIO","ILPL0000000001","BOOK"],
+    ["LEWISVILLE","Tester, Bea","E KAR","Karas, G. Brian","On the farm, at the market","EASY","ILPL0000000002","BOOK"],
+    ["LEWISVILLE","Demo, Casey","TF HIN","Hinton, S. E","The outsiders","HOLDS","ILPL0000000003","BOOK"],
+    ["LEWISVILLE","Example, Dana","WIFI HOTSPOT 03","T-Mobile USA","T-Mobile hotspot","HOLDS","ILPL0000000004","WIFI-EQUIP"],
+    ["LEWISVILLE","Example, Dana","E EHL","Ehlert, Lois","Leaf Man","HOLDS","ILPL0000000005","BOOK"],
+    ["LEWISVILLE","Placeholder, Eli","J 551.482 RUT","Rutherford, Geo","Spooky lakes : 25 strange and mysterious lakes that dot our planet","JUV-NONFIC","ILPL0000000006","BOOK"],
   ],
 };
 
@@ -587,7 +591,6 @@ const FIELD_ALIASES = {
   location:    ["location","shelf_location","current_location","home_location","loc"],
   item_id:     ["item_id","itemid","barcode","item_barcode","id"],
   item_type:   ["item_type","itemtype","type","material_type"],
-  hold_for:    ["on_hold_for","user_id","patron_id","patron_barcode","hold_for"],
 };
 function headerMap(headers) {
   const m = {};
@@ -597,12 +600,13 @@ function headerMap(headers) {
 }
 function toRecords(headers, rows) {
   const m = headerMap(headers);
-  const get = (cells, f) => (m[f] != null ? String(cells[m[f]] ?? "").trim() : "");
+  const get = (cells, f) => (m[f] != null ? String(cells[m[f]] ?? "")
+    .replace(/[​-‍⁠﻿]/g, "").replace(/[  ]/g, " ").replace(/\s+/g, " ").trim().normalize("NFC") : "");
   return rows.map(({ n, c }) => ({
     rowNum: n,
     library: get(c, "library"), patron: get(c, "patron"), call: get(c, "call_number"),
     author: get(c, "author"), title: get(c, "title"), location: get(c, "location"),
-    id: get(c, "item_id") || "row" + n, type: get(c, "item_type"), holdFor: get(c, "hold_for"),
+    id: get(c, "item_id") || "row" + n, type: get(c, "item_type"),
   })).filter((r) => r.title || !r.id.startsWith("row"));
 }
 
@@ -621,11 +625,13 @@ async function api(params = {}) {
 async function load(quiet) {
   if (!live) {
     records = toRecords(DEMO.headers, DEMO.rows.map((c, i) => ({ n: i + 2, c })));
+    mergeKept();
     return;
   }
   const j = await api();
   records = toRecords(j.headers, j.rows);
   statusById = j.status || {};
+  mergeKept();
   setSync("on", j.sync ? "Synced " + j.sync.at : "Live");
   if (!quiet) toast(records.length + " items loaded");
 }
@@ -641,6 +647,36 @@ function localPatch(p) {
   if (p.action === "notes") return { notes: p.notes };
   return {};
 }
+
+/* =========================================================================
+   KEEP OLDER ENTRIES
+   ========================================================================= */
+function readKept() {
+  try { return JSON.parse(store.get("pull_keep") || "{}") || {}; } catch { return {}; }
+}
+function mergeKept() {
+  const kept = readKept(), now = Date.now(), cutoff = now - KEEP_DAYS * 864e5;
+  const ids = new Set(records.map((r) => r.id));
+  records.forEach((r) => { r.last = now; });
+  for (const id in kept) {
+    const k = kept[id];
+    if (!k || ids.has(id) || id.startsWith("row") || !(k.last >= cutoff)) continue;
+    const r = { ...k, carried: true };
+    if (isPulled(r) || st(r) === "Deleted") continue;
+    records.push(r);
+  }
+  saveKept();
+}
+function saveKept() {
+  const out = {};
+  for (const r of records) {
+    if (r.id.startsWith("row") || isPulled(r) || st(r) === "Deleted") continue;
+    const { carried, ...rest } = r;
+    out[r.id] = rest;
+  }
+  store.set("pull_keep", JSON.stringify(out));
+}
+const seenDate = (t) => new Date(t).toLocaleDateString(undefined, { month: "short", day: "numeric" });
 
 /* =========================================================================
    APP FLOW
@@ -684,6 +720,7 @@ async function togglePulled(id) {
   try {
     const j = await save({ action: "set", id, value: on ? "1" : "0" });
     statusById[id] = j.status;
+    saveKept();
     toast(on ? "Marked pulled" : "Moved back to pull list");
   } catch (e) {
     if (prev) statusById[id] = prev; else delete statusById[id];
@@ -695,8 +732,26 @@ async function togglePulled(id) {
    RENDER
    ========================================================================= */
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const shortName = (n) => String(n || "").split(",")[0].replace(/[^A-Za-z]/g, "").slice(0, 4).toUpperCase();
-const lastFour = (id) => { const d = String(id || "").replace(/\D/g, ""); return d ? "••••" + d.slice(-4) : "—"; };
+/* Clean text: fold accents (Peña → Pena, Müller → Muller), drop zero-width/NBSP junk, unify smart quotes & dashes */
+const SPECIAL = { "ß": "ss", "Æ": "AE", "æ": "ae", "Ø": "O", "ø": "o", "Œ": "OE", "œ": "oe", "Ł": "L", "ł": "l", "Đ": "D", "đ": "d", "Þ": "TH", "þ": "th" };
+const clean = (s) => String(s ?? "")
+  .replace(/[​-‍⁠﻿]/g, "")       // zero-width chars
+  .replace(/[  -  　]/g, " ") // odd spaces
+  .replace(/[‘’‛ʼ`´]/g, "'")      // smart apostrophes
+  .replace(/[‐-―−]/g, "-")             // fancy dashes
+  .replace(/[ßÆæØøŒœŁłĐđÞþ]/g, (c) => SPECIAL[c])
+  .normalize("NFD").replace(/[̀-ͯ]/g, "")   // strip accent marks
+  .trim();
+
+/* Patron → first 4 letters of last name (handles "Last, First", "First Last", O'Brien, De La Cruz, Peña) */
+const shortName = (n) => {
+  const s = clean(n);
+  if (!s) return "—";
+  const last = s.includes(",") ? s.split(",")[0] : s.split(/\s+/).slice(-1)[0];
+  const letters = last.replace(/[^A-Za-z]/g, "") || s.replace(/[^A-Za-z]/g, "");
+  return letters ? letters.slice(0, 4).toUpperCase() : "—";
+};
+
 const active = () => records.filter((r) => st(r) !== "Deleted");
 
 const cmp = (k) => (a, b) => (a[k] || "").localeCompare(b[k] || "", undefined, { numeric: true, sensitivity: "base" });
@@ -739,12 +794,12 @@ function cardHTML(r) {
     </div>
     <dl class="meta">
       <dt>Patron</dt><dd class="mono">${esc(shortName(r.patron))}</dd>
-      <dt>Hold ID</dt><dd class="mono">${esc(lastFour(r.holdFor))}</dd>
       <dt>Call #</dt><dd class="mono" title="${esc(r.call)}">${esc(r.call)}</dd>
       <dt>Item</dt><dd class="mono">${esc(r.id)}</dd>
       <dt>Library</dt><dd title="${esc(r.library)}">${esc(r.library)}</dd>
     </dl>
-    <p class="marked">${pulled && s.at ? "Pulled" + (s.at ? " · " + esc(s.at) : "") : ""}</p>
+    <p class="marked${!pulled && r.carried ? " old" : ""}">${pulled && s.at ? "Pulled · " + esc(s.at)
+      : !pulled && r.carried ? "Not on latest list · last seen " + esc(seenDate(r.last)) : ""}</p>
     <div class="card-actions">
       <button class="btn grow" data-act="toggle" data-id="${esc(r.id)}">
         <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
