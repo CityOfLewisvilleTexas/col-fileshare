@@ -475,7 +475,7 @@ input.mono { font-size: 16px; letter-spacing: .05em; }
   <div class="wrap">
     <div class="brand"><span class="dot"></span> <span class="shine glitch" data-text="Clean Hold Shelf">Clean Hold Shelf</span></div>
     <div class="spacer"></div>
-    <span class="pill sync" id="syncPill" title="Connection to the Google Sheet" hidden><i></i><span id="syncText"></span></span>
+    <span class="pill sync" id="syncPill" title="Connection" hidden><i></i><span id="syncText"></span></span>
     <button class="btn icon ghost" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
     </button>
@@ -502,8 +502,13 @@ input.mono { font-size: 16px; letter-spacing: .05em; }
       <button data-f="pulled" aria-pressed="false">Pulled</button>
       <button data-f="all" aria-pressed="false">All</button>
     </div>
+    <div class="selects">
+      <label class="select">
+        <span>Library</span>
+        <select id="libSelect" aria-label="Filter by library"><option value="All">All libraries</option></select>
+      </label>
+    </div>
   </div>
-  <div class="chips" id="chips"></div>
   <div class="grid" id="grid"></div>
 </main>
 
@@ -642,6 +647,7 @@ function localPatch(p) {
    ========================================================================= */
 window.onload = async () => {
   initTheme();
+  branch = store.get("pull_library") || "All";
   $("#demoBanner").hidden = live;
   requestAnimationFrame(moveThumb);
   renderSkeleton();
@@ -749,10 +755,12 @@ function cardHTML(r) {
 }
 
 function renderChips() {
-  const libs = ["All", ...[...new Set(active().map((r) => r.library).filter(Boolean))].sort()];
-  if (!libs.includes(branch)) branch = "All";
-  $("#chips").hidden = libs.length <= 2;   // only one branch: no need for chips
-  $("#chips").innerHTML = libs.map((l) => `<button class="chip" data-lib="${esc(l)}" aria-pressed="${l === branch}">${esc(l === "All" ? "All branches" : l)}</button>`).join("");
+  const libs = [...new Set(active().map((r) => r.library).filter(Boolean))].sort();
+  if (branch !== "All" && !libs.includes(branch)) branch = "All";
+  const sel = $("#libSelect");
+  sel.innerHTML = `<option value="All">All libraries</option>` +
+    libs.map((l) => `<option value="${esc(l)}">${esc(l)}</option>`).join("");
+  sel.value = branch;
 }
 
 
@@ -815,9 +823,10 @@ $("#seg").addEventListener("click", (e) => {
 });
 window.addEventListener("resize", moveThumb);
 
-$("#chips").addEventListener("click", (e) => {
-  const c = e.target.closest(".chip"); if (!c) return;
-  branch = c.dataset.lib; render();
+$("#libSelect").addEventListener("change", (e) => {
+  branch = e.target.value;
+  store.set("pull_library", branch);
+  render();
 });
 
 $("#grid").addEventListener("click", (e) => {
