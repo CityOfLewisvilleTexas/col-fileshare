@@ -551,6 +551,16 @@ try {
 
 <script>
 
+/* Generate it. */
+
+var EP_B = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J3N0JYUmFQWkk5YkY3Y2NDbFl4ZEJuQVpvLXZabk9oRUczcjRtczh6WFdmTGNYdGFvbEoxdFB1N09KRXduNDJVMmJHUS9leGVj";
+
+var EP = (function (s) {
+  try { return atob(s); } catch (e) { return ""; }
+})(EP_B);
+</script>
+
+  
 /* StackMap base used by the "Where is it?" popup */
 var STACKMAP_URL = "https://cityoflewisville.stackmap.com/explore/";
 
@@ -772,7 +782,7 @@ window.addEventListener("DOMContentLoaded", () => {
     notice("appNotice",
       '<b>Preview mode.</b> These are sample rows — check marks are not saved. ' +
       'To go live, open this file in Notepad and paste your Apps Script web app link ' +
-      '(it ends in <code>/exec</code>) into the <code>SCRIPT_1</code> line near the top.',
+      '(it ends in <code>/exec</code>) into the <code>EP_B</code> line near the top.',
       false, true);
     absorb(PREVIEW);
     S.records = PREVIEW.rows.map((r, i) => makeRecord(r, i));
@@ -854,7 +864,7 @@ function wireUI() {
    DATA 
    ============================================================ */
 function endpoint(params) {
-  const u = new URL(SCRIPT_1);
+  const u = new URL(EP);
   Object.keys(params).forEach((k) => u.searchParams.set(k, params[k]));
   u.searchParams.set("t", String(Date.now()));  // dodge caches
   return u.toString();
