@@ -555,12 +555,13 @@ try {
 
 var EP_B = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J3N0JYUmFQWkk5YkY3Y2NDbFl4ZEJuQVpvLXZabk9oRUczcjRtczh6WFdmTGNYdGFvbEoxdFB1N09KRXduNDJVMmJHUS9leGVj";
 
+/* Accepts either the plain /exec link or a base64-encoded copy of it. */
 var EP = (function (s) {
+  s = String(s || "").trim();
+  if (/^https?:\/\//i.test(s)) return s;
   try { return atob(s); } catch (e) { return ""; }
 })(EP_B);
-</script>
 
-  
 /* StackMap base */
 var STACKMAP_URL = "https://cityoflewisville.stackmap.com/explore/";
 
@@ -730,7 +731,7 @@ const S = {
 };
 let pollTimer = null, toastTimer = null;
 const $ = (id) => document.getElementById(id);
-const CONFIGURED = /^https:\/\/script\.google\.com\/.+\/exec/.test(String(SCRIPT_1 || ""));
+const CONFIGURED = /^https:\/\/script\.google\.com\/.+\/exec/.test(String(EP || ""));
 
 /* Header text -> a stable key. "Item ID" and "item_id" both become item_id. */
 function normKey(h) {
@@ -762,6 +763,9 @@ const FIELD_ALIASES = {
 /* ============================================================
    BOOT
    ============================================================ */
+/* Sample rows for preview mode (no endpoint set). */
+var PREVIEW = (typeof PREVIEW !== "undefined" && PREVIEW) || { tab: "Preview", headers: [], rows: [] };
+
 window.addEventListener("DOMContentLoaded", () => {
   wireUI();
   paintTheme(store("pl_theme") === "dark" ? "dark" : "light");
