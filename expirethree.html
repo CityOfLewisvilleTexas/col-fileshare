@@ -935,10 +935,8 @@ function cardHTML(r) {
     </div>
     <dl class="meta">
       <dt>Patron</dt><dd class="mono">${esc(shortName(r.patron))}</dd>
-      <dt>Hold ID</dt><dd class="mono">${esc(lastFour(r.holdFor))}</dd>
       <dt>Call #</dt><dd class="mono" title="${esc(r.call)}">${esc(r.call)}</dd>
       <dt>Item</dt><dd class="mono">${esc(r.id)}</dd>
-      <dt>Library</dt><dd title="${esc(r.library)}">${esc(r.library)}</dd>
     </dl>
     <p class="marked">${pulled && s.at ? "Pulled" + (s.at ? " · " + esc(s.at) : "") : ""}</p>
     <div class="card-actions">
