@@ -466,6 +466,7 @@ input.mono { font-size: 16px; letter-spacing: .05em; }
 .readonly dt { color: var(--muted); font-size: 13px; }
 .readonly dd { overflow-wrap: anywhere; }
 .banner { margin: 0 0 18px; padding: 12px 16px; border: 1px dashed var(--line); color: var(--muted); font-size: 15px; }
+.guide { margin: -6px 0 18px; padding: 12px 16px; border-left: 3px solid var(--accent); background: var(--surface); font-size: 16px; line-height: 1.5; }
 @media (max-width: 600px) { .sync { display: none; } }
 </style>
 </head>
@@ -503,13 +504,8 @@ input.mono { font-size: 16px; letter-spacing: .05em; }
       <button data-f="pulled" aria-pressed="false">Pulled</button>
       <button data-f="all" aria-pressed="false">All</button>
     </div>
-    <div class="selects">
-      <label class="select">
-        <span>Library</span>
-        <select id="libSelect" aria-label="Filter by library"><option value="All">All libraries</option></select>
-      </label>
-    </div>
   </div>
+  <p class="guide">Start with "LEWISVILLE" holds shelf going alphabetically then move on to "LEWISVILLE WINDOW" repeating with what remains on the list.</p>
   <div class="grid" id="grid"></div>
 </main>
 
@@ -517,7 +513,7 @@ input.mono { font-size: 16px; letter-spacing: .05em; }
 
 <script>
 
-var EP_B = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6SG5fR3FwLS0tX0YzUlFjMVpmbXRnMGhXUTZiT2t5SzNWa0E5ZEhHUno5QjdGdm9QdWVjb29BUTZqMThqTUdlUzN1US9leGVj";
+var EP_B = "";
 
 var EP = (function (s) {
   s = String(s || "").replace(/\s+/g, "");          
@@ -569,7 +565,7 @@ const DEMO = {
    ========================================================================= */
 const live = !!EP;
 let records = [], statusById = {};
-let filter = "open", branch = "All";
+let filter = "open";
 let busy = 0, pollTimer = null;
 const $ = (s) => document.querySelector(s);
 
@@ -675,7 +671,6 @@ const seenDate = (t) => new Date(t).toLocaleDateString(undefined, { month: "shor
    ========================================================================= */
 window.onload = async () => {
   initTheme();
-  branch = store.get("pull_library") || "All";
   $("#demoBanner").hidden = live;
   requestAnimationFrame(moveThumb);
   renderSkeleton();
@@ -751,7 +746,6 @@ const byPatron = (a, b) => cmp("patron")(a, b) || cmp("call")(a, b);   // Patron
 function visible() {
   return active()
     .filter((r) => filter === "all" || (filter === "pulled" ? isPulled(r) : !isPulled(r)))
-    .filter((r) => branch === "All" || r.library === branch)
     .sort(byPatron);
 }
 
@@ -762,7 +756,6 @@ function tagFor(r) {
 
 function render(first) {
   const paint = () => {
-    renderChips();
     const list = visible();
     $("#grid").innerHTML = list.length ? list.map(cardHTML).join("") :
       `<div class="empty">${filter === "open" ? "Shelf is clear. Nice work." : "Nothing matches."}</div>`;
@@ -787,7 +780,6 @@ function cardHTML(r) {
       <dt>Patron</dt><dd class="mono">${esc(shortName(r.patron))}</dd>
       <dt>Call #</dt><dd class="mono" title="${esc(r.call)}">${esc(r.call)}</dd>
       <dt>Item</dt><dd class="mono">${esc(r.id)}</dd>
-      <dt>Library</dt><dd title="${esc(r.library)}">${esc(r.library)}</dd>
     </dl>
     <p class="marked${!pulled && r.carried ? " old" : ""}">${pulled && s.at ? "Pulled · " + esc(s.at)
       : !pulled && r.carried ? "Not on latest list · last seen " + esc(seenDate(r.seenAt)) : ""}</p>
@@ -800,14 +792,6 @@ function cardHTML(r) {
   </article>`;
 }
 
-function renderChips() {
-  const libs = [...new Set(active().map((r) => r.library).filter(Boolean))].sort();
-  if (branch !== "All" && !libs.includes(branch)) branch = "All";
-  const sel = $("#libSelect");
-  sel.innerHTML = `<option value="All">All libraries</option>` +
-    libs.map((l) => `<option value="${esc(l)}">${esc(l)}</option>`).join("");
-  sel.value = branch;
-}
 
 
 function renderSkeleton() { $("#grid").innerHTML = Array.from({ length: 6 }, () => `<div class="skel"></div>`).join(""); }
@@ -869,11 +853,6 @@ $("#seg").addEventListener("click", (e) => {
 });
 window.addEventListener("resize", moveThumb);
 
-$("#libSelect").addEventListener("change", (e) => {
-  branch = e.target.value;
-  store.set("pull_library", branch);
-  render();
-});
 
 $("#grid").addEventListener("click", (e) => {
   const b = e.target.closest("[data-act]"); if (!b) return;
